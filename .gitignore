@@ -1,1 +1,4 @@
 *.swp
+*.xml
+*.name
+*.iml
