@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+fancy_echo() {
+  printf "\n%b\n" "$1"
+}
+
+brew_cask_expand_alias() {
+  brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
+}
+
+brew_cask_is_installed() {
+  local NAME=$(brew_cask_expand_alias "$1")
+  brew cask list -1 | grep -Fqx "$NAME"
+}
+
+brew_cask_install() {
+  if ! brew_cask_is_installed "$1"; then
+    brew cask install "$@"
+  fi
+}
+
+brew_cask_install_or_upgrade() {
+  if brew_cask_is_installed "$1"; then
+    echo "$1 is already installed, brew cask upgrade is not yet implemented"
+  else
+    brew cask install "$@"
+  fi
+}
+
+brew tap caskroom/cask
+brew install brew-cask
+
+###############################################################################
+# Installing Apps
+###############################################################################
+
+fancy_echo "Installing alfred ..."
+  brew_cask_install_or_upgrade 'alfred'
+
+fancy_echo "Installing atom, a modern, approachable, and hackable to the core text editor..."
+  brew_cask_install_or_upgrade 'atom'
+
+fancy_echo "Installing caffeine ..."
+  brew_cask_install_or_upgrade 'caffeine'
+
+fancy_echo "Installing dash  ..."
+  brew_cask_install_or_upgrade 'dash'
+
+fancy_echo "Installing dropbox ..."
+  brew_cask_install_or_upgrade 'dropbox'
+
+fancy_echo "Installing evernote ..."
+  brew_cask_install_or_upgrade 'evernote'
+
+fancy_echo "Installing firefox ..."
+  brew_cask_install_or_upgrade 'firefox'
+
+fancy_echo "Installing fluid  ..."
+  brew_cask_install_or_upgrade 'fluid'
+
+fancy_echo "Installing firefox ..."
+  brew_cask_install_or_upgrade 'firefox'
+
+fancy_echo "Installing github ..."
+  brew_cask_install_or_upgrade 'github'
+
+fancy_echo "Installing google-chrome ..."
+  brew_cask_install_or_upgrade 'google-chrome'
+
+fancy_echo "Installing mou ..."
+  brew_cask_install_or_upgrade 'mou'
+
+fancy_echo "Installing skype ..."
+  brew_cask_install_or_upgrade 'skype'
+
+fancy_echo "Installing sublime-text3 ..."
+  brew_cask_install_or_upgrade 'sublime-text3'
+
+fancy_echo "Installing tunnelblick ..."
+  brew_cask_install_or_upgrade 'tunnelblick'
+
+
+###############################################################################
+# setup github user info
+###############################################################################
+
+# set user git config values
+cd ~
+git config --global user.name "Jay Ruffing"
+git config --global user.email "jay.ruffing@blueshieldca.com"
+git config --global github.user jruffing
+git config --global credential.helper osxkeychain
+
+###############################################################################
+# setup appium dev envt
+#
+# see https://github.com/appium/appium/blob/master/docs/en/contributing-to-appium/appium-from-source.md
+###############################################################################
+
+# install appium GUI
+brew cask install jruffing/homebrew-cask/appium
+
+# setup appium dev env
+#TODO need alias for these things
+cd ~
+git clone https://github.com/appium/appium
+cd appium
+#git fork
+
+#hub fork https://github.com/appium/appium
+#echo 'hub clone github/'$github.user
+#hub clone github/$github.user
+
+#cd appium
+./reset.sh --ios --dev
+sudo ./bin/authorize-ios.js
+node bin/appium-doctor.js --dev --ios
+#sudo grunt authorize
+./reset.sh --ios --dev
+node .

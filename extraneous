@@ -1,0 +1,52 @@
+###############################################################################
+# zsh shell stuff                                                             #
+###############################################################################
+
+fancy_echo "Installing zsh ..."
+  brew_install_or_upgrade 'zsh'
+
+fancy_echo "Installing zsh ..."
+  brew_install_or_upgrade 'zsh-completions'
+
+#install oh-my-zsh
+curl -L http://install.ohmyz.sh | sh
+
+
+append_to_zshrc() {
+  local text="$1" zshrc
+  local skip_new_line="$2"
+
+  if [[ -w "$HOME/.zshrc.local" ]]; then
+    zshrc="$HOME/.zshrc.local"
+  else
+    zshrc="$HOME/.zshrc"
+  fi
+
+  if ! grep -Fqs "$text" "$zshrc"; then
+    if (( skip_new_line )); then
+      printf "%s\n" "$text" >> "$zshrc"
+    else
+      printf "\n%s\n" "$text" >> "$zshrc"
+    fi
+  fi
+}
+
+trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
+
+set -e
+
+if [[ ! -d "$HOME/.bin/" ]]; then
+  mkdir "$HOME/.bin"
+fi
+
+if [ ! -f "$HOME/.zshrc" ]; then
+  touch "$HOME/.zshrc"
+fi
+
+append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
+
+if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
+  fancy_echo "Changing your shell to homebrew zsh ..."
+    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+    chsh -s "/usr/local/bin/zsh"
+fi

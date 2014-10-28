@@ -4,6 +4,9 @@
 # Be prepared to turn your laptop (or desktop, no haters here)
 # into an awesome development machine.
 
+# Ask for the administrator password upfront 
+sudo -v
+
 fancy_echo() {
   printf "\n%b\n" "$1"
 }
@@ -41,10 +44,15 @@ fi
 
 append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
-if [[ "$SHELL" != */zsh ]]; then
-  fancy_echo "Changing your shell to zsh ..."
-    chsh -s $(which zsh)
+if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
+  fancy_echo "Changing your shell to homebrew zsh ..."
+    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+    chsh -s "/usr/local/bin/zsh"
 fi
+
+###############################################################################
+# brew & brew-cask stuff                                                      #
+###############################################################################
 
 brew_install_or_upgrade() {
   if brew_is_installed "$1"; then
@@ -101,43 +109,146 @@ fi
 fancy_echo "Updating Homebrew formulas ..."
 brew update
 
-fancy_echo "Installing Postgres, a good open source relational database ..."
-  brew_install_or_upgrade 'postgres'
+brew tap caskroom/cask
+brew install brew-cask
 
-fancy_echo "Installing Redis, a good key-value database ..."
-  brew_install_or_upgrade 'redis'
+brew_cask_expand_alias() {
+  brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
+}
 
-fancy_echo "Installing The Silver Searcher (better than ack or grep) to search the contents of files ..."
-  brew_install_or_upgrade 'the_silver_searcher'
+brew_cask_is_installed() {
+  local NAME=$(brew_cask_expand_alias "$1")
+  brew cask list -1 | grep -Fqx "$NAME"
+}
 
-fancy_echo "Installing vim from Homebrew to get the latest version ..."
-  brew_install_or_upgrade 'vim'
+brew_cask_install() {
+  if ! brew_cask_is_installed "$1"; then
+    brew cask install "$@"
+  fi
+}
 
-fancy_echo "Installing ctags, to index files for vim tab completion of methods, classes, variables ..."
-  brew_install_or_upgrade 'ctags'
+brew_cask_install_or_upgrade() {
+  if brew_cask_is_installed "$1"; then
+    echo "$1 is already installed, brew cask upgrade is not yet implemented"
+  else
+    brew cask install "$@"
+  fi
+}
 
-fancy_echo "Installing tmux, to save project state and switch between projects ..."
-  brew_install_or_upgrade 'tmux'
+fancy_echo"
+###############################################################################
+# text editor                                                                 #
+###############################################################################
+"
 
-fancy_echo "Installing reattach-to-user-namespace, for copy-paste and RubyMotion compatibility with tmux ..."
-  brew_install_or_upgrade 'reattach-to-user-namespace'
 
-fancy_echo "Installing ImageMagick, to crop and resize images ..."
-  brew_install_or_upgrade 'imagemagick'
 
-fancy_echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing ..."
-  brew_install_or_upgrade 'qt'
 
-fancy_echo "Installing watch, to execute a program periodically and show the output ..."
-  brew_install_or_upgrade 'watch'
+fancy_echo"
+###############################################################################
+# github stuff                                                                #
+###############################################################################
+"
 
-fancy_echo "Installing GitHub CLI client ..."
-  brew_install_or_upgrade 'gh'
+fancy_echo "Gittin' me sum git ..."
+  brew_install_or_upgrade 'git'
 
-node_version="0.10"
+# replaced by hub? not sure this is still needed
+#fancy_echo "Installing GitHub CLI client ..."
+#  brew_install_or_upgrade 'gh'
+
+fancy_echo"
+###############################################################################
+# java dev env                                                                *
+###############################################################################
+"
+fancy_echo "giving you a java dev env"
+
+fancy_echo "Installing java 7 jdk..."
+#  brew cask install caskroom/versions/java7
+
+fancy_echo "Installing java 8 jdk..."
+#  brew_cask_install_or_upgrade 'java'
+
+fancy_echo "Installing maven ..."
+#  brew_install_or_upgrade 'maven'
+
+fancy_echo "Installing ant ..."
+#  brew_install_or_upgrade 'ant'
+
+fancy_echo "Installing gradle ..."
+#  brew_install_or_upgrade 'gradle'
+
+fancy_echo "Installing intellij-idea-ce ..."
+#  brew_cask_install_or_upgrade 'intellij-idea-ce'
+
+fancy_echo "finished with your java dev env...go to java town"
+
+
+fancy_echo"
+###############################################################################
+# python dev env                                                              #
+###############################################################################
+"
+
+fancy_echo "giving you a python dev env ..."
+
+fancy_echo "Installing python ..."
+  brew_install_or_upgrade 'python'
+
+fancy_echo "Installing pyenv-virtualenv ..."
+  brew_install_or_upgrade 'pyenv-virtualenv'
+
+fancy_echo "Installing pycharm-ce ..."
+  brew_cask_install_or_upgrade 'pycharm-ce'
+
+fancy_echo "finished with your python dev env...go to python town"
+
+
+###############################################################################
+# virtual environments                                                        #
+###############################################################################
+
+fancy_echo "giving you some virtual env love..."
+
+fancy_echo "Installing boot2docker ..."
+#  brew_install_or_upgrade 'boot2docker'
+
+fancy_echo "Installing vagrant ..."
+#  brew_cask_install_or_upgrade 'vagrant'
+
+fancy_echo "Installing vagrant-manager ..."
+#  brew_cask_install_or_upgrade 'vagrant-manager'
+
+fancy_echo "Installing virtualbox ..."
+#  brew_cask_install_or_upgrade 'virtualbox'
+
+# install and update vagrant plugins
+#vagrant plugin install vagrant-salt
+#vagrant plugin install vagrant-lxc
+#vagrant plugin update
+
+fancy_echo "finished with your virtual envs...go to virtual town"
+
+
+###############################################################################
+# node dev env                                                                #
+###############################################################################
+
+fancy_echo "giving you a nodejs dev env..."
+node_version="0.10.33"
 
 fancy_echo "Installing NVM, Node.js, and NPM, for running apps and installing JavaScript packages ..."
   brew_install_or_upgrade 'nvm'
+
+fancy_echo "Installing Node ..."
+  brew_install_or_upgrade 'node'
+
+export NODE_PATH="/usr/local/lib/node"
+export PATH="/usr/local/share/npm/bin:$PATH"
+
+npm install -g mocha
+npm install -g grunt-cli
 
   append_to_zshrc 'export PATH="$PATH:/usr/local/lib/node_modules"'
   append_to_zshrc 'source $(brew --prefix nvm)/nvm.sh' 1
@@ -148,12 +259,21 @@ fancy_echo "Installing NVM, Node.js, and NPM, for running apps and installing Ja
   fancy_echo "Setting $node_version as the global default nodejs..."
   nvm alias default "$node_version"
 
-fancy_echo "Starting Postgres ..."
-  brew_launchctl_restart postgresql
+fancy_echo "finished with your nodejs dev env...go to node town"
+
+
+fancy_echo "
+###############################################################################
+# ruby dev env                                                                #
+###############################################################################
+"
+
+\curl -L https://get.rvm.io | bash -s stable --ruby --autolibs=enable
 
 if [[ ! -d "$HOME/.rbenv" ]]; then
   fancy_echo "Installing rbenv, to change Ruby versions ..."
-    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    #it clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    brew install rbenv
 
     append_to_zshrc 'export PATH="$HOME/.rbenv/bin:$PATH"'
     append_to_zshrc 'eval "$(rbenv init - zsh --no-rehash)"' 1
@@ -164,14 +284,16 @@ fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
   fancy_echo "Installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries..."
-    git clone https://github.com/sstephenson/rbenv-gem-rehash.git \
-      ~/.rbenv/plugins/rbenv-gem-rehash
+    brew install rbenv-gem-rehash
+    #git clone https://github.com/sstephenson/rbenv-gem-rehash.git \
+    #  ~/.rbenv/plugins/rbenv-gem-rehash
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
   fancy_echo "Installing ruby-build, to install Rubies ..."
-    git clone https://github.com/sstephenson/ruby-build.git \
-      ~/.rbenv/plugins/ruby-build
+    brew install ruby-build
+    #git clone https://github.com/sstephenson/ruby-build.git \
+    #  ~/.rbenv/plugins/ruby-build
 fi
 
 fancy_echo "Upgrading and linking OpenSSL ..."
@@ -185,7 +307,10 @@ fancy_echo "Installing Ruby $ruby_version ..."
 
 fancy_echo "Setting $ruby_version as global default Ruby ..."
   rbenv global "$ruby_version"
+  echo 'eval "$(rbenv init - )"' >> ~/.bash_profile
   rbenv rehash
+  echo "ruby version: "
+  ruby -v
 
 fancy_echo "Updating to latest Rubygems version ..."
   gem update --system
@@ -197,30 +322,50 @@ fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
   number_of_cores=$(sysctl -n hw.ncpu)
   bundle config --global jobs $((number_of_cores - 1))
 
-fancy_echo "Installing Suspenders, thoughtbot's Rails template ..."
-  gem install suspenders --no-document
-
-fancy_echo "Installing Parity, shell commands for development, staging, and
-production parity ..."
-  gem install parity --no-document
-
-fancy_echo "Installing Heroku CLI client ..."
-  brew_install_or_upgrade 'heroku-toolbelt'
-
-fancy_echo "Installing the heroku-config plugin to pull config variables locally to be used as ENV variables ..."
-  heroku plugins:install https://github.com/ddollar/heroku-config.git
-
 fancy_echo "Installing foreman ..."
   curl -sLo /tmp/foreman.pkg http://assets.foreman.io/foreman/foreman.pkg && \
   sudo installer -pkg /tmp/foreman.pkg -tgt /
 
-if ! command -v rcup >/dev/null; then
-  fancy_echo "Installing rcm, to manage your dotfiles ..."
-    brew tap thoughtbot/formulae
-    brew_install_or_upgrade 'rcm'
-else
-  fancy_echo "rcm already installed. Skipping ..."
-fi
+
+###############################################################################
+# shell stuff                                                                 #
+###############################################################################
+
+fancy_echo "update to latest bash shell ... update bash to try to avoid future shellshock type of issues"
+  brew_install_or_upgrade 'bash'
+
+# zsh functionality
+fancy_echo "putting zsh on steroids... "
+fancy_echo "installing yadr and its dependencies: https://github.com/skwp/dotfiles"
+cd ~
+git clone https://github.com/skwp/dotfiles ~/.yadr
+cd ~/.yadr && rake install
+
+fancy_echo "Create a ~/.secrets file (required by YADR)"
+touch ~/.secrets
+
+fancy_echo "installing powerline prompt theme for prezto https://github.com/davidjrice/prezto_powerline"
+curl https://raw.github.com/davidjrice/prezto_powerline/master/prompt_powerline_setup > ~/.zsh.prompts/prompt_powerline_setup
+
+fancy_echo "beautifying your awesome zsh shell for you"
+fancy_echo "installing adobe source code pro font for zsh"
+brew cask install caskroom/fonts/font-source-code-pro
+
+fancy_echo "Installing iterm2 ..."
+  brew_cask_install_or_upgrade 'iterm2'
+
+#fancy_echo "Installing tmux, to save project state and switch between projects ..."
+#brew_install_or_upgrade 'tmux'
+
+
+
+#if ! command -v rcup >/dev/null; then
+#  fancy_echo "Installing rcm, to manage your dotfiles ..."
+#    brew tap thoughtbot/formulae
+#    brew_install_or_upgrade 'rcm'
+#else
+#  fancy_echo "rcm already installed. Skipping ..."
+#fi
 
 fancy_echo "Installing your personal additions from ~/.laptop.local ..."
   if [[ -f ~/.laptop.local ]]; then
