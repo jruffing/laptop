@@ -1,5 +1,9 @@
 bash <(curl -s https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/mac) 2>&1 | tee ~/laptop.log
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 95dff16... Update README.md
 Laptop
 ======
 
