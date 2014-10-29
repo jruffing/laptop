@@ -95,6 +95,11 @@ git config --global credential.helper osxkeychain
 # install appium GUI
 brew cask install jruffing/homebrew-cask/appium
 
+# Setup hub (v2.x)
+brew install --HEAD hub
+alias git=hub
+git version
+
 # setup appium dev env
 #TODO need alias for these things
 cd ~
