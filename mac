@@ -231,8 +231,10 @@ fancy_echo "Installing vagrant-manager ..."
 fancy_echo "Installing virtualbox ..."
   brew_cask_install_or_upgrade 'virtualbox'
 
-# install vagrant plugins
-vagrant plugin install vagrant-parallels
+# install and update vagrant plugins
+#vagrant plugin install vagrant-salt
+#vagrant plugin install vagrant-lxc
+vagrant plugin update
 
 fancy_echo "finished with your virtual envs...go to virtual town"
 
