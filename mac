@@ -7,8 +7,8 @@
 # Ask for the administrator password upfront
 sudo -v
 
-# Keep-alive: update existing `sudo` time stamp until `.laptop.local` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+# Keep-alive: update existing `sudo` time stamp until `mac` has finished
+while true; do sudo -n true; sleep 30; kill -0 "$$" || exit; done 2>/dev/null &
 
 fancy_echo() {
   printf "\n%b\n" "$1"
@@ -133,6 +133,7 @@ brew_cask_install_or_upgrade() {
   fi
 }
 
+# ==============================================================================
 # github dev stuff
 # ==============================================================================
 fancy_echo "Gittin' me sum git ..."
@@ -143,15 +144,26 @@ brew install --HEAD hub
 alias git=hub
 git version
 
+# replaced by hub? not sure this is still needed
+#fancy_echo "Installing GitHub CLI client ..."
+#  brew_install_or_upgrade 'gh'
+
+# ==============================================================================
 # java dev env
 # ==============================================================================
 fancy_echo "giving you a java dev env"
 
-fancy_echo "Installing a jdk ..."
+fancy_echo "Installing java 7 jdk..."
+  brew cask install caskroom/versions/java7
+
+fancy_echo "Installing java 8 jdk..."
   brew_cask_install_or_upgrade 'java'
 
 fancy_echo "Installing maven ..."
   brew_install_or_upgrade 'maven'
+
+fancy_echo "Installing ant ..."
+  brew_install_or_upgrade 'ant'
 
 fancy_echo "Installing gradle ..."
   brew_install_or_upgrade 'gradle'
@@ -162,6 +174,7 @@ fancy_echo "Installing intellij-idea-ce ..."
 fancy_echo "finished with your java dev env...go to java town"
 
 
+# ==============================================================================
 # python dev env
 # ==============================================================================
 fancy_echo "giving you a python dev env ..."
@@ -178,6 +191,7 @@ fancy_echo "Installing pycharm-ce ..."
 fancy_echo "finished with your python dev env...go to python town"
 
 
+# ==============================================================================
 # virtual environments
 # ==============================================================================
 fancy_echo "giving you some virtual env love..."
@@ -191,19 +205,19 @@ fancy_echo "Installing vagrant ..."
 fancy_echo "Installing vagrant-manager ..."
   brew_cask_install_or_upgrade 'vagrant-manager'
 
-# install vagrant plugins
-vagrant plugin install vagrant-parallels
-
 fancy_echo "Installing virtualbox ..."
   brew_cask_install_or_upgrade 'virtualbox'
 
+# install vagrant plugins
+vagrant plugin install vagrant-parallels
+
 fancy_echo "finished with your virtual envs...go to virtual town"
 
-# replaced by hub?
-#fancy_echo "Installing GitHub CLI client ..."
-#  brew_install_or_upgrade 'gh'
 
+
+# ==============================================================================
 # node dev env
+# ==============================================================================
 fancy_echo "giving you a nodejs dev env..."
 node_version="0.10.33"
 
@@ -224,6 +238,10 @@ npm install -g grunt-cli
 
 fancy_echo "finished with your nodejs dev env...go to node town"
 
+
+# ==============================================================================
+# ruby dev env
+# ==============================================================================
 
 if [[ ! -d "$HOME/.rbenv" ]]; then
   fancy_echo "Installing rbenv, to change Ruby versions ..."
@@ -275,13 +293,14 @@ fancy_echo "Installing foreman ..."
   curl -sLo /tmp/foreman.pkg http://assets.foreman.io/foreman/foreman.pkg && \
   sudo installer -pkg /tmp/foreman.pkg -tgt /
 
-if ! command -v rcup >/dev/null; then
-  fancy_echo "Installing rcm, to manage your dotfiles ..."
-    brew tap thoughtbot/formulae
-    brew_install_or_upgrade 'rcm'
-else
-  fancy_echo "rcm already installed. Skipping ..."
-fi
+
+#if ! command -v rcup >/dev/null; then
+#  fancy_echo "Installing rcm, to manage your dotfiles ..."
+#    brew tap thoughtbot/formulae
+#    brew_install_or_upgrade 'rcm'
+#else
+#  fancy_echo "rcm already installed. Skipping ..."
+#fi
 
 fancy_echo "Installing your personal additions from ~/.laptop.local ..."
   if [[ -f ~/.laptop.local ]]; then
