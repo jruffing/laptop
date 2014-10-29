@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 brew_cask_expand_alias() {
   brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
@@ -95,16 +95,11 @@ git config --global credential.helper osxkeychain
 # install appium GUI
 brew cask install jruffing/homebrew-cask/appium
 
-# Setup hub (v2.x)
-brew install --HEAD hub
-alias git=hub
-git version
-
 # setup appium dev env
 #TODO need alias for these things
 cd ~
-git fork https://github.com/appium/appium
-git clone github/$github.user
+hub fork https://github.com/appium/appium
+hub clone github/$github.user
 
 cd appium
 ./reset.sh --ios --dev
