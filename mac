@@ -159,15 +159,9 @@ brew_install_or_upgrade 'tmux'
 fancy_echo "Gittin' me sum git ..."
   brew_install_or_upgrade 'git'
 
-# Setup hub (v2.x)
-brew install --HEAD hub
-echo 'eval "$(hub alias -s)"' | sudo tee -a ~/.bash_profile
-alias git=hub
-git version
-
 # replaced by hub? not sure this is still needed
-#fancy_echo "Installing GitHub CLI client ..."
-#  brew_install_or_upgrade 'gh'
+fancy_echo "Installing GitHub CLI client ..."
+  brew_install_or_upgrade 'gh'
 
 # ==============================================================================
 # java dev env
