@@ -109,8 +109,6 @@ fancy_echo "Installing zsh ..."
 fancy_echo "Installing zsh ..."
   brew_install_or_upgrade 'zsh-completions'
 
-sudo sh -c echo '/opt/local/bin/zsh' >> /etc/shells
-
 #install oh-my-zsh
 curl -L http://install.ohmyz.sh | sh
 
@@ -148,9 +146,10 @@ fi
 
 append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
-if [[ "$SHELL" != */zsh ]]; then
-  fancy_echo "Changing your shell to zsh ..."
-    chsh -s $(which zsh)
+if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
+  fancy_echo "Changing your shell to homebrew zsh ..."
+    open file "/etc/shells" and add "/usr/local/bin/zsh"
+    chsh -s "/usr/local/bin/zsh"
 fi
 
 
