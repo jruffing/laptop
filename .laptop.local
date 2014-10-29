@@ -24,7 +24,7 @@ brew_cask_install_or_upgrade() {
 }
 
 brew tap caskroom/cask
-brew_install_or_upgrade 'brew-cask'
+brew install brew-cask
 
 
 fancy_echo "Installing alfred ..."
@@ -70,8 +70,8 @@ fancy_echo "Installing mou ..."
 fancy_echo "Installing skype ..."
   brew_cask_install_or_upgrade 'skype'
 
-fancy_echo "Installing sublime-text-3 ..."
-  brew_cask_install_or_upgrade 'sublime-text-3'
+fancy_echo "Installing sublime-text3 ..."
+  brew_cask_install_or_upgrade 'sublime-text3'
 
 fancy_echo "Installing tunnelblick ..."
   brew_cask_install_or_upgrade 'tunnelblick'
@@ -84,6 +84,7 @@ fancy_echo "Installing tunnelblick ..."
 
 # Add Sublime Text CLI
 # ==============================================================================
+
 mkdir -p ~/bin && ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 
 
@@ -98,28 +99,33 @@ subl ~/.ssh/id_rsa.pub
 ssh -T git@github.com
 
 # Set git config values
+cd ~
+curl -O https://raw.githubuser
 git config --global user.name "Jay Ruffing"
 git config --global user.email "jay.ruffing@blueshieldca.com"
 git config --global github.user jruffing
-git config --global github.token myToken
+#git config --global github.token myToken
+git config --global credential.helper osxkeychain
 
 git config --global core.editor "subl -w"
 git config --global color.ui true
 
 
 # setup appium dev envt
+# see https://github.com/appium/appium/blob/master/docs/en/contributing-to-appium/appium-from-source.md
 # ==============================================================================
 #brew tap jruffing/homebrew-cask
+# install appium GUI
 brew cask install jruffing/homebrew-cask/appium
 
 # setup appium dev env
-
-
+#TODO need alias for these things
 cd '~/'
 git fork https://github.com/appium/appium
 git clone github/$github.user
 
 cd 'appium'
+./reset.sh --ios --dev
 sudo ./bin/authorize-ios.js
 node bin/appium-doctor.js --dev --ios
 #sudo grunt authorize
