@@ -109,6 +109,8 @@ fancy_echo "Installing zsh ..."
 fancy_echo "Installing zsh ..."
   brew_install_or_upgrade 'zsh-completions'
 
+sudo sh -c echo '/opt/local/bin/zsh' >> /etc/shells
+
 #install oh-my-zsh
 curl -L http://install.ohmyz.sh | sh
 
@@ -273,7 +275,8 @@ fancy_echo "finished with your nodejs dev env...go to node town"
 
 if [[ ! -d "$HOME/.rbenv" ]]; then
   fancy_echo "Installing rbenv, to change Ruby versions ..."
-    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    #it clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    brew install rbenv
 
     append_to_zshrc 'export PATH="$HOME/.rbenv/bin:$PATH"'
     append_to_zshrc 'eval "$(rbenv init - zsh --no-rehash)"' 1
@@ -284,14 +287,16 @@ fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
   fancy_echo "Installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries..."
-    git clone https://github.com/sstephenson/rbenv-gem-rehash.git \
-      ~/.rbenv/plugins/rbenv-gem-rehash
+    brew install rbenv-gem-rehash
+    #git clone https://github.com/sstephenson/rbenv-gem-rehash.git \
+    #  ~/.rbenv/plugins/rbenv-gem-rehash
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
   fancy_echo "Installing ruby-build, to install Rubies ..."
-    git clone https://github.com/sstephenson/ruby-build.git \
-      ~/.rbenv/plugins/ruby-build
+    brew install ruby-build
+    #git clone https://github.com/sstephenson/ruby-build.git \
+    #  ~/.rbenv/plugins/ruby-build
 fi
 
 fancy_echo "Upgrading and linking OpenSSL ..."
