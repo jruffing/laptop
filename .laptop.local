@@ -78,16 +78,6 @@ fancy_echo "Installing tunnelblick ..."
 
 
 
-
-
-
-
-# Add Sublime Text CLI
-# ==============================================================================
-
-mkdir -p ~/bin && ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
-
-
 # Setup Github
 # ==============================================================================
 ssh-keygen -t rsa -C "jay.ruffing@blueshieldca.com"
