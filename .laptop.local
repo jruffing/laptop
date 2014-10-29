@@ -98,9 +98,10 @@ brew cask install jruffing/homebrew-cask/appium
 # setup appium dev env
 #TODO need alias for these things
 cd ~
-git clone appium/appium
+git clone https://github.com/appium/appium
 cd appium
-git fork
+#git fork
+
 #hub fork https://github.com/appium/appium
 #echo 'hub clone github/'$github.user
 #hub clone github/$github.user
