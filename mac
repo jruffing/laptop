@@ -148,7 +148,7 @@ append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
 if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
   fancy_echo "Changing your shell to homebrew zsh ..."
-    open file "/etc/shells" and add "/usr/local/bin/zsh"
+    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
     chsh -s "/usr/local/bin/zsh"
 fi
 
