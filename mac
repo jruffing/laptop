@@ -5,7 +5,7 @@
 # into an awesome development machine.
 
 # Ask for the administrator password upfront 
-sudo -vs
+sudo -s
 
 fancy_echo() {
   printf "\n%b\n" "$1"

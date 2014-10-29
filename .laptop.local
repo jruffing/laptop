@@ -80,25 +80,12 @@ fancy_echo "Installing tunnelblick ..."
 
 # Setup Github
 # ==============================================================================
-ssh-keygen -t rsa -C "jay.ruffing@blueshieldca.com"
-
-# Copy ssh key to github.com
-subl ~/.ssh/id_rsa.pub
-
-# Test connection
-ssh -T git@github.com
-
 # Set git config values
 cd ~
-curl -O https://raw.githubuser
 git config --global user.name "Jay Ruffing"
 git config --global user.email "jay.ruffing@blueshieldca.com"
 git config --global github.user jruffing
-#git config --global github.token myToken
 git config --global credential.helper osxkeychain
-
-git config --global core.editor "subl -w"
-git config --global color.ui true
 
 
 # setup appium dev envt
