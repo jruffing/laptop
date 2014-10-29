@@ -48,8 +48,7 @@ fancy_echo "Installing evernote ..."
 fancy_echo "Installing firefox, to execute a program periodically and show the output ..."
   brew_cask_install_or_upgrade 'firefox'
 
-fancy_echo "Installing intellij-idea-ce ..."
-  brew_cask_install_or_upgrade 'intellij-idea-ce'
+
 
 fancy_echo "Installing iterm2 ..."
   brew_cask_install_or_upgrade 'iterm2'
@@ -66,8 +65,7 @@ fancy_echo "Installing google-chrome ..."
 fancy_echo "Installing mou ..."
   brew_cask_install_or_upgrade 'mou'
 
-fancy_echo "Installing pycharm-ce ..."
-  brew_cask_install_or_upgrade 'pycharm-ce'
+
 
 fancy_echo "Installing skype ..."
   brew_cask_install_or_upgrade 'skype'
@@ -78,18 +76,9 @@ fancy_echo "Installing sublime-text-3 ..."
 fancy_echo "Installing tunnelblick ..."
   brew_cask_install_or_upgrade 'tunnelblick'
 
-fancy_echo "Installing vagrant ..."
-  brew_cask_install_or_upgrade 'vagrant'
-
-fancy_echo "Installing vagrant-manager ..."
-  brew_cask_install_or_upgrade 'vagrant-manager'
-
-fancy_echo "Installing virtualbox ..."
-  brew_cask_install_or_upgrade 'virtualbox'
 
 
-# install vagrant plugins
-vagrant plugin install vagrant-parallels
+
 
 
 
@@ -124,8 +113,7 @@ git config --global color.ui true
 brew cask install jruffing/homebrew-cask/appium
 
 # setup appium dev env
-npm install -g mocha
-npm install -g grunt-cli
+
 
 cd '~/'
 git fork https://github.com/appium/appium

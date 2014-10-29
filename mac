@@ -107,40 +107,97 @@ fi
 fancy_echo "Updating Homebrew formulas ..."
 brew update
 
+brew tap caskroom/cask
+brew_install_or_upgrade 'brew-cask'
+
+brew_cask_expand_alias() {
+  brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
+}
+
+brew_cask_is_installed() {
+  local NAME=$(brew_cask_expand_alias "$1")
+  brew cask list -1 | grep -Fqx "$NAME"
+}
+
+brew_cask_install() {
+  if ! brew_cask_is_installed "$1"; then
+    brew cask install "$@"
+  fi
+}
+
+brew_cask_install_or_upgrade() {
+  if brew_cask_is_installed "$1"; then
+    echo "$1 is already installed, brew cask upgrade is not yet implemented"
+  else
+    brew cask install "$@"
+  fi
+}
+
+# github dev stuff
+# ==============================================================================
+fancy_echo "Gittin' me sum git ..."
+  brew_install_or_upgrade 'git'
 
 # Setup hub (v2.x)
-# ==============================================================================
 brew install --HEAD hub
 alias git=hub
 git version
 
-#java dev env
+# java dev env
+# ==============================================================================
 fancy_echo "giving you a java dev env"
 
-fancy_echo "Installing java ..."
-  brew_install_or_upgrade 'java'
+fancy_echo "Installing a jdk ..."
+  brew_cask_install_or_upgrade 'java'
 
 fancy_echo "Installing maven ..."
   brew_install_or_upgrade 'maven'
 
 fancy_echo "Installing gradle ..."
   brew_install_or_upgrade 'gradle'
+
+fancy_echo "Installing intellij-idea-ce ..."
+  brew_cask_install_or_upgrade 'intellij-idea-ce'
+
 fancy_echo "finished with your java dev env...go to java town"
 
+
 # python dev env
+# ==============================================================================
 fancy_echo "giving you a python dev env ..."
+
 fancy_echo "Installing python ..."
   brew_install_or_upgrade 'python'
 
 fancy_echo "Installing pyenv-virtualenv ..."
   brew_install_or_upgrade 'pyenv-virtualenv'
+
+fancy_echo "Installing pycharm-ce ..."
+  brew_cask_install_or_upgrade 'pycharm-ce'
+
 fancy_echo "finished with your python dev env...go to python town"
 
+
 # virtual environments
+# ==============================================================================
 fancy_echo "giving you some virtual env love..."
+
 fancy_echo "Installing boot2docker ..."
   brew_install_or_upgrade 'boot2docker'
-fancy_echo "finished with your virtual env...go to virtual town"
+
+fancy_echo "Installing vagrant ..."
+  brew_cask_install_or_upgrade 'vagrant'
+
+fancy_echo "Installing vagrant-manager ..."
+  brew_cask_install_or_upgrade 'vagrant-manager'
+
+# install vagrant plugins
+vagrant plugin install vagrant-parallels
+
+fancy_echo "Installing virtualbox ..."
+  brew_cask_install_or_upgrade 'virtualbox'
+
+fancy_echo "finished with your virtual envs...go to virtual town"
 
 # replaced by hub?
 #fancy_echo "Installing GitHub CLI client ..."
@@ -152,6 +209,9 @@ node_version="0.10.33"
 
 fancy_echo "Installing NVM, Node.js, and NPM, for running apps and installing JavaScript packages ..."
   brew_install_or_upgrade 'nvm'
+
+npm install -g mocha
+npm install -g grunt-cli
 
   append_to_zshrc 'export PATH="$PATH:/usr/local/lib/node_modules"'
   append_to_zshrc 'source $(brew --prefix nvm)/nvm.sh' 1
