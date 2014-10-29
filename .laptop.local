@@ -97,11 +97,11 @@ brew cask install jruffing/homebrew-cask/appium
 
 # setup appium dev env
 #TODO need alias for these things
-cd '~/'
+cd ~
 git fork https://github.com/appium/appium
 git clone github/$github.user
 
-cd 'appium'
+cd appium
 ./reset.sh --ios --dev
 sudo ./bin/authorize-ios.js
 node bin/appium-doctor.js --dev --ios
