@@ -310,7 +310,11 @@ fancy_echo "Installing Ruby $ruby_version ..."
 
 fancy_echo "Setting $ruby_version as global default Ruby ..."
   rbenv global "$ruby_version"
+  echo "ruby version: "
+  ruby -v
   rbenv rehash
+  echo "ruby version: "
+  ruby -v
 
 fancy_echo "Updating to latest Rubygems version ..."
   gem update --system
