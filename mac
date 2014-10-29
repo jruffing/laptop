@@ -309,8 +309,7 @@ fancy_echo "Installing Ruby $ruby_version ..."
 
 fancy_echo "Setting $ruby_version as global default Ruby ..."
   rbenv global "$ruby_version"
-  echo "ruby version: "
-  ruby -v
+  echo 'eval "$(rbenv init - )"' >> ~/.bash_profile
   rbenv rehash
   echo "ruby version: "
   ruby -v
