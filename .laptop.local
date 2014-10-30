@@ -58,11 +58,6 @@ fancy_echo "Installing firefox ..."
 fancy_echo "Installing fluid  ..."
   brew_cask_install_or_upgrade 'fluid'
 
-brew cask install caskroom/fonts/font-source-code-pro
-
-fancy_echo "Installing iterm2 ..."
-  brew_cask_install_or_upgrade 'iterm2'
-
 fancy_echo "Installing firefox ..."
   brew_cask_install_or_upgrade 'firefox'
 

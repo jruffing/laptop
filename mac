@@ -11,7 +11,7 @@ fancy_echo() {
   printf "\n%b\n" "$1"
 }
 
-append_to_bash() {
+append_to_zshrc() {
   local text="$1" zshrc
   local skip_new_line="$2"
 
@@ -29,6 +29,26 @@ append_to_bash() {
     fi
   fi
 }
+
+trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
+
+set -e
+
+if [[ ! -d "$HOME/.bin/" ]]; then
+  mkdir "$HOME/.bin"
+fi
+
+if [ ! -f "$HOME/.zshrc" ]; then
+  touch "$HOME/.zshrc"
+fi
+
+append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
+
+if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
+  fancy_echo "Changing your shell to homebrew zsh ..."
+    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+    chsh -s "/usr/local/bin/zsh"
+fi
 
 ###############################################################################
 # brew & brew-cask stuff                                                      #
@@ -119,6 +139,12 @@ brew_cask_install_or_upgrade() {
 # text editor                                                                 #
 ###############################################################################
 
+cd ~
+sh -c "`curl -fsSL https://raw.github.com/skwp/dotfiles/master/install.sh`"
+brew cask install caskroom/fonts/font-source-code-pro
+fancy_echo "Installing iterm2 ..."
+  brew_cask_install_or_upgrade 'iterm2'
+
 fancy_echo "install vim ..."
   brew_install_or_upgrade 'vim'
 
@@ -140,8 +166,8 @@ fancy_echo "Gittin' me sum git ..."
   brew_install_or_upgrade 'git'
 
 # replaced by hub? not sure this is still needed
-fancy_echo "Installing GitHub CLI client ..."
-  brew_install_or_upgrade 'gh'
+#fancy_echo "Installing GitHub CLI client ..."
+#  brew_install_or_upgrade 'gh'
 
 
 ###############################################################################
@@ -151,22 +177,22 @@ fancy_echo "Installing GitHub CLI client ..."
 fancy_echo "giving you a java dev env"
 
 fancy_echo "Installing java 7 jdk..."
-  brew cask install caskroom/versions/java7
+#  brew cask install caskroom/versions/java7
 
 fancy_echo "Installing java 8 jdk..."
-  brew_cask_install_or_upgrade 'java'
+#  brew_cask_install_or_upgrade 'java'
 
 fancy_echo "Installing maven ..."
-  brew_install_or_upgrade 'maven'
+#  brew_install_or_upgrade 'maven'
 
 fancy_echo "Installing ant ..."
-  brew_install_or_upgrade 'ant'
+#  brew_install_or_upgrade 'ant'
 
 fancy_echo "Installing gradle ..."
-  brew_install_or_upgrade 'gradle'
+#  brew_install_or_upgrade 'gradle'
 
 fancy_echo "Installing intellij-idea-ce ..."
-  brew_cask_install_or_upgrade 'intellij-idea-ce'
+#  brew_cask_install_or_upgrade 'intellij-idea-ce'
 
 fancy_echo "finished with your java dev env...go to java town"
 
@@ -196,16 +222,16 @@ fancy_echo "finished with your python dev env...go to python town"
 fancy_echo "giving you some virtual env love..."
 
 fancy_echo "Installing boot2docker ..."
-  brew_install_or_upgrade 'boot2docker'
+#  brew_install_or_upgrade 'boot2docker'
 
 fancy_echo "Installing vagrant ..."
-  brew_cask_install_or_upgrade 'vagrant'
+#  brew_cask_install_or_upgrade 'vagrant'
 
 fancy_echo "Installing vagrant-manager ..."
-  brew_cask_install_or_upgrade 'vagrant-manager'
+#  brew_cask_install_or_upgrade 'vagrant-manager'
 
 fancy_echo "Installing virtualbox ..."
-  brew_cask_install_or_upgrade 'virtualbox'
+#  brew_cask_install_or_upgrade 'virtualbox'
 
 # install and update vagrant plugins
 #vagrant plugin install vagrant-salt
