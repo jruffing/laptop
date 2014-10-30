@@ -135,32 +135,20 @@ brew_cask_install_or_upgrade() {
   fi
 }
 
+fancy_echo"
 ###############################################################################
 # text editor                                                                 #
 ###############################################################################
+"
 
-cd ~
-sh -c "`curl -fsSL https://raw.github.com/skwp/dotfiles/master/install.sh`"
-brew cask install caskroom/fonts/font-source-code-pro
-fancy_echo "Installing iterm2 ..."
-  brew_cask_install_or_upgrade 'iterm2'
 
-fancy_echo "install vim ..."
-  brew_install_or_upgrade 'vim'
 
-###############################################################################
-# shell stuff                                                                 #
-###############################################################################
 
-fancy_echo "update to latest bash shell ..."
-  brew_install_or_upgrade 'bash'
-
-fancy_echo "Installing tmux, to save project state and switch between projects ..."
-brew_install_or_upgrade 'tmux'
-
+fancy_echo"
 ###############################################################################
 # github stuff                                                                #
 ###############################################################################
+"
 
 fancy_echo "Gittin' me sum git ..."
   brew_install_or_upgrade 'git'
@@ -169,11 +157,11 @@ fancy_echo "Gittin' me sum git ..."
 #fancy_echo "Installing GitHub CLI client ..."
 #  brew_install_or_upgrade 'gh'
 
-
+fancy_echo"
 ###############################################################################
 # java dev env                                                                *
 ###############################################################################
-
+"
 fancy_echo "giving you a java dev env"
 
 fancy_echo "Installing java 7 jdk..."
@@ -197,9 +185,11 @@ fancy_echo "Installing intellij-idea-ce ..."
 fancy_echo "finished with your java dev env...go to java town"
 
 
+fancy_echo"
 ###############################################################################
 # python dev env                                                              #
 ###############################################################################
+"
 
 fancy_echo "giving you a python dev env ..."
 
@@ -236,7 +226,7 @@ fancy_echo "Installing virtualbox ..."
 # install and update vagrant plugins
 #vagrant plugin install vagrant-salt
 #vagrant plugin install vagrant-lxc
-vagrant plugin update
+#vagrant plugin update
 
 fancy_echo "finished with your virtual envs...go to virtual town"
 
@@ -270,6 +260,7 @@ npm install -g grunt-cli
   nvm alias default "$node_version"
 
 fancy_echo "finished with your nodejs dev env...go to node town"
+
 
 fancy_echo "
 ###############################################################################
@@ -334,6 +325,38 @@ fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
 fancy_echo "Installing foreman ..."
   curl -sLo /tmp/foreman.pkg http://assets.foreman.io/foreman/foreman.pkg && \
   sudo installer -pkg /tmp/foreman.pkg -tgt /
+
+
+###############################################################################
+# shell stuff                                                                 #
+###############################################################################
+
+fancy_echo "update to latest bash shell ... update bash to try to avoid future shellshock type of issues"
+  brew_install_or_upgrade 'bash'
+
+# zsh functionality
+fancy_echo "putting zsh on steroids... "
+fancy_echo "installing yadr and its dependencies: https://github.com/skwp/dotfiles"
+cd ~
+git clone https://github.com/skwp/dotfiles ~/.yadr
+cd ~/.yadr && rake install
+
+fancy_echo "Create a ~/.secrets file (required by YADR)"
+touch ~/.secrets
+
+fancy_echo "installing powerline prompt theme for prezto https://github.com/davidjrice/prezto_powerline"
+curl https://raw.github.com/davidjrice/prezto_powerline/master/prompt_powerline_setup > ~/.zsh.prompts/prompt_powerline_setup
+
+fancy_echo "beautifying your awesome zsh shell for you"
+fancy_echo "installing adobe source code pro font for zsh"
+brew cask install caskroom/fonts/font-source-code-pro
+
+fancy_echo "Installing iterm2 ..."
+  brew_cask_install_or_upgrade 'iterm2'
+
+#fancy_echo "Installing tmux, to save project state and switch between projects ..."
+#brew_install_or_upgrade 'tmux'
+
 
 
 #if ! command -v rcup >/dev/null; then
