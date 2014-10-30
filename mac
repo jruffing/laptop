@@ -259,7 +259,7 @@ Installing virtualbox ..."
 
 fancy_echo "
 ==============================
-install and update vagrant plugins"
+install and update vagrant plugins ..."
 #vagrant plugin install vagrant-salt
 #vagrant plugin install vagrant-lxc
 #vagrant plugin update
@@ -274,7 +274,7 @@ fancy_echo "
 
 fancy_echo "
 ==============================
-giving you a nodejs dev env..."
+giving you a nodejs dev env ..."
 node_version="0.10.33"
 
 fancy_echo "
