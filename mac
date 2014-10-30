@@ -135,7 +135,7 @@ brew_cask_install_or_upgrade() {
   fi
 }
 
-fancy_echo"
+fancy_echo "
 ###############################################################################
 # text editor                                                                 #
 ###############################################################################
@@ -144,7 +144,7 @@ fancy_echo"
 
 
 
-fancy_echo"
+fancy_echo "
 ###############################################################################
 # github stuff                                                                #
 ###############################################################################
@@ -157,7 +157,7 @@ fancy_echo "Gittin' me sum git ..."
 #fancy_echo "Installing GitHub CLI client ..."
 #  brew_install_or_upgrade 'gh'
 
-fancy_echo"
+fancy_echo "
 ###############################################################################
 # java dev env                                                                *
 ###############################################################################
@@ -185,7 +185,7 @@ fancy_echo "Installing intellij-idea-ce ..."
 fancy_echo "finished with your java dev env...go to java town"
 
 
-fancy_echo"
+fancy_echo "
 ###############################################################################
 # python dev env                                                              #
 ###############################################################################
@@ -204,10 +204,11 @@ fancy_echo "Installing pycharm-ce ..."
 
 fancy_echo "finished with your python dev env...go to python town"
 
-
+fancy_echo "
 ###############################################################################
 # virtual environments                                                        #
 ###############################################################################
+"
 
 fancy_echo "giving you some virtual env love..."
 
@@ -230,10 +231,11 @@ fancy_echo "Installing virtualbox ..."
 
 fancy_echo "finished with your virtual envs...go to virtual town"
 
-
+fancy_echo "
 ###############################################################################
 # node dev env                                                                #
 ###############################################################################
+"
 
 fancy_echo "giving you a nodejs dev env..."
 node_version="0.10.33"
@@ -326,10 +328,11 @@ fancy_echo "Installing foreman ..."
   curl -sLo /tmp/foreman.pkg http://assets.foreman.io/foreman/foreman.pkg && \
   sudo installer -pkg /tmp/foreman.pkg -tgt /
 
-
+fancy_echo "
 ###############################################################################
 # shell stuff                                                                 #
 ###############################################################################
+"
 
 fancy_echo "update to latest bash shell ... update bash to try to avoid future shellshock type of issues"
   brew_install_or_upgrade 'bash'
