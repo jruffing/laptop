@@ -1,4 +1,8 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+
+fancy_echo() {
+  printf "\n%b\n" "$1"
+}
 
 brew_cask_expand_alias() {
   brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
@@ -26,6 +30,9 @@ brew_cask_install_or_upgrade() {
 brew tap caskroom/cask
 brew install brew-cask
 
+###############################################################################
+# Installing Apps
+###############################################################################
 
 fancy_echo "Installing alfred ..."
   brew_cask_install_or_upgrade 'alfred'
@@ -33,10 +40,10 @@ fancy_echo "Installing alfred ..."
 fancy_echo "Installing atom, a modern, approachable, and hackable to the core text editor..."
   brew_cask_install_or_upgrade 'atom'
 
-fancy_echo "Installing caffeine, to execute a program periodically and show the output ..."
+fancy_echo "Installing caffeine ..."
   brew_cask_install_or_upgrade 'caffeine'
 
-fancy_echo "Installing dash, to execute a program periodically and show the output ..."
+fancy_echo "Installing dash  ..."
   brew_cask_install_or_upgrade 'dash'
 
 fancy_echo "Installing dropbox ..."
@@ -45,10 +52,13 @@ fancy_echo "Installing dropbox ..."
 fancy_echo "Installing evernote ..."
   brew_cask_install_or_upgrade 'evernote'
 
-fancy_echo "Installing firefox, to execute a program periodically and show the output ..."
+fancy_echo "Installing firefox ..."
   brew_cask_install_or_upgrade 'firefox'
 
+fancy_echo "Installing fluid  ..."
+  brew_cask_install_or_upgrade 'fluid'
 
+brew cask install caskroom/fonts/font-source-code-pro
 
 fancy_echo "Installing iterm2 ..."
   brew_cask_install_or_upgrade 'iterm2'
@@ -65,8 +75,6 @@ fancy_echo "Installing google-chrome ..."
 fancy_echo "Installing mou ..."
   brew_cask_install_or_upgrade 'mou'
 
-
-
 fancy_echo "Installing skype ..."
   brew_cask_install_or_upgrade 'skype'
 
@@ -77,21 +85,23 @@ fancy_echo "Installing tunnelblick ..."
   brew_cask_install_or_upgrade 'tunnelblick'
 
 
+###############################################################################
+# setup github user info
+###############################################################################
 
-# Setup Github
-# ==============================================================================
-# Set git config values
+# set user git config values
 cd ~
 git config --global user.name "Jay Ruffing"
 git config --global user.email "jay.ruffing@blueshieldca.com"
 git config --global github.user jruffing
 git config --global credential.helper osxkeychain
 
-
+###############################################################################
 # setup appium dev envt
+#
 # see https://github.com/appium/appium/blob/master/docs/en/contributing-to-appium/appium-from-source.md
-# ==============================================================================
-#brew tap jruffing/homebrew-cask
+###############################################################################
+
 # install appium GUI
 brew cask install jruffing/homebrew-cask/appium
 

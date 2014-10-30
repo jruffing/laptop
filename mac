@@ -11,9 +11,28 @@ fancy_echo() {
   printf "\n%b\n" "$1"
 }
 
-# ==============================================================================
-# brew & brew-cask stuff
-# ==============================================================================
+append_to_bash() {
+  local text="$1" zshrc
+  local skip_new_line="$2"
+
+  if [[ -w "$HOME/.zshrc.local" ]]; then
+    zshrc="$HOME/.zshrc.local"
+  else
+    zshrc="$HOME/.zshrc"
+  fi
+
+  if ! grep -Fqs "$text" "$zshrc"; then
+    if (( skip_new_line )); then
+      printf "%s\n" "$text" >> "$zshrc"
+    else
+      printf "\n%s\n" "$text" >> "$zshrc"
+    fi
+  fi
+}
+
+###############################################################################
+# brew & brew-cask stuff                                                      #
+###############################################################################
 
 brew_install_or_upgrade() {
   if brew_is_installed "$1"; then
@@ -96,66 +115,27 @@ brew_cask_install_or_upgrade() {
   fi
 }
 
-# ==============================================================================
-# zsh shell stuff
-# ==============================================================================
+###############################################################################
+# text editor                                                                 #
+###############################################################################
 
-fancy_echo "Installing zsh ..."
-  brew_install_or_upgrade 'zsh'
+fancy_echo "install vim ..."
+  brew_install_or_upgrade 'vim'
 
-fancy_echo "Installing zsh ..."
-  brew_install_or_upgrade 'zsh-completions'
+###############################################################################
+# shell stuff                                                                 #
+###############################################################################
 
-#install oh-my-zsh
-curl -L http://install.ohmyz.sh | sh
-
-
-append_to_zshrc() {
-  local text="$1" zshrc
-  local skip_new_line="$2"
-
-  if [[ -w "$HOME/.zshrc.local" ]]; then
-    zshrc="$HOME/.zshrc.local"
-  else
-    zshrc="$HOME/.zshrc"
-  fi
-
-  if ! grep -Fqs "$text" "$zshrc"; then
-    if (( skip_new_line )); then
-      printf "%s\n" "$text" >> "$zshrc"
-    else
-      printf "\n%s\n" "$text" >> "$zshrc"
-    fi
-  fi
-}
-
-trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
-
-set -e
-
-if [[ ! -d "$HOME/.bin/" ]]; then
-  mkdir "$HOME/.bin"
-fi
-
-if [ ! -f "$HOME/.zshrc" ]; then
-  touch "$HOME/.zshrc"
-fi
-
-append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
-
-if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
-  fancy_echo "Changing your shell to homebrew zsh ..."
-    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
-    chsh -s "/usr/local/bin/zsh"
-fi
-
+fancy_echo "update to latest bash shell ..."
+  brew_install_or_upgrade 'bash'
 
 fancy_echo "Installing tmux, to save project state and switch between projects ..."
 brew_install_or_upgrade 'tmux'
 
-# ==============================================================================
-# github dev stuff
-# ==============================================================================
+###############################################################################
+# github stuff                                                                #
+###############################################################################
+
 fancy_echo "Gittin' me sum git ..."
   brew_install_or_upgrade 'git'
 
@@ -163,9 +143,11 @@ fancy_echo "Gittin' me sum git ..."
 fancy_echo "Installing GitHub CLI client ..."
   brew_install_or_upgrade 'gh'
 
-# ==============================================================================
-# java dev env
-# ==============================================================================
+
+###############################################################################
+# java dev env                                                                *
+###############################################################################
+
 fancy_echo "giving you a java dev env"
 
 fancy_echo "Installing java 7 jdk..."
@@ -189,9 +171,10 @@ fancy_echo "Installing intellij-idea-ce ..."
 fancy_echo "finished with your java dev env...go to java town"
 
 
-# ==============================================================================
-# python dev env
-# ==============================================================================
+###############################################################################
+# python dev env                                                              #
+###############################################################################
+
 fancy_echo "giving you a python dev env ..."
 
 fancy_echo "Installing python ..."
@@ -206,9 +189,10 @@ fancy_echo "Installing pycharm-ce ..."
 fancy_echo "finished with your python dev env...go to python town"
 
 
-# ==============================================================================
-# virtual environments
-# ==============================================================================
+###############################################################################
+# virtual environments                                                        #
+###############################################################################
+
 fancy_echo "giving you some virtual env love..."
 
 fancy_echo "Installing boot2docker ..."
@@ -231,10 +215,10 @@ vagrant plugin update
 fancy_echo "finished with your virtual envs...go to virtual town"
 
 
+###############################################################################
+# node dev env                                                                #
+###############################################################################
 
-# ==============================================================================
-# node dev env
-# ==============================================================================
 fancy_echo "giving you a nodejs dev env..."
 node_version="0.10.33"
 
@@ -261,10 +245,13 @@ npm install -g grunt-cli
 
 fancy_echo "finished with your nodejs dev env...go to node town"
 
+fancy_echo "
+###############################################################################
+# ruby dev env                                                                #
+###############################################################################
+"
 
-# ==============================================================================
-# ruby dev env
-# ==============================================================================
+\curl -L https://get.rvm.io | bash -s stable --ruby --autolibs=enable
 
 if [[ ! -d "$HOME/.rbenv" ]]; then
   fancy_echo "Installing rbenv, to change Ruby versions ..."
@@ -335,6 +322,3 @@ fancy_echo "Installing your personal additions from ~/.laptop.local ..."
   if [[ -f ~/.laptop.local ]]; then
     source ~/.laptop.local
   fi
-
-
-
