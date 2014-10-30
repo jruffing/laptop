@@ -315,12 +315,12 @@ fancy_echo "
 
 fancy_echo "
 ==============================
-instaling RVM for ya ..."
+installing RVM for ya ..."
 \curl -L https://get.rvm.io | bash -s stable --ruby --autolibs=enable
 
 if [[ ! -d "$HOME/.rbenv" ]]; then
   fancy_echo "Installing rbenv, to change Ruby versions ..."
-    #it clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    #git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
     brew install rbenv
 
     append_to_zshrc 'export PATH="$HOME/.rbenv/bin:$PATH"'
@@ -357,14 +357,18 @@ fancy_echo "
 Installing Ruby $ruby_version w/ rbenv..."
   rbenv install -s "$ruby_version"
 
+fancy_echo
+==============================
+sourcing your shell, one sec please ..."
+source ~/.zshrc
+
 fancy_echo "
 ==============================
 Setting $ruby_version as global default Ruby ..."
   rbenv global "$ruby_version"
   echo 'eval "$(rbenv init - )"' >> ~/.bash_profile
   rbenv rehash
-  echo "ruby version: "
-  ruby -v
+  echo "ruby version: " ruby -v
 
 fancy_echo "
 ==============================
