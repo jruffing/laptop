@@ -420,6 +420,8 @@ if [[ ! -e ~/.yadr/ ]]; then
   #cd ~/.yadr &&
   rake install
 else
+  cd ~/.yadr/
+  git pull --rebase
   rake update
 fi
 
