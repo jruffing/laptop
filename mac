@@ -159,21 +159,6 @@ fancy_echo "
 # github stuff                                                                #
 ###############################################################################
 "
-git()
-{
-   local tmp=$(mktemp)
-   local repo_name
-
-   if [ "$1" = clone ] ; then
-     /usr/bin/git "$@" | tee $tmp
-     repo_name=$(awk -F\' '/Cloning into/ {print $2}' $tmp)
-     rm $tmp
-     echo "changing to directory %s\n" "$repo_name"
-     cd "$repo_name"
-   else
-     /usr/bin/git "$@"
-   fi
-}
 
 fancy_echo "Git your updated git on...
 =============================="
@@ -406,7 +391,7 @@ fancy_echo "
 
 fancy_echo "update to latest bash shell...
 ==============================
-update bash to try to avoid future shellshock type of issues"
+to avoid future shellshock type of issues"
   brew_install_or_upgrade 'bash'
 
 # zsh functionality
