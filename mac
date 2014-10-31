@@ -48,7 +48,7 @@ if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
     fi
     echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
     chsh -s "/usr/local/bin/zsh"
-    exec zsh
+    #exec zsh
 fi
 
 ###############################################################################
