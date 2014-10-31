@@ -380,10 +380,6 @@ fancy_echo "Installing cocoapods for iOS dev...
 =============================="
   gem install cocoapods
 
-fancy_echo "Installing awesomeprint for iOS dev...
-=============================="
-  gem install awesomeprint
-
 fancy_echo "Installing tmuxinator for iOS dev...
 =============================="
   gem install tmuxinator
