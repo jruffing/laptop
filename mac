@@ -414,10 +414,17 @@ fancy_echo "
 ==============================
 injecting your awesome zsh with steroids... "
 fancy_echo "installing yadr and its dependencies: https://github.com/skwp/dotfiles"
-cd ~
-git clone https://github.com/skwp/dotfiles ~/.yadr
-#cd ~/.yadr &&
-rake install
+if [[ ! -e ~/.yadr/ ]]; then
+  cd ~
+  git clone https://github.com/skwp/dotfiles ~/.yadr
+  #cd ~/.yadr &&
+  rake install
+else
+  rake update
+fi
+
+    if [ ! -e /usr/local/bin/zsh ]; then
+
 
 fancy_echo "
 ==============================
