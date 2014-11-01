@@ -166,8 +166,8 @@ fancy_echo "Git your updated git on...
 brew_install_or_upgrade 'git'
 
 # replaced by hub? not sure this is still needed
-#fancy_echo "Installing GitHub CLI client ..."
-#  brew_install_or_upgrade 'gh'
+fancy_echo "Installing GitHub CLI client ..."
+  brew_install_or_upgrade 'gh'
 
 
 fancy_echo "
@@ -185,6 +185,7 @@ fancy_echo "Installing java 7 jdk...
 fancy_echo "
 ==============================
 Installing java 8 jdk..."
+brew cask install caskroom/versions/java8
 #  brew_cask_install_or_upgrade 'java'
 
 fancy_echo "Installing maven...
@@ -336,7 +337,7 @@ if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
     #  ~/.rbenv/plugins/ruby-build
 fi
 
-fancy_echo "I don't want your heart to bleed...updating OpenSSL...
+fancy_echo "updating OpenSSL. don't want your heart to bleed...
 =============================="
   brew_install_or_upgrade 'openssl'
   brew unlink openssl && brew link openssl --force
