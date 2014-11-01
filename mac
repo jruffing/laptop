@@ -418,6 +418,7 @@ injecting your awesome zsh with steroids... "
 fancy_echo "beautifying your awesome zsh shell for you...
 =============================="
 if [ ! -d "$HOME/.prezto" ]; then
+  echo "Installing prezto for the first time"
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 else
   echo "prezto is already installed"
@@ -430,12 +431,10 @@ fi
 
 fancy_echo "installing adobe source code pro font for zsh...
 =============================="
-
 brew_cask_install_or_upgrade 'font-source-code-pro'
 
-fancy_echo "
-==============================
-Installing iterm2 ..."
+fancy_echo "installing iterm2...
+=============================="
   brew_cask_install_or_upgrade 'iterm2'
 
 #fancy_echo "
