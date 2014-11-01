@@ -419,6 +419,9 @@ fancy_echo "beautifying your awesome zsh shell for you...
 =============================="
 if [ ! -d "$HOME/.prezto" ]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+else
+  echo "prezto is already installed"
+fi
 
 # to be removed: going to set this from dotfiles
 #fancy_echo "setting agnoster theme...
