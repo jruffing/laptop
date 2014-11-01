@@ -457,13 +457,13 @@ a minimal client to use Pivotal Tracker from the console"
 
 
 
-#if ! command -v rcup >/dev/null; then
-#  fancy_echo "Installing rcm, to manage your dotfiles ..."
-#    brew tap thoughtbot/formulae
-#    brew_install_or_upgrade 'rcm'
-#else
-#  fancy_echo "rcm already installed. Skipping ..."
-#fi
+if ! command -v rcup >/dev/null; then
+  fancy_echo "Installing rcm, to manage your dotfiles ..."
+    brew tap thoughtbot/formulae
+    brew_install_or_upgrade 'rcm'
+else
+  fancy_echo "rcm already installed. Skipping ..."
+fi
 
 fancy_echo "Installing your personal additions from ~/.laptop.local ..."
   if [[ -f ~/.laptop.local ]]; then
