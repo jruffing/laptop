@@ -354,10 +354,10 @@ fancy_echo "Installing Ruby $ruby_version w/ rbenv...
 fancy_echo "Setting $ruby_version as global default Ruby ...
 =============================="
   rbenv global "$ruby_version"
-  echo 'eval "$(rbenv init - )"' >> ~/.bash_profile
+  #echo 'eval "$(rbenv init - )"' >> ~/.bash_profile
   echo 'eval "$(rbenv init - )"' >> ~/.zshrc
   rbenv rehash
-  echo "ruby version: " ruby -v
+  echo "ruby version: " "$(ruby -e 'print RUBY_VERSION')"
 
 fancy_echo "Updating to latest Rubygems version...
 =============================="
@@ -401,25 +401,15 @@ fancy_echo "
 ==============================
 injecting your awesome zsh with steroids... "
 fancy_echo "installing yadr and its dependencies: https://github.com/skwp/dotfiles"
-if [[ ! -d ~/.yadr ]]; then
-  git clone https://github.com/skwp/dotfiles ~/.yadr
-  cd ~/.yadr & rake install
+if [ ! -d "$HOME/.yadr" ]; then
+  echo "Installing YADR for the first time"
+  git clone https://github.com/skwp/dotfiles.git "$HOME/.yadr"
+  cd "$HOME/.yadr"
+[ "$1" = "ask" ] && export ASK="false"
+rake install
 else
-  cd ~/.yadr
-  git pull --rebase
-  rake update
+  echo "YADR is already installed"
 fi
-
-fancy_echo "
-==============================
-Create a ~/.secrets file (required by YADR)"
-touch ~/.secrets
-
-#fancy_echo "installing powerline prompt...
-#==============================
-#a theme for prezto: https://github.com/davidjrice/prezto_powerline"
-#curl https://raw.github.com/davidjrice/prezto_powerline/master/prompt_powerline_setup > ~/.zsh.prompts/prompt_powerline_setup
-
 
 fancy_echo "beautifying your awesome zsh shell for you...
 ==============================
