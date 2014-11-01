@@ -1,4 +1,4 @@
-curl -os ~/.laptop.local https://github.com/jruffing/laptop
+curl -O -s -L https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.laptop.local
 
 bash <(curl -s https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/mac) 2>&1 | tee ~/laptop.log
 
