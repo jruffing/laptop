@@ -143,8 +143,8 @@ git config --global credential.helper osxkeychain
 ###############################################################################
 
 # install appium GUI
-brew tap jruffing/homebrew-cask/
-brew_cask_install_or_upgrade 'appium'
+#brew tap jruffing/homebrew-cask/
+brew_cask_install_or_upgrade 'jruffing/homebrew-cask/appium'
 
 # setup appium dev env
 #TODO need alias for these things

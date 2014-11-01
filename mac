@@ -124,7 +124,7 @@ brew update
 brew tap caskroom/cask
 brew tap caskroom/versions
 brew tap caskroom/fonts
-brew tap jruffing/homebrew-cask
+#brew tap jruffing/homebrew-cask
 
 brew install brew-cask
 
