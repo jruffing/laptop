@@ -1,4 +1,5 @@
 curl -os ~/.laptop.local https://github.com/jruffing/laptop
+
 bash <(curl -s https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/mac) 2>&1 | tee ~/laptop.log
 
 Laptop
