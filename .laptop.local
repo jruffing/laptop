@@ -35,49 +35,93 @@ brew install brew-cask
 # Installing Apps
 ###############################################################################
 
-fancy_echo "Installing alfred ..."
+fancy_echo "Installing alfred...
+======================================
+"
   brew_cask_install_or_upgrade 'alfred'
 
-fancy_echo "Installing atom, a modern, approachable, and hackable to the core text editor..."
+fancy_echo "Installing atom, a modern, approachable, and hackable to the core text editor...
+======================================
+"
   brew_cask_install_or_upgrade 'atom'
 
-fancy_echo "Installing caffeine ..."
+fancy_echo "Installing caffeine...
+======================================
+"
   brew_cask_install_or_upgrade 'caffeine'
 
-fancy_echo "Installing dash  ..."
+fancy_echo "Installing cheatsheet...
+======================================
+"
+  brew cask install cheatsheet
+
+fancy_echo "Installing dash...
+======================================
+"
   brew_cask_install_or_upgrade 'dash'
 
-fancy_echo "Installing dropbox ..."
+fancy_echo "Installing dropbox...
+======================================
+"
   brew_cask_install_or_upgrade 'dropbox'
 
-fancy_echo "Installing evernote ..."
+fancy_echo "Installing evernote...
+======================================
+"
   brew_cask_install_or_upgrade 'evernote'
 
-fancy_echo "Installing firefox ..."
+fancy_echo "Installing firefox...
+======================================
+"
   brew_cask_install_or_upgrade 'firefox'
 
-fancy_echo "Installing fluid  ..."
+fancy_echo "Installing fluid...
+======================================
+"
   brew_cask_install_or_upgrade 'fluid'
 
-fancy_echo "Installing firefox ..."
+fancy_echo "Installing firefox...
+======================================
+"
   brew_cask_install_or_upgrade 'firefox'
 
-fancy_echo "Installing github ..."
+fancy_echo "Installing github...
+======================================
+"
   brew_cask_install_or_upgrade 'github'
 
-fancy_echo "Installing google-chrome ..."
+fancy_echo "Installing google-chrome...
+======================================
+"
   brew_cask_install_or_upgrade 'google-chrome'
 
-fancy_echo "Installing mou ..."
+fancy_echo "Installing mou...
+======================================
+"
   brew_cask_install_or_upgrade 'mou'
 
-fancy_echo "Installing skype ..."
+fancy_echo "Installing Quicklook...
+======================================
+"
+
+fancy_echo ""Installing Quicklook plugins...
+======================================
+"
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
+
+fancy_echo "Installing skype...
+======================================
+"
   brew_cask_install_or_upgrade 'skype'
 
-fancy_echo "Installing sublime-text3 ..."
+fancy_echo "Installing sublime-text3...
+======================================
+"
   brew_cask_install_or_upgrade 'sublime-text3'
 
-fancy_echo "Installing tunnelblick ..."
+fancy_echo "Installing tunnelblick...
+======================================
+"
   brew_cask_install_or_upgrade 'tunnelblick'
 
 
@@ -99,7 +143,8 @@ git config --global credential.helper osxkeychain
 ###############################################################################
 
 # install appium GUI
-brew cask install jruffing/homebrew-cask/appium
+brew tap jruffing/homebrew-cask/
+brew_cask_install_or_upgrade 'appium'
 
 # setup appium dev env
 #TODO need alias for these things

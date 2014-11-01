@@ -189,7 +189,7 @@ Installing java 8 jdk..."
 
 fancy_echo "Installing maven...
 =============================="
-#  brew_install_or_upgrade 'maven'
+  brew_install_or_upgrade 'maven'
 
 fancy_echo "Installing ant...
 =============================="
@@ -412,7 +412,9 @@ else
 fi
 
 fancy_echo "beautifying your awesome zsh shell for you...
-==============================
+=============================="
+if [ ! -d "$HOME/.yadr" ]; then
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
 #fancy_echo "setting agnoster theme...
 #=============================="
