@@ -185,7 +185,6 @@ fancy_echo "Installing java 7 jdk...
 fancy_echo "
 ==============================
 Installing java 8 jdk..."
-brew cask install caskroom/versions/java8
 #  brew_cask_install_or_upgrade 'java'
 
 fancy_echo "Installing maven...
