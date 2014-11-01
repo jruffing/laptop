@@ -43,12 +43,12 @@ fancy_echo "Installing alfred...
 fancy_echo "Installing atom, a modern, approachable, and hackable to the core text editor...
 ======================================
 "
-  brew_cask_install_or_upgrade 'atom'
+ # brew_cask_install_or_upgrade 'atom'
 
 fancy_echo "Installing caffeine...
 ======================================
 "
-  brew_cask_install_or_upgrade 'caffeine'
+ # brew_cask_install_or_upgrade 'caffeine'
 
 fancy_echo "Installing cheatsheet...
 ======================================
@@ -58,32 +58,28 @@ fancy_echo "Installing cheatsheet...
 fancy_echo "Installing dash...
 ======================================
 "
-  brew_cask_install_or_upgrade 'dash'
+ # brew_cask_install_or_upgrade 'dash'
 
 fancy_echo "Installing dropbox...
 ======================================
 "
-  brew_cask_install_or_upgrade 'dropbox'
+ # brew_cask_install_or_upgrade 'dropbox'
 
 fancy_echo "Installing evernote...
 ======================================
 "
-  brew_cask_install_or_upgrade 'evernote'
+ # brew_cask_install_or_upgrade 'evernote'
 
 fancy_echo "Installing firefox...
 ======================================
 "
-  brew_cask_install_or_upgrade 'firefox'
+ # brew_cask_install_or_upgrade 'firefox'
 
 fancy_echo "Installing fluid...
 ======================================
 "
-  brew_cask_install_or_upgrade 'fluid'
+ # brew_cask_install_or_upgrade 'fluid'
 
-fancy_echo "Installing firefox...
-======================================
-"
-  brew_cask_install_or_upgrade 'firefox'
 
 fancy_echo "Installing github...
 ======================================
@@ -93,18 +89,15 @@ fancy_echo "Installing github...
 fancy_echo "Installing google-chrome...
 ======================================
 "
-  brew_cask_install_or_upgrade 'google-chrome'
+#  brew_cask_install_or_upgrade 'google-chrome'
 
 fancy_echo "Installing mou...
 ======================================
 "
-  brew_cask_install_or_upgrade 'mou'
+#  brew_cask_install_or_upgrade 'mou'
 
-fancy_echo "Installing Quicklook...
-======================================
-"
 
-fancy_echo ""Installing Quicklook plugins...
+fancy_echo "Installing Quicklook plugins...
 ======================================
 "
 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
@@ -112,7 +105,7 @@ brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch 
 fancy_echo "Installing skype...
 ======================================
 "
-  brew_cask_install_or_upgrade 'skype'
+ # brew_cask_install_or_upgrade 'skype'
 
 fancy_echo "Installing sublime-text3...
 ======================================
@@ -122,7 +115,7 @@ fancy_echo "Installing sublime-text3...
 fancy_echo "Installing tunnelblick...
 ======================================
 "
-  brew_cask_install_or_upgrade 'tunnelblick'
+  #brew_cask_install_or_upgrade 'tunnelblick'
 
 
 ###############################################################################
