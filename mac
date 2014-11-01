@@ -347,14 +347,15 @@ fancy_echo "Installing Ruby $ruby_version w/ rbenv...
 =============================="
   rbenv install -s "$ruby_version"
 
-fancy_echo "sourcing your shell, one sec please ...
-=============================="
-  source ~/.zshrc
+#fancy_echo "sourcing your shell, one sec please ...
+#=============================="
+#  source ~/.zshrc
 
 fancy_echo "Setting $ruby_version as global default Ruby ...
 =============================="
   rbenv global "$ruby_version"
   echo 'eval "$(rbenv init - )"' >> ~/.bash_profile
+  echo 'eval "$(rbenv init - )"' >> ~/.zshrc
   rbenv rehash
   echo "ruby version: " ruby -v
 
@@ -423,10 +424,9 @@ touch ~/.secrets
 fancy_echo "beautifying your awesome zsh shell for you...
 ==============================
 
-
-fancy_echo "setting agnoster theme...
-=============================="
-prompt agnoster
+#fancy_echo "setting agnoster theme...
+#=============================="
+#prompt agnoster
 
 fancy_echo "
 ==============================
