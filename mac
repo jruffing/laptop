@@ -239,13 +239,13 @@ if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
       #ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       brew install zsh
     fi
-
-    fancy_echo "now changing your shell to /usr/local/bin/zsh ..."
-      grep '/usr/local/bin/zsh' /etc/shells >/dev/null || echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells >/dev/null
-      #sudo dscl . change /users/$USER UserShell /bin/bash /usr/local/bin/zsh
-      sudo chsh -s /usr/local/bin/zsh $USER 2>/dev/null
-      #exec zsh
 fi
+
+ fancy_echo "now changing your shell to /usr/local/bin/zsh ..."
+  grep '/usr/local/bin/zsh' /etc/shells >/dev/null || echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells >/dev/null
+  #sudo dscl . change /users/$USER UserShell /bin/bash /usr/local/bin/zsh
+  sudo chsh -s /usr/local/bin/zsh $USER 2>/dev/null
+  #exec zsh
 
 
 fancy_echo "
