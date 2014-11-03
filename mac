@@ -13,7 +13,7 @@
 #set -e
 
 # exits the script if you try to use an uninitialised variable (extra safety for performing rm -rf commands)
-set -u
+#set -u
 
 
 fancy_echo() {
