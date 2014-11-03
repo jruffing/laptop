@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -x
 #
 # credits:
 #   - largely lifted from the thoughtbot laptop script: https://github.com/thoughtbot/laptop
@@ -7,7 +7,11 @@
 # into an awesome development machine.
 #
 
+# Might as well ask for password up-front, right?
+sudo -v
 
+# Keep-alive: update existing sudo time stamp if set, otherwise do nothing.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # tells bash to exit if any statement returns a non-true return value
 #set -e
@@ -229,14 +233,18 @@ fi
 append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
 if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
-  fancy_echo "Changing your shell to homebrew zsh..."
+  fancy_echo "homebrew zsh (/usr/local/bin/zsh) is not your current shell..."
     if [ ! -e /usr/local/bin/zsh ]; then
+      fancy_echo "installing zsh via homebrew..."
       #ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       brew install zsh
     fi
-    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
-    chsh -s "/usr/local/bin/zsh"
-    #exec zsh
+
+    fancy_echo "now changing your shell to /usr/local/bin/zsh ..."
+      grep '/usr/local/bin/zsh' /etc/shells >/dev/null || echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells >/dev/null
+      sudo dscl . change /users/$USER UserShell /bin/bash /usr/local/bin/zsh
+      sudo chsh -s /usr/local/bin/zsh $USER 2>/dev/null
+      #exec zsh
 fi
 
 
@@ -596,8 +604,8 @@ fancy_echo "update to latest bash shell to avoid future shellshock type of issue
 fancy_echo "installing antigen plugin manager for zsh – a small set of functions that help you easily manage your shell (zsh) plugins: https://github.com/zsh-users/antigen...
 ======================================"
 
-  curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > ~/.antigen/antigen.zsh
-  source ~/.antigen/antigen.zsh
+  curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "${HOME}"/.antigen/antigen.zsh
+  source "${HOME}"/.antigen/antigen.zsh
 
 
 fancy_echo "beautifying your zsh shell for you...
