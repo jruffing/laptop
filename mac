@@ -247,29 +247,20 @@ fancy_echo "
 "
 
 
+
 fancy_echo "
 ###############################################################################
 # cloud utils                                                                 #
 ###############################################################################
 "
+
 fancy_echo "installing AWS CLI utils...
 ======================================"
 
-  # retrieves list of amazon tools to install
-  #grep -l AmazonWebServicesFormula /usr/local/Library/Formula/*.rb | awk -F/ '{sub(/.rb$/,""); print "brew install- " $NF}'
+  brew_install_or_upgrade 'awscli'
 
-   brew_install_or_upgrade 'awscli'
-   brew_install_or_upgrade 'auto-scaling'
-   brew_install_or_upgrade 'aws-cfn-tools'
-   brew_install_or_upgrade 'aws-elasticache'
-   brew_install_or_upgrade 'aws-elasticbeanstalk'
-   brew_install_or_upgrade 'aws-iam-tools'
-   brew_install_or_upgrade 'aws-sns-cli'
-   brew_install_or_upgrade 'cloud-watch'
-   brew_install_or_upgrade 'ec2-ami-tools'
-   brew_install_or_upgrade 'ec2-api-tools'
-   brew_install_or_upgrade 'elb-tools'
-   brew_install_or_upgrade 'rds-command-line-tools'
+  # retrieves list of other amazon tools to install
+  grep -l AmazonWebServicesFormula /usr/local/Library/Formula/*.rb | awk -F/ '{sub(/.rb$/,""); print "brew_install_or_upgrade " '$NF'}'
 
 
 fancy_echo "
