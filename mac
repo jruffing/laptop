@@ -16,16 +16,14 @@
 set -u
 
 
-fancy_echo() {
-  printf "\n%b\n" "$1"
-}
+
 
 ###############################################################################
 # prerequisites check                                                      #
 ###############################################################################
 
 fancy_echo "install xcode command line tools...
-=============================="
+======================================"
 
   xcode-select -p
 
@@ -35,7 +33,7 @@ fancy_echo "install xcode command line tools...
 
 
 fancy_echo "a full installation of Xcode.app is required – installing just the command line tools is not sufficient...
-=============================="
+======================================"
 
   # TODO: find a way to install Xcode.app automatically
   # See: http://stackoverflow.com/a/18244349
@@ -43,7 +41,7 @@ fancy_echo "a full installation of Xcode.app is required – installing just the
   xcodebuild -version
 
   fancy_echo "accepting the Xcode license for you...
-  =============================="
+  ======================================"
 
   if [[ $? -ne 0 ]]; then
     sudo xcodebuild -license
@@ -51,7 +49,7 @@ fancy_echo "a full installation of Xcode.app is required – installing just the
 
 
 fancy_echo "updating all of the OS X packages – get you up to date with Apple...
-=============================="
+======================================"
 
   sudo softwareupdate -i -a
 
@@ -105,80 +103,6 @@ if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
     #exec zsh
 fi
 
-###############################################################################
-# brew & cask helper utils                                                    #
-###############################################################################
-
-# brew helper utils
-# ==============================
-
-brew_install_or_upgrade() {
-  if brew_is_installed "$1"; then
-    if brew_is_upgradable "$1"; then
-      brew upgrade "$@"
-    fi
-  else
-    brew install "$@"
-  fi
-}
-
-brew_is_installed() {
-  local NAME=$(brew_expand_alias "$1")
-
-  brew list -1 | grep -Fqx "$NAME"
-}
-
-brew_is_upgradable() {
-  local NAME=$(brew_expand_alias "$1")
-
-  brew outdated --quiet "$NAME" >/dev/null
-  [[ $? -ne 0 ]]
-}
-
-brew_expand_alias() {
-  brew info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
-}
-
-brew_launchctl_restart() {
-  local NAME=$(brew_expand_alias "$1")
-  local DOMAIN="homebrew.mxcl.$NAME"
-  local PLIST="$DOMAIN.plist"
-
-  mkdir -p ~/Library/LaunchAgents
-  ln -sfv /usr/local/opt/$NAME/$PLIST ~/Library/LaunchAgents
-
-  if launchctl list | grep -q $DOMAIN; then
-    launchctl unload ~/Library/LaunchAgents/$PLIST >/dev/null
-  fi
-  launchctl load ~/Library/LaunchAgents/$PLIST >/dev/null
-}
-
-
-# cask helper utils
-# ==============================
-
-brew_cask_expand_alias() {
-  brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
-}
-
-brew_cask_is_installed() {
-  local NAME=$(brew_cask_expand_alias "$1")
-  brew cask list -1 | grep -Fqx "$NAME"
-}
-
-brew_cask_install() {
-  if ! brew_cask_is_installed "$1"; then
-    brew cask install "$@"
-  fi
-}
-
-brew_cask_install_or_upgrade() {
-  if brew_cask_is_installed "$1"; then
-    echo "$1 is already installed, brew cask upgrade is not yet implemented"
-  else
-    brew cask install "$@"
-  fi
-}
 
 fancy_echo "
 ###############################################################################
@@ -189,7 +113,7 @@ fancy_echo "
 if ! command -v brew >/dev/null; then
 
   fancy_echo "what's up homebrew? installing the missing package manager for OS X: http://brew.sh/ ...
-  =============================="
+  ======================================"
 
     if [[ -d "$(brew --prefix)/Cellar" ]]; then
       fancy_echo "ruh roh astro – cleaning up a previously failed homebrew install :O(..."
@@ -207,20 +131,20 @@ else
 fi
 
 
-fancy_echo "check the homebrew installation and make sure everything is ok...
-=============================="
+fancy_echo "checking the homebrew installation and make sure everything is ok...
+======================================"
 
   brew doctor
 
 
 fancy_echo "updating homebrew formulas ...
-=============================="
+======================================"
 
   brew update
 
 
 fancy_echo "upgrade all homebrew packages ...
-=============================="
+======================================"
 
   brew upgrade
 
@@ -235,14 +159,10 @@ brew tap caskroom/fonts
 
 
 fancy_echo "installing cask for homebrew – extends Homebrew and brings its elegance, simplicity, and speed to OS X applications and large binaries alike: http://caskroom.io/....
-=============================="
+======================================"
 
   brew_install_or_upgrade 'caskroom/cask/brew-cask'
 
-fancy_echo "...
-=============================="
-
-  brew doctor
 
 fancy_echo "
 ###############################################################################
@@ -257,7 +177,7 @@ fancy_echo "
 ###############################################################################
 
 fancy_echo "installing AWS CLI utils...
-=============================="
+======================================"
 
   # retrieves list of amazon tools to install
   #grep -l AmazonWebServicesFormula /usr/local/Library/Formula/*.rb | awk -F/ '{sub(/.rb$/,""); print "brew install- " $NF}'
@@ -283,13 +203,13 @@ fancy_echo "
 "
 
 fancy_echo "Git your updated git on...
-=============================="
+======================================"
 
   brew_install_or_upgrade 'git'
 
 
 fancy_echo "installing GitHub CLI client...
-=============================="
+======================================"
 
   brew_install_or_upgrade 'gh'
 
@@ -303,42 +223,42 @@ fancy_echo "
 fancy_echo "giving you a java dev env"
 
 fancy_echo "installing java 7 jdk...
-=============================="
+======================================"
 
 #  brew cask install caskroom/versions/java7
 
 fancy_echo "installing java 8 jdk...
-=============================="
+======================================"
 
 #  brew_cask_install_or_upgrade 'java'
 
 
 fancy_echo "installing maven...
-=============================="
+======================================"
 
   brew_install_or_upgrade 'maven'
 
 
 fancy_echo "installing ant...
-=============================="
+======================================"
 
 #  brew_install_or_upgrade 'ant'
 
 
 fancy_echo "installing gradle...
-=============================="
+======================================"
 
 #  brew_install_or_upgrade 'gradle'
 
 
 fancy_echo "installing intellij-idea-ce...
-=============================="
+======================================"
 
 #  brew_cask_install_or_upgrade 'intellij-idea-ce'
 
 
 fancy_echo "finished with your java dev env...go to java town
-=============================="
+======================================"
 
 
 fancy_echo "
@@ -350,20 +270,20 @@ fancy_echo "
 fancy_echo "giving you a python dev env..."
 
 fancy_echo "installing python...
-=============================="
+======================================"
 
   brew_install_or_upgrade 'python'
   brew link --overwrite python
 
 
 fancy_echo "installing pyenv-virtualenv...
-=============================="
+======================================"
 
   brew_install_or_upgrade 'pyenv-virtualenv'
 
 
 fancy_echo "installing pycharm-ce ...
-=============================="
+======================================"
 
 #  brew_cask_install_or_upgrade 'pycharm-ce'
 
@@ -379,31 +299,31 @@ fancy_echo "giving you some virtual env love..."
 
 
 fancy_echo "installing boot2docker ...
-=============================="
+======================================"
 
 #  brew_install_or_upgrade 'boot2docker'
 
 
 fancy_echo "installing vagrant ...
-=============================="
+======================================"
 
 #  brew_cask_install_or_upgrade 'vagrant'
 
 
 fancy_echo "installing vagrant-manager ...
-=============================="
+======================================"
 
 #  brew_cask_install_or_upgrade 'vagrant-manager'
 
 
 fancy_echo "installing virtualbox ...
-=============================="
+======================================"
 
 #  brew_cask_install_or_upgrade 'virtualbox'
 
 
 fancy_echo "install and update vagrant plugins ...
-=============================="
+======================================"
 
   #vagrant plugin install vagrant-salt
   #vagrant plugin install vagrant-lxc
@@ -418,19 +338,19 @@ fancy_echo "
 "
 
 fancy_echo "giving you a nodejs dev env ...
-=============================="
+======================================"
 
   node_version="0.10.33"
 
 
 fancy_echo "installing NVM, Node.js, and NPM, for running apps and installing JavaScript packages ...
-=============================="
+======================================"
 
   brew_install_or_upgrade 'nvm'
 
 
 fancy_echo "installing node :http://nodejs.org/ a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices....
-=============================="
+======================================"
 
   brew_install_or_upgrade 'node'
 
@@ -440,19 +360,19 @@ fancy_echo "installing node :http://nodejs.org/ a platform built on Chrome's Jav
 
 
 fancy_echo "installing mocha - a simple, flexible, fun javascript test framework for node.js & the browser. (BDD, TDD, QUnit styles via interfaces): http://mochajs.org ...
-=============================="
+======================================"
 
   npm install -g mocha
 
 
 fancy_echo "installing grunt - the javascript task runner: http://gruntjs.com/ ...
-=============================="
+======================================"
 
   npm install -g grunt-cli
 
 
 fancy_echo "installing yeoman - the web's scaffolding tool for modern webapps: http://yeoman.io/ ...
-=============================="
+======================================"
 
   npm install -g yeoman
 
@@ -463,7 +383,7 @@ fancy_echo "installing yeoman - the web's scaffolding tool for modern webapps: h
   nvm install "$node_version"
 
   fancy_echo "Setting $node_version as the global default nodejs...
-  =============================="
+  ======================================"
   nvm alias default "$node_version"
 
 fancy_echo "finished with your nodejs dev env...go to node town"
@@ -476,7 +396,7 @@ fancy_echo "
 "
 
 fancy_echo "installing RVM for you ...
-=============================="
+======================================"
 #\curl -L https://get.rvm.io | bash -s stable --ruby --autolibs=enable
 
 if [[ ! -d "$HOME/.rbenv" ]]; then
@@ -508,7 +428,7 @@ fi
 
 
 fancy_echo "updating openssl. don't want your heart to bleed...
-=============================="
+======================================"
 
   brew_install_or_upgrade 'openssl'
 
@@ -518,18 +438,18 @@ fancy_echo "updating openssl. don't want your heart to bleed...
 
 
 fancy_echo "installing Ruby $ruby_version w/ rbenv...
-=============================="
+======================================"
 
   rbenv install -s "$ruby_version"
 
 
 #fancy_echo "sourcing your shell, one sec please ...
-#=============================="
+#======================================"
 #source ~/.zshrc
 
 
 fancy_echo "Setting $ruby_version as global default Ruby ...
-=============================="
+======================================"
 
   rbenv global "$ruby_version"
 
@@ -543,31 +463,31 @@ fancy_echo "Setting $ruby_version as global default Ruby ...
 
 
 fancy_echo "Updating to latest Rubygems version...
-=============================="
+======================================"
 
   gem update --system
 
 
 fancy_echo "installing cocoapods for iOS dev...
-=============================="
+======================================"
 
   gem install cocoapods
 
 
 #fancy_echo "installing tmuxinator...
-#=============================="
+#======================================"
 
   #gem install tmuxinator
 
 
 fancy_echo "installing Bundler to install project-specific Ruby gems...
-=============================="
+======================================"
 
   gem install bundler --no-document --pre
 
 
 fancy_echo "Configuring Bundler for faster, parallel gem installation...
-=============================="
+======================================"
 
   number_of_cores=$(sysctl -n hw.ncpu)
   bundle config --global jobs $((number_of_cores - 1))
@@ -580,13 +500,13 @@ fancy_echo "
 "
 
 fancy_echo "update to latest bash shell to avoid future shellshock type of issues...
-=============================="
+======================================"
 
   brew_install_or_upgrade 'bash'
 
 
 #fancy_echo "injecting your awesome zsh with steroids...
-#=============================="
+#======================================"
 
   #fancy_echo "installing yadr and its dependencies: https://github.com/skwp/dotfiles"
   #if [ ! -d "$HOME/.yadr" ]; then
@@ -601,14 +521,14 @@ fancy_echo "update to latest bash shell to avoid future shellshock type of issue
 
 
 fancy_echo "installing antigen plugin manager for zsh – a small set of functions that help you easily manage your shell (zsh) plugins: https://github.com/zsh-users/antigen...
-=============================="
+======================================"
 
   curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > ~/.antigen/antigen.zsh
   source ~/.antigen/antigen.zsh
 
 
 fancy_echo "beautifying your zsh shell for you...
-=============================="
+======================================"
 
   #if [ ! -d "$HOME/.zprezto" ]; then
   #  echo "installing prezto for the first time"
@@ -619,33 +539,39 @@ fancy_echo "beautifying your zsh shell for you...
 
 
 #fancy_echo "setting agnoster theme...
-#=============================="
+#======================================"
   #TODO: to be removed...need to set this from dotfiles
   #prompt agnoster
 
 
 fancy_echo "installing adobe source code pro font – a set of OpenType fonts that have been designed to work well in user interface (UI) environments...
-=============================="
+======================================"
 
   brew_cask_install_or_upgrade 'font-source-code-pro'
 
 
 fancy_echo "installing iTerm2 -  provides actual benefits over the OSX terminal like applescript support, auto-completing text, growl support, nice search features, mouseless copy, instant replay, and much more: http://iterm2.com/features.html...
-=============================="
+======================================"
 
   brew_cask_install_or_upgrade 'iterm2'
 
 
 #fancy_echo "installing tmux – to save project state and switch between projects a way to maintain persistent working states on remote servers, allowing you to detach and re-attach at will....
-#=============================="
+======================================"
 
   #brew_install_or_upgrade 'tmux'
 
 
 fancy_echo "installing tree - lists the contents of directories in a tree-like format: http://www.computerhope.com/unix/tree.htm...
-=============================="
+======================================"
 
   brew_install_or_upgrade 'tree'
+  
+
+fancy_echo "  
+#======================================"
+"
+ # brew_install_or_upgrade 'dockutil'
 
 
 fancy_echo "
@@ -655,19 +581,19 @@ fancy_echo "
 "
 
 fancy_echo "installing pt - a minimal client to use Pivotal Tracker from the console"...
-==============================
+#======================================"
 
   gem install pt
 
 
 fancy_echo "installing resty – a little command line REST client that you can use in pipelines(bash or zsh): http://thinkminimo.com ...
-=============================="
+======================================"
 
   curl -L http://github.com/micha/resty/raw/master/resty > resty
 
 
 fancy_echo "installing rcm – to manage your dotfiles...
-=============================="
+======================================"
 if ! command -v rcup >/dev/null; then
     brew tap thoughtbot/formulae
     brew_install_or_upgrade 'rcm'
@@ -677,7 +603,7 @@ fi
 
 
 fancy_echo "cleaning things up...
-==============================="
+======================================="
 
   brew linkapps
   brew cleanup
@@ -686,7 +612,7 @@ fancy_echo "cleaning things up...
 
 
 fancy_echo "installing your project additions from ~/.shield_streams.local...
-================================"
+========================================"
 
   if [[ -f ~/.shield_streams.local ]]; then
     source ~/.shield_streams.local
@@ -694,7 +620,7 @@ fancy_echo "installing your project additions from ~/.shield_streams.local...
 
 
 fancy_echo "installing your personal additions from ~/.laptop.local...
-================================"
+========================================"
 
   if [[ -f ~/.laptop.local ]]; then
     source ~/.laptop.local
