@@ -534,7 +534,7 @@ fancy_echo "Setting $ruby_version as global default Ruby ...
 
   rbenv global "$ruby_version"
 
-  #echo 'eval "$(rbenv init - )"' >> ~/.bash_profile
+  echo 'eval "$(rbenv init - )"' >> ~/.bash_profile
 
   echo 'eval "$(rbenv init - )"' >> ~/.zshrc
 
