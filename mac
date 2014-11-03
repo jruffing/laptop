@@ -485,12 +485,19 @@ if [[ ! -d "$HOME/.rbenv" ]]; then
     #git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
     brew install rbenv
 
-    append_to_zshrc 'export PATH="$HOME/.rbenv/bin:$PATH"'
-    append_to_zshrc 'eval "$(rbenv init - zsh --no-rehash)"' 1
 
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-    eval "$(rbenv init - zsh)"
+    # old stuff not working well
+    #append_to_zshrc 'export PATH="$HOME/.rbenv/bin:$PATH"'
+    #append_to_zshrc 'eval "$(rbenv init - zsh --no-rehash)"' 1
+    #export PATH="$HOME/.rbenv/bin:$PATH"
+    #eval "$(rbenv init -)"
+    #eval "$(rbenv init - zsh)"
+
+    # new stuff trying out
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "${HOME}/.zshenv"
+    echo 'eval "$(rbenv init -)"' >> "${HOME}/.zshenv"
+    echo 'source "${HOME}/.zshenv"' >> "${HOME}/.zshrc"
+    exec $SHELL
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
