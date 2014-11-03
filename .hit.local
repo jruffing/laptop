@@ -1,31 +1,7 @@
 #!/usr/bin/env bash
 
-fancy_echo() {
-  printf "\n%b\n" "$1"
-}
-
-brew_cask_expand_alias() {
-  brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
-}
-
-brew_cask_is_installed() {
-  local NAME=$(brew_cask_expand_alias "$1")
-  brew cask list -1 | grep -Fqx "$NAME"
-}
-
-brew_cask_install() {
-  if ! brew_cask_is_installed "$1"; then
-    brew cask install "$@"
-  fi
-}
-
-brew_cask_install_or_upgrade() {
-  if brew_cask_is_installed "$1"; then
-    echo "$1 is already installed, brew cask upgrade is not yet implemented"
-  else
-    brew cask install "$@"
-  fi
-}
+# this should be unnecessary
+#source "$HOME/.zsh/functions.zsh"
 
 brew tap caskroom/cask
 brew tap caskroom/versions
@@ -129,17 +105,6 @@ fancy_echo "installing Android SDK...
 
 
 ###############################################################################
-# setup github user info                                                      #
-###############################################################################
-
-# set user git config values
-cd ~
-git config --global user.name "Jay Ruffing"
-git config --global user.email "jay.ruffing@blueshieldca.com"
-git config --global github.user jruffing
-git config --global credential.helper osxkeychain
-
-###############################################################################
 # setup appium dev envt                                                       #
 #                                                                             #
 # see https://github.com/appium/appium/blob/master/docs/en/contributing-to-appium/appium-from-source.md
@@ -168,7 +133,19 @@ node bin/appium-doctor.js --dev --ios
 ./reset.sh --ios --dev
 node .
 
+fancy_echo "
 ###############################################################################
-# putting on finishing touches                                                #
+# putting on the finishing touches                                            #
 ###############################################################################
+"
+fancy_echo "cleaning things up...
+==============================="
+
+  brew linkapps
+  brew cleanup
+  brew prune
+  brew cask cleanup
+
+fancy_echo "setting your shell permanently to zsh...
+==============================="
 exec zsh

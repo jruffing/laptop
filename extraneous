@@ -2,10 +2,10 @@
 # zsh shell stuff                                                             #
 ###############################################################################
 
-fancy_echo "Installing zsh ..."
+fancy_echo "installing zsh ..."
   brew_install_or_upgrade 'zsh'
 
-fancy_echo "Installing zsh ..."
+fancy_echo "installing zsh ..."
   brew_install_or_upgrade 'zsh-completions'
 
 #install oh-my-zsh
