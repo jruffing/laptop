@@ -241,10 +241,12 @@ if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
     fi
 fi
 
+ fancy_echo "your current shell: " $SHELL "changing it here in a sec..."
  fancy_echo "now changing your shell to /usr/local/bin/zsh ..."
   grep '/usr/local/bin/zsh' /etc/shells >/dev/null || echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells >/dev/null
   #sudo dscl . change /users/$USER UserShell /bin/bash /usr/local/bin/zsh
   sudo chsh -s /usr/local/bin/zsh $USER 2>/dev/null
+  fancy_echo "your current shell: " $SHELL
   #exec zsh
 
 
@@ -467,7 +469,7 @@ fancy_echo "installing mocha - a simple, flexible, fun javascript test framework
   ======================================"
   nvm alias default "$node_version"
 
-fancy_echo "finished with your nodejs dev env...go to node town"
+fancy_echo "finished with your node.js dev env...go to node town"
 
 
 fancy_echo "
@@ -541,9 +543,7 @@ fancy_echo "Setting $ruby_version as global default Ruby ...
 
   rbenv global "$ruby_version"
 
-  echo 'eval "$(rbenv init - )"' >> ~/.bash_profile
-
-  echo 'eval "$(rbenv init - )"' >> ~/.zshrc
+  echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
 
   rbenv rehash
 
