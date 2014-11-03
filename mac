@@ -426,10 +426,16 @@ fancy_echo "installing node :http://nodejs.org/ a platform built on Chrome's Jav
 #export PATH="/usr/local/share/npm/bin:$PATH"
 
 
-fancy_echo "installing mocha - a simple, flexible, fun javascript test framework for node.js & the browser. (BDD, TDD, QUnit styles via interfaces): http://mochajs.org ...
+fancy_echo "installing yeoman - the web's scaffolding tool for modern webapps: http://yeoman.io/ ...
 ======================================"
 
-  npm install -g mocha
+  npm install -g yo
+
+
+fancy_echo "installing bower - web sites are made of lots of things...frameworks, libraries, assets, utilities, and rainbows. Bower manages all these things for you: http://bower.io/ ...
+======================================"
+
+  npm install -g bower
 
 
 fancy_echo "installing grunt - the javascript task runner: http://gruntjs.com/ ...
@@ -438,10 +444,10 @@ fancy_echo "installing grunt - the javascript task runner: http://gruntjs.com/ .
   npm install -g grunt-cli
 
 
-fancy_echo "installing yeoman - the web's scaffolding tool for modern webapps: http://yeoman.io/ ...
+fancy_echo "installing mocha - a simple, flexible, fun javascript test framework for node.js & the browser. (BDD, TDD, QUnit styles via interfaces): http://mochajs.org ...
 ======================================"
 
-  npm install -g yeoman
+  npm install -g mocha
 
   #append_to_zshrc 'export PATH="$PATH:/usr/local/lib/node_modules"'
   append_to_zshrc 'source $(brew --prefix nvm)/nvm.sh' 1
