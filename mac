@@ -626,10 +626,25 @@ fancy_echo "beautifying your zsh shell for you...
   #fi
 
 
-#fancy_echo "setting agnoster theme...
-#======================================"
-  #TODO: to be removed...need to set this from dotfiles
-  #prompt agnoster
+fancy_echo "installing fonconfig...
+======================================"
+
+  brew install wget
+
+  brew install fontconfig
+
+
+fancy_echo "installing a few patched Powerline fonts (regular) - moar fonts @ https://github.com/Lokaltog/powerline-fonts...
+======================================"
+  pushd ~/Library/Fonts
+  wget https://github.com/Lokaltog/powerline-fonts/raw/master/SourceCodePro/Sauce%20Code%20Powerline%20Medium.otf
+  wget https://github.com/Lokaltog/powerline-fonts/raw/master/Menlo/Menlo%20Regular%20for%20Powerline.ttf
+  wget https://github.com/Lokaltog/powerline-fonts/raw/master/AnonymousPro/Anonymice%20Powerline.ttf
+  wget https://github.com/Lokaltog/powerline-fonts/raw/master/Meslo/Meslo%20LG%20M%20Regular%20for%20Powerline.otf
+  wget https://github.com/Lokaltog/powerline-fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
+  popd
+
+  fc-cache -frv
 
 
 fancy_echo "installing adobe source code pro font – a set of OpenType fonts that have been designed to work well in user interface (UI) environments...
