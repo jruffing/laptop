@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env bash
 #
 # credits:
 #   - largely lifted from the thoughtbot laptop script: https://github.com/thoughtbot/laptop
@@ -242,7 +242,7 @@ if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
 
     fancy_echo "now changing your shell to /usr/local/bin/zsh ..."
       grep '/usr/local/bin/zsh' /etc/shells >/dev/null || echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells >/dev/null
-      sudo dscl . change /users/$USER UserShell /bin/bash /usr/local/bin/zsh
+      #sudo dscl . change /users/$USER UserShell /bin/bash /usr/local/bin/zsh
       sudo chsh -s /usr/local/bin/zsh $USER 2>/dev/null
       #exec zsh
 fi
