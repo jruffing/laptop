@@ -497,7 +497,7 @@ if [[ ! -d "$HOME/.rbenv" ]]; then
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "${HOME}/.zshenv"
     echo 'eval "$(rbenv init -)"' >> "${HOME}/.zshenv"
     echo 'source "${HOME}/.zshenv"' >> "${HOME}/.zshrc"
-    exec $SHELL
+    #exec $SHELL
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
