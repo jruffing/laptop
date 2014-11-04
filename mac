@@ -138,7 +138,7 @@ fancy_echo "
       announce "Xcode strict checking is on...let's see if you got the goods..."
 
       if [[ -d "/Applications/Xcode.app/Contents/Developer/" ]]; then
-        gecho "Xcode is installed! good job." 
+        gecho "Xcode is installed! good job."
         # sudo "/usr/bin/xcode-select" -switch "/Applications/Xcode.app/Contents/Developer"
 
        else
@@ -171,7 +171,7 @@ fancy_echo "install xcode command line tools...
   xcode-select -p
 
   if [[ $? -ne 0 ]]; then
-    sudo xcode-select --install
+    sudo xcode-select --install accept
   fi
 
 
