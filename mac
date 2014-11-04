@@ -619,7 +619,7 @@ fancy_echo "installing rbenv for you ...
 if [[ ! -d "$HOME/.rbenv" ]]; then
   fancy_echo "installing rbenv, to change Ruby versions ..."
     #git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-    brew install rbenv
+    brew_install_or_upgrade rbenv
 
 
     # old stuff not working well
@@ -637,13 +637,13 @@ fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
   fancy_echo "installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries..."
-    brew install rbenv-gem-rehash
+    brew_install_or_upgrade rbenv rbenv-gem-rehash
 
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
   fancy_echo "installing ruby-build, to install Rubies ..."
-    brew install ruby-build
+    brew_install_or_upgrade rbenv ruby-build
 fi
 
     exec $SHELL
