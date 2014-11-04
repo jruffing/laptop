@@ -14,17 +14,19 @@
 # Set up the environment
 # ======================================
 
-  OS="`uname -s`"
+  OS = "`uname -s`"
   xcode_strict = true
+  ascii_art_test_mode = true
+  source ascii_art
 
 
 # Define some useful functions for installation
 # ======================================
 
-RCol='\033[0m'
-Gre='\033[0;32m'
-Red='\033[0;31m'
-Yel='\033[0;33m'
+  RCol='\033[0m'
+  Gre='\033[0;32m'
+  Red='\033[0;31m'
+  Yel='\033[0;33m'
 
 function gecho {
   echo "${Gre}[message] $1${RCol}"
@@ -94,50 +96,7 @@ function brew_if_missing {
 
 
 
-gandalf() {
-  cat <<"EOT"
-                                     .--.
-                                 ,' |
-                                 '  |
-                               ,'    \
-  __   __                     .'      |
-  \ \ / /__ _  _              '       |
-   \ V / _ \ || |            |        |              -.
-    |_|\___/\_,_|         ___'        |             / |--
-                     _,,-'            '--'''--._    | || |.-'\
-                    /        ..._______         `:. |       ,'
-                   | _,.,---'|         `.`^`--..   '.      /
- ___ _         _ _ `'      | | <o>   <o> | |    ``''`     /
-/ __| |_  __ _| | |      .' ,;      \    |  \      |     /
-\__ \ ' \/ _` | | |     /    \    (__)   /   `.    |    |
-|___/_||_\__,_|_|_|  ,-'      | ________       \   ;    |
-                    |         )/ _.--.__ \     /  /    /
-                     `-._   ,./_/ `--'  \_\   /   |__ /
-    _  _     _           '.'|              | '  ,'   `
-   | \| |___| |_            |              |    (      \
-   | .` / _ \  _|            |             |    (       \
-   |_|\_\___/\__|             \            |    '`.._   /
-                              |            |    /  / `./
-                              \           /    |   |fsr
-   ___                         `|        |     |  /
-  | _ \__ _ ______              |       /      /  |
-  |  _/ _` (_-<_-<              \   _.-`      |  /
-  |_| \__,_/__/__/               \./          |  |
-                                              /  /
-                                             |   |
-                                             /  /
-                                            /   |
-                                            |  |
-                                           /   /
-                                           |  .'
-                                           |  |
-                                          |  .'
-                                          '  |
-                                          | |
-                                         /  /
-                                        |_,'
-EOT
-}
+
 
 
 
@@ -147,6 +106,10 @@ fancy_echo "
 # prerequisites check                                                         #
 ###############################################################################
 "
+
+  if [ $ascii_art_test_mode == true ]; then
+    fancy_echo xcode
+  fi                           
 
   if [[ "$OS" == "Darwin" ]]; then
     gecho "OS = $OS...congrats you've got a mac!"
@@ -410,22 +373,11 @@ fancy_echo "
 # text editor                                                                 #
 ###############################################################################
 "
-
-
-
-fancy_echo "
-###############################################################################
-# cloud utils                                                                 #
-###############################################################################
-"
-
-fancy_echo "installing AWS CLI utils...
-======================================"
-
-  brew_install_or_upgrade 'awscli'
-
-  # retrieves list of other amazon tools to install
-  grep -l AmazonWebServicesFormula /usr/local/Library/Formula/*.rb | awk -F/ '{sub(/.rb$/,""); print "brew_install_or_upgrade " '$NF'}'
+  
+  fancy_echo "installing sublime-text3: the text editor you'll fall in love with...
+  http://www.sublimetext.com/
+  ======================================"
+  brew_cask_install_or_upgrade 'sublime-text3'
 
 
 fancy_echo "
@@ -718,12 +670,6 @@ fancy_echo "installing cocoapods for iOS dev...
   gem install cocoapods
 
 
-#fancy_echo "installing tmuxinator...
-#======================================"
-
-  #gem install tmuxinator
-
-
 fancy_echo "installing Bundler to install project-specific Ruby gems...
 ======================================"
 
@@ -735,6 +681,22 @@ fancy_echo "Configuring Bundler for faster, parallel gem installation...
 
   number_of_cores=$(sysctl -n hw.ncpu)
   bundle config --global jobs $((number_of_cores - 1))
+
+
+
+fancy_echo "
+###############################################################################
+# cloud utils                                                                 #
+###############################################################################
+"
+
+fancy_echo "installing AWS CLI utils...
+======================================"
+
+  brew_install_or_upgrade 'awscli'
+
+  # retrieves list of other amazon tools to install
+  grep -l AmazonWebServicesFormula /usr/local/Library/Formula/*.rb | awk -F/ '{sub(/.rb$/,""); print "brew_install_or_upgrade " '$NF'}'
 
 
 fancy_echo "
@@ -749,48 +711,29 @@ fancy_echo "update to latest bash shell to avoid future shellshock type of issue
   brew_install_or_upgrade 'bash'
 
 
+cat <<"REPLACEDBYPREZTO"
 #fancy_echo "injecting your awesome zsh with steroids...
 #======================================"
 
-  #fancy_echo "installing yadr and its dependencies: https://github.com/skwp/dotfiles"
-  #if [ ! -d "$HOME/.yadr" ]; then
-  #  echo "installing YADR for the first time"
-  #  git clone https://github.com/skwp/dotfiles.git "$HOME/.yadr"
-  #  cd "$HOME/.yadr"
-  #[ "$1" = "ask" ] && export ASK="false"
-  #rake install
-  #else
-  #  echo "YADR is already installed"
-  #fi
-
-
-#fancy_echo "installing antigen plugin manager for zsh – a small set of functions that help you easily manage your shell (zsh) plugins: https://github.com/zsh-users/antigen...
-#======================================"
-#
-# curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "${HOME}"/.antigen/antigen.zsh
-# source "${HOME}"/.antigen/antigen.zsh
-#
-
-fancy_echo "beautifying your zsh shell for you...
-======================================"
-
-  if [ ! -d "$HOME/.zprezto" ]; then
-    echo "installing prezto for the first time"
-    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  fancy_echo "installing yadr and its dependencies: https://github.com/skwp/dotfiles"
+  if [ ! -d "$HOME/.yadr" ]; then
+    echo "installing YADR for the first time"
+    git clone https://github.com/skwp/dotfiles.git "$HOME/.yadr"
+    cd "$HOME/.yadr"
+  [ "$1" = "ask" ] && export ASK="false"
+  rake install
   else
-    echo "prezto is already installed"
+    echo "YADR is already installed"
   fi
 
 
-  fancy_echo "installing Pure prompt – a pretty, minimal and fast ZSH prompt: https://github.com/sindresorhus/pure ...
-  ======================================"
-  npm install -g pure-prompt
+fancy_echo "installing antigen plugin manager for zsh – a small set of functions that help you easily manage your shell (zsh) plugins: https://github.com/zsh-users/antigen...
+======================================"
 
-  fancy_echo "linking the prompt to ZSH...
-  ======================================"
-  sym_link_create_or_update "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
+ curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "${HOME}"/.antigen/antigen.zsh
+ source "${HOME}"/.antigen/antigen.zsh
 
-<<"COMMENT"
+
 fancy_echo "installing fontconfig...
 ======================================"
 
@@ -817,39 +760,89 @@ fancy_echo "installing adobe source code pro font – a set of OpenType fonts th
 
   brew_cask_install_or_upgrade 'font-source-code-pro'
 
-COMMENT
 
-fancy_echo "moar fonts please! installing Powerline patched fonts to make your shell look purdy: https://github.com/Lokaltog/powerline-fonts ...
+REPLACEDBYPREZTO
+
+
+fancy_echo "beautifying your zsh shell for you...
 ======================================"
 
-  # Original idea : https://coderwall.com/p/dmhp5q
-  pip install https://github.com/Lokaltog/powerline/tarball/develop
-  #Original Idea : http://superuser.com/questions/120700/how-do-i-programatically-install-a-font-on-a-macintosh
-  cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && git clone https://github.com/Lokaltog/powerline-fonts && find -E `pwd`/powerline-fonts -iregex '.*\.(otf|ttf)' -print0 | xargs -0 -I {} cp -v {} ~/Library/Fonts
-  cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && curl -O -L https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf && mv -v PowerlineSymbols.otf ~/Library/Fonts
-  fancy_echo "change shell's font to source code pro for your zsh theme"
+  if [ ! -d "$HOME/.zprezto" ]; then
+    echo "installing prezto for the first time"
+    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  else
+    echo "prezto is already installed"
+  fi
 
 
+  fancy_echo "installing Pure prompt – a pretty, minimal and fast ZSH prompt:
+  https://github.com/sindresorhus/pure ...
+  ======================================"
+  npm install -g pure-prompt
 
-fancy_echo "installing iTerm2 - provides actual benefits over the OSX terminal like applescript support, auto-completing text, growl support, nice search features, mouseless copy, instant replay, and much more: http://iterm2.com/features.html...
+  fancy_echo "linking the prompt to ZSH...
+  ======================================"
+  sym_link_create_or_update "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
+
+
+  fancy_echo "moar fonts please! installing Powerline patched fonts to make your shell look all kindsa purdy:
+  https://github.com/Lokaltog/powerline-fonts ...
+  ======================================"
+
+    # Original idea : https://coderwall.com/p/dmhp5q
+    pip install https://github.com/Lokaltog/powerline/tarball/develop
+    #Original Idea : http://superuser.com/questions/120700/how-do-i-programatically-install-a-font-on-a-macintosh
+    cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && git clone https://github.com/Lokaltog/powerline-fonts && find -E `pwd`/powerline-fonts -iregex '.*\.(otf|ttf)' -print0 | xargs -0 -I {} cp -v {} ~/Library/Fonts
+    cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && curl -O -L https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf && mv -v PowerlineSymbols.otf ~/Library/Fonts
+    fancy_echo "change shell's font to source code pro for your zsh theme"
+
+
+fancy_echo "installing iTerm2 - provides actual benefits over the OSX terminal like applescript support,
+auto-completing text, growl support, nice search features, mouseless copy, instant replay, and much more...
+http://iterm2.com/features.html
 ======================================"
 
   brew_cask_install_or_upgrade 'iterm2'
 
 
-fancy_echo "installing tmux – to save project state and switch between projects a way to maintain persistent working states on remote servers, allowing you to detach and re-attach at will....
+fancy_echo "installing tmux – a terminal multiplexer:
+(to save project state and switch between projects a way to maintain persistent working states on remote servers,
+allowing you to detach and re-attach at will)
+http://tmux.sourceforge.net/
 ======================================"
 
   brew_install_or_upgrade 'tmux'
 
 
-fancy_echo "installing tree - lists the contents of directories in a tree-like format: http://www.computerhope.com/unix/tree.htm...
+fancy_echo "installing tmuxinator – Create and manage tmux sessions easily...
+https://github.com/tmuxinator/tmuxinator
+======================================"
+
+  gem install tmuxinator
+
+
+fancy_echo "installing tree - lists the contents of directories in a tree-like format...
+http://www.computerhope.com/unix/tree.htm
 ======================================"
 
   brew_install_or_upgrade 'tree'
   
 
-fancy_echo "install dockutil – a python utility for managing the Mac OS X dock: https://github.com/kcrawford/dockutil
+fancy_echo "installing ack...
+======================================
+"
+  brew_cask_install_or_upgrade 'ack'
+
+
+fancy_echo "installing cheat – allows you to create and view interactive cheatsheets on the command-line...
+https://github.com/chrisallenlane/cheat 
+======================================
+"
+  brew_cask_install_or_upgrade 'cheat'
+
+
+fancy_echo "install dockutil – a python utility for managing the Mac OS X dock...
+https://github.com/kcrawford/dockutil
 ======================================"
 
  # brew_install_or_upgrade 'dockutil'
@@ -886,7 +879,7 @@ fi
 #TODO - commit & document to Github!
 #TODO - polish - webex and other useful things
 #TODO - alfred: workflows? (requires license), link cask-installed apps from ~/Applications to /Applications and put in dock w/ dockutil
-#TODO - dockutil
+#TODO - tweak & config dockutil script
 #TODO - pt (cmd line)
 #TODO - tunnelblick vpn config
 #TODO - docker, vagrant, and salt
