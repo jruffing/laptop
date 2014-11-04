@@ -67,7 +67,7 @@ function clone_or_update {
   fi
 }
 
-function soft_link_create_or_update {
+function soft_link_create_or_update(file_to_link, sym_link) {
 
     local file=$1
     local sym=$2
@@ -79,7 +79,7 @@ function soft_link_create_or_update {
           mv $1 $1.$now
           rm $2
           ln -s $1.$now $2
-          fancy_echo "$1 moved to $1.$now and symbolic link to $2 reestablished"
+          fancy_echo "$1 moved to $1.$now and symbolic link to $2 re-established"
     fi
 }
 
