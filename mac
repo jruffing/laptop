@@ -2,31 +2,161 @@
 #
 # credits:
 #   - largely lifted from the thoughtbot laptop script: https://github.com/thoughtbot/laptop
-#   -
-# be prepared to turn your laptop (or desktop, no haters here)
-# into an awesome development machine.
+#   - https://github.com/alexmchale/shell-files/blob/master/install.sh
+#   - https://github.com/vsbuffalo/dotfiles/blob/master/setup.sh
+#   - https://groups.google.com/forum/#!topic/alt.ascii-art/6wizj1sEC6s
+#   - # ~/.osx — https://mths.be/osx
+#
+# turn your laptop into an awesome development machine!
 #
 
-# Might as well ask for password up-front, right?
-sudo -v
 
-# Keep-alive: update existing sudo time stamp if set, otherwise do nothing.
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+# Set up the environment
+# ======================================
 
-# tells bash to exit if any statement returns a non-true return value
-#set -e
+  OS="`uname -s`"
+  xcode_strict = true
 
-# exits the script if you try to use an uninitialised variable (extra safety for performing rm -rf commands)
-#set -u
+
+# Define some useful functions for installation
+# ======================================
+
+RCol='\033[0m'
+Gre='\033[0;32m'
+Red='\033[0;31m'
+Yel='\033[0;33m'
+
+function gecho {
+  echo "${Gre}[message] $1${RCol}"
+}
+
+function yecho {
+  echo "${Yel}[warning] $1${RCol}"
+}
+
+function recho {
+  echo "${Red}[error] $1${RCol}"
+  exit 1
+}
 
 
 fancy_echo() {
   printf "\n%b\n" "$1"
 }
 
+function announce {
+  echo
+  echo
+  echo "====> $1"
+  echo
+}
+
+function clone_or_update {
+
+  local name=$1
+  local repository=$2
+
+  if [ ! -d $name ]; then
+    git clone $repository $name
+  else
+    cd $name
+    git reset --hard
+    git clean -df
+    git pull --rebase origin master
+    cd ..
+  fi
+}
+
+function brew_if_missing {
+  if [ -d "/usr/local/Cellar/$1" ]; then
+    echo "..... $1 is already installed"
+  else
+    brew install "$1"
+  fi
+}
+
+
+fancy_echo "
 ###############################################################################
-# prerequisites check                                                      #
+# prerequisites check                                                         #
 ###############################################################################
+"
+
+  if [ "$OS" = "Darwin"]; then
+    gecho "OS is $OS. congrats you've got a mac!"
+
+    if [ $xcode_strict == true ]; then
+      announce "Xcode strict checking is on...let's see if you got the goods..."
+
+      if [ -d /Applications/Xcode.app ]; then
+        gecho "Xcode is installed! good job."
+        # sudo "/usr/bin/xcode-select" -switch "/Applications/Xcode.app/Contents/Developer"
+
+       else
+          recho "
+
+                                     .--.
+                                 ,' |
+                                 '  |
+                               ,'    \
+  __   __                     .'      |
+  \ \ / /__ _  _              '       |
+   \ V / _ \ || |            |        |              -.
+    |_|\___/\_,_|         ___'        |             / |--
+                     _,,-'            '--'''--._    | || |.-'\
+                    /        ..._______         `:. |       ,'
+                   | _,.,---'|         `.`^`--..   '.      /
+ ___ _         _ _ `'      | | <o>   <o> | |    ``''`     /
+/ __| |_  __ _| | |      .' ,;      \    |  \      |     /
+\__ \ ' \/ _` | | |     /    \    (__)   /   `.    |    |
+|___/_||_\__,_|_|_|  ,-'      | ________       \   ;    |
+                    |         )/ _.--.__ \     /  /    /
+                     `-._   ,./_/ `--'  \_\   /   |__ /
+    _  _     _           '.'|              | '  ,'   `
+   | \| |___| |_            |              |    (      \
+   | .` / _ \  _|            |             |    (       \
+   |_|\_\___/\__|             \            |    '`.._   /
+                              |            |    /  / `./
+                              \           /    |   |fsr
+   ___                         `|        |     |  /
+  | _ \__ _ ______              |       /      /  |
+  |  _/ _` (_-<_-<              \   _.-`      |  /
+  |_| \__,_/__/__/               \./          |  |
+                                              /  /
+                                             |   |
+                                             /  /
+                                            /   |
+                                            |  |
+                                           /   /
+                                           |  .'
+                                           |  |
+                                          |  .'
+                                          '  |
+                                          | |
+                                         /  /
+                                        |_,'
+
+          go back to the shadow. you must have Xcode installed to proceed.
+          do not pass go. do not collect $200. go straight to jail! j/k but
+          gandalf is a straight up stickler about having the right tools.
+          Xcode + Simulators are a beast of a download but free and much
+          easier to get than a wizard's wrath.
+
+          grab Xcode from here:
+          https://itunes.apple.com/us/app/xcode/id497799835?mt=12# "
+
+       fi
+    fi
+ fi
+
+
+
+# might as well ask for password up-front, right?
+sudo -v
+
+# Keep-alive: update existing sudo time stamp if set, otherwise do nothing.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 
 fancy_echo "install xcode command line tools...
 ======================================"
@@ -38,16 +168,8 @@ fancy_echo "install xcode command line tools...
   fi
 
 
-fancy_echo "a full installation of Xcode.app is required – installing just the command line tools is not sufficient...
+fancy_echo "accepting your Xcode license for you if you haven't done so already...
 ======================================"
-
-  # TODO: find a way to install Xcode.app automatically
-  # See: http://stackoverflow.com/a/18244349
-
-  xcodebuild -version
-
-  fancy_echo "accepting the Xcode license for you...
-  ======================================"
 
   if [[ $? -ne 0 ]]; then
     sudo xcodebuild -license
@@ -239,16 +361,16 @@ if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
       #ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       brew install zsh
     fi
-fi
-
- fancy_echo "your current shell: " $SHELL "changing it here in a sec..."
- fancy_echo "now changing your shell to /usr/local/bin/zsh ..."
+  fancy_echo "changing your shell from $SHELL to /usr/local/bin/zsh ..."
   grep '/usr/local/bin/zsh' /etc/shells >/dev/null || echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells >/dev/null
   #sudo dscl . change /users/$USER UserShell /bin/bash /usr/local/bin/zsh
   sudo chsh -s /usr/local/bin/zsh $USER 2>/dev/null
   fancy_echo "your current shell: " $SHELL
   #exec zsh
 
+  else
+    yecho "you already have homebrew zsh installed...not installing it...moving along"
+fi
 
 fancy_echo "
 ###############################################################################
@@ -478,10 +600,13 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "installing RVM for you ...
-======================================"
+#fancy_echo "installing RVM for you ...
+#======================================"
 #\curl -L https://get.rvm.io | bash -s stable --ruby --autolibs=enable
 
+
+fancy_echo "installing rbenv for you ...
+======================================"
 if [[ ! -d "$HOME/.rbenv" ]]; then
   fancy_echo "installing rbenv, to change Ruby versions ..."
     #git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
@@ -498,34 +623,32 @@ if [[ ! -d "$HOME/.rbenv" ]]; then
     # new stuff trying out
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "${HOME}/.zshenv"
     echo 'eval "$(rbenv init -)"' >> "${HOME}/.zshenv"
-    echo 'source "${HOME}/.zshenv"' >> "${HOME}/.zshrc"
-    #exec $SHELL
+    #echo 'source "${HOME}/.zshenv"' >> "${HOME}/.zshrc"
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
   fancy_echo "installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries..."
     brew install rbenv-gem-rehash
-    #git clone https://github.com/sstephenson/rbenv-gem-rehash.git \
-    #  ~/.rbenv/plugins/rbenv-gem-rehash
+
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
   fancy_echo "installing ruby-build, to install Rubies ..."
     brew install ruby-build
-    #git clone https://github.com/sstephenson/ruby-build.git \
-    #  ~/.rbenv/plugins/ruby-build
 fi
 
+    exec $SHELL
+    # you're going to need to RESTART the new shell and the install script!!!
 
-fancy_echo "updating openssl. don't want your heart to bleed...
+fancy_echo "updating openssl – don't want your heart to bleed...
 ======================================"
 
   brew_install_or_upgrade 'openssl'
 
   brew unlink openssl && brew link openssl --force
 
-  ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
 
+ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
 
 fancy_echo "installing Ruby $ruby_version w/ rbenv...
 ======================================"
@@ -544,8 +667,11 @@ fancy_echo "Setting $ruby_version as global default Ruby ...
   rbenv global "$ruby_version"
 
   echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+  echo 'eval "$(rbenv init -)"' >> ~/.zshrc
 
   rbenv rehash
+
+  source ~/.bash_profile
 
   echo "ruby version: " "$(ruby -e 'print RUBY_VERSION')"
 
