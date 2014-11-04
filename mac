@@ -810,7 +810,13 @@ fancy_echo "installing a few patched Powerline fonts (regular) - moar fonts @ ht
   popd
 
   fc-cache -frv
-*/
+
+
+fancy_echo "installing adobe source code pro font – a set of OpenType fonts that have been designed to work well in user interface (UI) environments...
+======================================"
+
+  brew_cask_install_or_upgrade 'font-source-code-pro'
+
 COMMENT
 
 fancy_echo "moar fonts please! installing Powerline patched fonts to make your shell look purdy: https://github.com/Lokaltog/powerline-fonts ...
@@ -819,15 +825,10 @@ fancy_echo "moar fonts please! installing Powerline patched fonts to make your s
   # Original idea : https://coderwall.com/p/dmhp5q
   pip install https://github.com/Lokaltog/powerline/tarball/develop
   #Original Idea : http://superuser.com/questions/120700/how-do-i-programatically-install-a-font-on-a-macintosh
-  !cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && git clone https://github.com/Lokaltog/powerline-fonts && find -E `pwd`/powerline-fonts -iregex '.*\.(otf|ttf)' -print0 | xargs -0 -I {} cp -v {} ~/Library/Fonts
-  !cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && curl -O -L https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf && mv -v PowerlineSymbols.otf ~/Library/Fonts
+  cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && git clone https://github.com/Lokaltog/powerline-fonts && find -E `pwd`/powerline-fonts -iregex '.*\.(otf|ttf)' -print0 | xargs -0 -I {} cp -v {} ~/Library/Fonts
+  cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && curl -O -L https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf && mv -v PowerlineSymbols.otf ~/Library/Fonts
   fancy_echo "change shell's font to source code pro for your zsh theme"
 
-
-fancy_echo "installing adobe source code pro font – a set of OpenType fonts that have been designed to work well in user interface (UI) environments...
-======================================"
-
-  brew_cask_install_or_upgrade 'font-source-code-pro'
 
 
 fancy_echo "installing iTerm2 - provides actual benefits over the OSX terminal like applescript support, auto-completing text, growl support, nice search features, mouseless copy, instant replay, and much more: http://iterm2.com/features.html...
@@ -848,9 +849,9 @@ fancy_echo "installing tree - lists the contents of directories in a tree-like f
   brew_install_or_upgrade 'tree'
   
 
-fancy_echo "  
-#======================================"
-"
+fancy_echo "install dockutil – a python utility for managing the Mac OS X dock: https://github.com/kcrawford/dockutil
+======================================"
+
  # brew_install_or_upgrade 'dockutil'
 
 
