@@ -131,7 +131,7 @@ fancy_echo "
 ###############################################################################
 "
 
-  if [[ "$OS" = "Darwin"]]; then
+  if [[ "$OS" == "Darwin"]]; then
     gecho "OS is $OS. congrats you've got a mac!"
 
     if [[ $xcode_strict == true ]]; then
