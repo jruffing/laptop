@@ -581,7 +581,7 @@ fancy_echo "installing NVM, Node.js, and NPM, for running apps and installing Ja
   brew_install_or_upgrade 'nvm'
 
 
-fancy_echo "installing node :http://nodejs.org/ a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices....
+fancy_echo "installing node – a javascript framework for building fast, scalable network applications: http://nodejs.org
 ======================================"
 
   brew_install_or_upgrade 'node'
@@ -609,7 +609,7 @@ fancy_echo "installing grunt - the javascript task runner: http://gruntjs.com/ .
   npm install -g grunt-cli
 
 
-fancy_echo "installing mocha - a simple, flexible, fun javascript test framework for node.js & the browser. (BDD, TDD, QUnit styles via interfaces): http://mochajs.org ...
+fancy_echo "installing mocha - a simple, flexible, fun javascript test framework for node: http://mochajs.org ...
 ======================================"
 
   npm install -g mocha
@@ -782,13 +782,13 @@ fancy_echo "beautifying your zsh shell for you...
   fi
 
 
-  fancy_echo "installing Pure prompt – Pretty, minimal and fast ZSH prompt: https://github.com/sindresorhus/pure ...
+  fancy_echo "installing Pure prompt – a pretty, minimal and fast ZSH prompt: https://github.com/sindresorhus/pure ...
   ======================================"
   npm install -g pure-prompt
 
   fancy_echo "linking the prompt to ZSH...
   ======================================"
-  soft_link_create_or_update "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
+  sym_link_create_or_update "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
 
 
 fancy_echo "installing fontconfig...
