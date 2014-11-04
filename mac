@@ -142,7 +142,7 @@ fancy_echo "
         # sudo "/usr/bin/xcode-select" -switch "/Applications/Xcode.app/Contents/Developer"
 
        else
-          fancy_echo gandalf()
+          fancy_echo gandalf
           recho "go back to the shadow. you must have Xcode installed to proceed.
           do not pass go. do not collect $200. go straight to jail! j/k but
           gandalf is a straight up stickler about having the right tools.
