@@ -148,8 +148,11 @@ fancy_echo "
 "
 
 if [[ $Ascii_art_test_mode == true ]]; then
+    fancy_echo "gandalf 1:
+    "
     gandalf
-    fancy_echo:"
+    
+    fancy_echo "gandalf 2:
     "
     gandalf2
 fi
