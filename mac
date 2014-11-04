@@ -150,6 +150,11 @@ fancy_echo "
           easier to get than a wizard's wrath.
 
           grab Xcode from here:
+
+          https://developer.apple.com/downloads/download.action?path=Developer_Tools/xcode_6.1/56841_xcode_6.1.dmg'
+
+                or the Mac App Store
+
           https://itunes.apple.com/us/app/xcode/id497799835?mt=12# 
           "
        fi
@@ -766,18 +771,18 @@ fancy_echo "beautifying your zsh shell for you...
 
   fancy_echo "linking the prompt to ZSH...
   ======================================"
-  ln -s " "/usr/local/lib/node_modules/pure-prompt/pure.zsh" /usr/local/share/zsh/site-functions/prompt_pure_setup
+  ln -s "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
 
 
 fancy_echo "installing fontconfig...
 ======================================"
 
-  brew install wget
+  brew_install_or_upgrade wget
 
-  brew install fontconfig
+  brew_install_or_upgrade fontconfig
 
 
-fancy_echo "installing a few patched Powerline fonts (regular) - moar fonts @ https://github.com/Lokaltog/powerline-fonts...
+fancy_echo "installing a few patched Powerline fonts (regular) - moar fonts @ https://github.com/Lokaltog/powerline-fonts ...
 ======================================"
   pushd ~/Library/Fonts
   wget https://github.com/Lokaltog/powerline-fonts/raw/master/SourceCodePro/Sauce%20Code%20Powerline%20Medium.otf
@@ -796,16 +801,16 @@ fancy_echo "installing adobe source code pro font – a set of OpenType fonts th
   brew_cask_install_or_upgrade 'font-source-code-pro'
 
 
-fancy_echo "installing iTerm2 -  provides actual benefits over the OSX terminal like applescript support, auto-completing text, growl support, nice search features, mouseless copy, instant replay, and much more: http://iterm2.com/features.html...
+fancy_echo "installing iTerm2 - provides actual benefits over the OSX terminal like applescript support, auto-completing text, growl support, nice search features, mouseless copy, instant replay, and much more: http://iterm2.com/features.html...
 ======================================"
 
   brew_cask_install_or_upgrade 'iterm2'
 
 
-#fancy_echo "installing tmux – to save project state and switch between projects a way to maintain persistent working states on remote servers, allowing you to detach and re-attach at will....
+fancy_echo "installing tmux – to save project state and switch between projects a way to maintain persistent working states on remote servers, allowing you to detach and re-attach at will....
 ======================================"
 
-  #brew_install_or_upgrade 'tmux'
+  brew_install_or_upgrade 'tmux'
 
 
 fancy_echo "installing tree - lists the contents of directories in a tree-like format: http://www.computerhope.com/unix/tree.htm...
@@ -846,6 +851,36 @@ if ! command -v rcup >/dev/null; then
 else
   fancy_echo "rcm already installed. skipping rcm installation..."
 fi
+
+#TODO - commit to Github!
+#TODO - polish - webex?
+#TODO - alfred - workflows, link app from ~/Applications to /Applications and put in dock w/ dockutil
+#TODO - dockutil
+#TODO - pt (cmd line)
+#TODO - tunnelblick vpn config
+#TODO - docker, vagrant, and salt
+#TODO - BDD envt: Behave, pycharm, boto, etc
+#TODO – virtualenv-burrito? think so... https://github.com/brainsik/virtualenv-burrito
+#TODO - finish up prezto
+#TODO - iTerm2 profiles and settings
+#TODO - DotFiles
+# review this...
+## Install dotfiles ##
+announce "Loading dot files"
+if [ -d home-dotfiles ]; then
+cd home-dotfiles
+else
+cd /tmp
+rm -rf shell-files
+git clone https://github.com/alexmchale/shell-files.git
+cd shell-files/home-dotfiles
+fi
+for file in *; do
+rm -rf ~/.$file
+cp -Ra $file ~/.$file
+done
+cd ~
+rm -rf /tmp/alexmchale-shell-files*
 
 
 fancy_echo "cleaning things up...
