@@ -15,8 +15,8 @@
 # ======================================
 
   OS="`uname -s`"
-  xcode_strict="true"
-  ascii_art_test_mode="true"
+  Xcode_strict="true"
+  Ascii_art_test_mode="true"
   source https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art
 
 
@@ -147,7 +147,7 @@ fancy_echo "
 ###############################################################################
 "
 
-if [[ $ascii_art_test_mode == true ]]; then
+if [[ $Ascii_art_test_mode == true ]]; then
     gandalf
     fancy_echo:"
     "
@@ -157,7 +157,7 @@ fi
   if [[ "$OS" == "Darwin" ]]; then
     gecho "OS = $OS...congrats you've got a mac!"
 
-    if [[ $xcode_strict == true ]]; then
+    if [[ $Xcode_strict == true ]]; then
       announce "Xcode strict checking is on...let's see if you got the goods..."
 
       if [[ -d "/Applications/Xcode.app/Contents/Developer/" ]]; then
