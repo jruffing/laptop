@@ -149,8 +149,8 @@ fancy_echo "
 ###############################################################################
 "
 
-if [ $ascii_art_test_mode == true ]
-    fancy echo gandalf
+if [ $ascii_art_test_mode == true ]; then
+    fancy_echo gandalf
 fi
 
   if [[ "$OS" == "Darwin" ]]; then
