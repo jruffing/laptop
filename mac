@@ -132,7 +132,7 @@ fancy_echo "
 "
 
   if [ "$OS" = "Darwin"]; then
-    gecho "OS is $OS. congrats you've got a mac!"
+    gecho "OS = $OS...congrats you've got a mac!"
 
     if [ $xcode_strict = true ]; then
       announce "Xcode strict checking is on...let's see if you got the goods..."
