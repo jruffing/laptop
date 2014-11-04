@@ -76,25 +76,9 @@ function brew_if_missing {
 }
 
 
-fancy_echo "
-###############################################################################
-# prerequisites check                                                         #
-###############################################################################
-"
 
-  if [ "$OS" = "Darwin"]; then
-    gecho "OS is $OS. congrats you've got a mac!"
-
-    if [ $xcode_strict == true ]; then
-      announce "Xcode strict checking is on...let's see if you got the goods..."
-
-      if [ -d /Applications/Xcode.app ]; then
-        gecho "Xcode is installed! good job."
-        # sudo "/usr/bin/xcode-select" -switch "/Applications/Xcode.app/Contents/Developer"
-
-       else
-          recho "
-
+gandalf() {
+  cat <<"EOT"
                                      .--.
                                  ,' |
                                  '  |
@@ -135,16 +119,39 @@ fancy_echo "
                                           | |
                                          /  /
                                         |_,'
+EOT
+}
 
-          go back to the shadow. you must have Xcode installed to proceed.
+
+
+
+fancy_echo "
+###############################################################################
+# prerequisites check                                                         #
+###############################################################################
+"
+
+  if [ "$OS" = "Darwin"]; then
+    gecho "OS is $OS. congrats you've got a mac!"
+
+    if [ $xcode_strict == true ]; then
+      announce "Xcode strict checking is on...let's see if you got the goods..."
+
+      if [ -d /Applications/Xcode.app ]; then
+        gecho "Xcode is installed! good job."
+        # sudo "/usr/bin/xcode-select" -switch "/Applications/Xcode.app/Contents/Developer"
+
+       else
+          fancy_echo gandalf()
+          recho "go back to the shadow. you must have Xcode installed to proceed.
           do not pass go. do not collect $200. go straight to jail! j/k but
           gandalf is a straight up stickler about having the right tools.
           Xcode + Simulators are a beast of a download but free and much
           easier to get than a wizard's wrath.
 
           grab Xcode from here:
-          https://itunes.apple.com/us/app/xcode/id497799835?mt=12# "
-
+          https://itunes.apple.com/us/app/xcode/id497799835?mt=12# 
+          "
        fi
     fi
  fi
