@@ -747,7 +747,7 @@ fancy_echo "update to latest bash shell to avoid future shellshock type of issue
 #
 # curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "${HOME}"/.antigen/antigen.zsh
 # source "${HOME}"/.antigen/antigen.zsh
-
+#
 
 fancy_echo "beautifying your zsh shell for you...
 ======================================"
