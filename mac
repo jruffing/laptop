@@ -149,7 +149,8 @@ fancy_echo "
 
 if [[ "$ascii_art_test_mode" == true ]]; then
     gandalf
-    announce "trying locally"
+    fancy_echo:"
+    "
     gandalf2
 fi
 
@@ -165,7 +166,7 @@ fi
 
        else
           gandalf
-          
+
           recho "go back to the shadow. you must have Xcode installed to proceed.
           do not pass go. do not collect $200. go straight to jail! j/k but
           gandalf is a straight up stickler about having the right tools.
