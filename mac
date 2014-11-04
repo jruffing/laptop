@@ -801,14 +801,18 @@ fancy_echo "installing fontconfig...
 
 fancy_echo "installing a few patched Powerline fonts (regular) - moar fonts @ https://github.com/Lokaltog/powerline-fonts ...
 ======================================"
+/*
   pushd ~/Library/Fonts
-  wget https://github.com/Lokaltog/powerline-fonts/raw/master/SourceCodePro/Sauce%20Code%20Powerline%20Medium.otf
-  wget https://github.com/Lokaltog/powerline-fonts/raw/master/Menlo/Menlo%20Regular%20for%20Powerline.ttf
-  wget https://github.com/Lokaltog/powerline-fonts/raw/master/AnonymousPro/Anonymice%20Powerline.ttf
-  wget https://github.com/Lokaltog/powerline-fonts/raw/master/Meslo/Meslo%20LG%20M%20Regular%20for%20Powerline.otf
-  wget https://github.com/Lokaltog/powerline-fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
+  wget "https://github.com/Lokaltog/powerline-fonts/raw/master/SourceCodePro/Sauce%20Code%20Powerline%20Medium.otf"
+  wget "https://github.com/Lokaltog/powerline-fonts/raw/master/Menlo/Menlo%20Regular%20for%20Powerline.ttf"
+  wget "https://github.com/Lokaltog/powerline-fonts/raw/master/AnonymousPro/Anonymice%20Powerline.ttf"
+  wget "https://github.com/Lokaltog/powerline-fonts/raw/master/Meslo/Meslo%20LG%20M%20Regular%20for%20Powerline.otf"
+  wget "https://github.com/Lokaltog/powerline-fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf"
   popd
 
+  fc-cache -frv
+*/
+  pip install --user git+git://github.com/Lokaltog/powerline
   fc-cache -frv
 
 
