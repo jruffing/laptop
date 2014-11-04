@@ -67,7 +67,7 @@ function clone_or_update {
   fi
 }
 
-function soft_link_create_or_update(file_to_link, sym_link) {
+function soft_link_create_or_update() {
 
     local file=$1
     local sym=$2
