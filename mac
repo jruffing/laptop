@@ -645,7 +645,7 @@ if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
   fancy_echo "installing ruby-build, to install Rubies ..."
     brew_install_or_upgrade rbenv ruby-build
 fi
-    annouce "you're going to need to RESTART the new shell and the install script"
+    announce "you're going to need to RESTART the new shell and the install script"
     exec $SHELL
 
 
