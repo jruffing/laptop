@@ -151,9 +151,9 @@ fancy_echo "
 "
 
 if [[ "$ascii_art_test_mode" == true ]]; then
-    gandalf()
+    gandalf
     announce "trying locally"
-    gandalf2()
+    gandalf2
 fi
 
   if [[ "$OS" == "Darwin" ]]; then
