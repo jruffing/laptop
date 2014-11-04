@@ -742,25 +742,34 @@ fancy_echo "update to latest bash shell to avoid future shellshock type of issue
   #fi
 
 
-fancy_echo "installing antigen plugin manager for zsh – a small set of functions that help you easily manage your shell (zsh) plugins: https://github.com/zsh-users/antigen...
-======================================"
-
-  curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "${HOME}"/.antigen/antigen.zsh
-  source "${HOME}"/.antigen/antigen.zsh
+#fancy_echo "installing antigen plugin manager for zsh – a small set of functions that help you easily manage your shell (zsh) plugins: https://github.com/zsh-users/antigen...
+#======================================"
+#
+# curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "${HOME}"/.antigen/antigen.zsh
+# source "${HOME}"/.antigen/antigen.zsh
 
 
 fancy_echo "beautifying your zsh shell for you...
 ======================================"
 
-  #if [ ! -d "$HOME/.zprezto" ]; then
-  #  echo "installing prezto for the first time"
-  #  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-  #else
-  #  echo "prezto is already installed"
-  #fi
+  if [ ! -d "$HOME/.zprezto" ]; then
+    echo "installing prezto for the first time"
+    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  else
+    echo "prezto is already installed"
+  fi
 
 
-fancy_echo "installing fonconfig...
+  fancy_echo "installing Pure prompt – Pretty, minimal and fast ZSH prompt: https://github.com/sindresorhus/pure ...
+  ======================================"
+  npm install -g pure-prompt
+
+  fancy_echo "linking the prompt to ZSH...
+  ======================================"
+  ln -s " "/usr/local/lib/node_modules/pure-prompt/pure.zsh" /usr/local/share/zsh/site-functions/prompt_pure_setup
+
+
+fancy_echo "installing fontconfig...
 ======================================"
 
   brew install wget
