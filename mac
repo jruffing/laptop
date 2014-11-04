@@ -15,8 +15,8 @@
 # ======================================
 
   OS="`uname -s`"
-  xcode_strict = true
-  ascii_art_test_mode = true
+  xcode_strict=true
+  ascii_art_test_mode=true
   source ascii_art
 
 
@@ -147,7 +147,7 @@ fancy_echo "
 ###############################################################################
 "
 
-if [[ "$ascii_art_test_mode" == true ]]; then
+if [[ $ascii_art_test_mode == true ]]; then
     gandalf
     fancy_echo:"
     "
