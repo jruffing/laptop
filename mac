@@ -150,7 +150,7 @@ fancy_echo "
 ###############################################################################
 "
 
-if [ "$ascii_art_test_mode" == true ]; then
+if [[ "$ascii_art_test_mode" == true ]]; then
     fancy_echo gandalf
     announce "trying locally"
     fancy_echo gandalf2
