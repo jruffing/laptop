@@ -171,15 +171,17 @@ fancy_echo "install xcode command line tools...
   xcode-select -p
 
   if [[ $? -ne 0 ]]; then
-    sudo xcode-select --install accept
+    sudo xcode-select --install
   fi
 
+
+   xcodebuild -version
 
 fancy_echo "accepting your Xcode license for you if you haven't done so already...
 ======================================"
 
   if [[ $? -ne 0 ]]; then
-    sudo xcodebuild -license
+    sudo xcodebuild -license accept
   fi
 
 
