@@ -812,7 +812,7 @@ fancy_echo "installing a few patched Powerline fonts (regular) - moar fonts @ ht
 
   fc-cache -frv
 */
-  pip install --user git+git://github.com/Lokaltog/powerline
+  pip install https://github.com/Lokaltog/powerline/tarball/develop
   fc-cache -frv
 
 
