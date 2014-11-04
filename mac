@@ -375,7 +375,9 @@ if [[ "$SHELL" != /usr/local/bin/zsh ]]; then
   #sudo dscl . change /users/$USER UserShell /bin/bash /usr/local/bin/zsh
   sudo chsh -s /usr/local/bin/zsh $USER 2>/dev/null
   fancy_echo "your current shell: " $SHELL
-  #exec zsh
+  announce "you're going to need to RESTART the new shell and the install script"
+
+  exec zsh
 
   else
     yecho "you already have homebrew zsh installed...not installing it...moving along"
@@ -645,9 +647,6 @@ if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
   fancy_echo "installing ruby-build, to install Rubies ..."
     brew_install_or_upgrade rbenv ruby-build
 fi
-    announce "you're going to need to RESTART the new shell and the install script"
-    exec $SHELL
-
 
 fancy_echo "updating openssl – don't want your heart to bleed...
 ======================================"
