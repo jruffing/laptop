@@ -67,6 +67,22 @@ function clone_or_update {
   fi
 }
 
+function soft_link_create_or_update {
+
+    local file=$1
+    local sym=$2
+
+    if cmp -s $1 $2
+    then: fancy_echo "files are the same and symbolic link already created – nothing to do..."
+    else: fancy_echo "symbolic link was already the created but the files are different..."
+          now=$(date +%Y%m%d.%H%M%S)
+          mv $1 $1.$now
+          rm $2
+          ln -s $1.$now $2
+          fancy_echo "$1 moved to $1.$now and symbolic link to $2 reestablished"
+    fi
+}
+
 function brew_if_missing {
   if [ -d "/usr/local/Cellar/$1" ]; then
     echo "..... $1 is already installed"
@@ -771,7 +787,7 @@ fancy_echo "beautifying your zsh shell for you...
 
   fancy_echo "linking the prompt to ZSH...
   ======================================"
-  ln -s "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
+  soft_link_create_or_update( "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"_
 
 
 fancy_echo "installing fontconfig...
