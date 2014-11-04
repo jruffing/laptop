@@ -15,9 +15,9 @@
 # ======================================
 
   OS="`uname -s`"
-  xcode_strict=true
-  ascii_art_test_mode=true
-  source ascii_art
+  xcode_strict="true"
+  ascii_art_test_mode="true"
+  source https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art
 
 
 # Define some useful functions for installation
