@@ -72,7 +72,7 @@ function sym_link_create_or_update {
     local file=$1
     local sym=$2
 
-    if [cmp -s $1 $2];then
+    if [ cmp -s $1 $2 ]; then
       fancy_echo "files are the same and symbolic link already created – nothing to do..."
     else:
       fancy_echo "symbolic link was already the created but the files are different..."
@@ -790,7 +790,7 @@ fancy_echo "beautifying your zsh shell for you...
   ======================================"
   sym_link_create_or_update "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
 
-/*
+<<"COMMENT"
 fancy_echo "installing fontconfig...
 ======================================"
 
@@ -811,12 +811,14 @@ fancy_echo "installing a few patched Powerline fonts (regular) - moar fonts @ ht
 
   fc-cache -frv
 */
-
+COMMENT
 
 fancy_echo "moar fonts please! installing Powerline patched fonts to make your shell look purdy: https://github.com/Lokaltog/powerline-fonts ...
 ======================================"
 
-  pip install https://github.com/Lokaltog/powerline/tarball/develop
+  # Original idea : https://coderwall.com/p/dmhp5q
+  silent !sudo pip install --user https://github.com/Lokaltog/powerline/tarball/develop
+  #Original Idea : http://superuser.com/questions/120700/how-do-i-programatically-install-a-font-on-a-macintosh
   silent !cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && git clone https://github.com/Lokaltog/powerline-fonts && find -E `pwd`/powerline-fonts -iregex '.*\.(otf|ttf)' -print0 | xargs -0 -I {} cp -v {} ~/Library/Fonts
   silent !cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && curl -O -L https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf && mv -v PowerlineSymbols.otf ~/Library/Fonts
   fancy_echo "change shell's font to source code pro for your zsh theme"
