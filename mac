@@ -17,7 +17,7 @@
   OS="`uname -s`"
   Xcode_strict="true"
   Ascii_art_test_mode="true"
-  source https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art
+  source <(curl -s https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)
 
 
 # Define some useful functions for installation
