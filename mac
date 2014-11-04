@@ -137,7 +137,7 @@ fancy_echo "
     if [[ $xcode_strict == true ]]; then
       announce "Xcode strict checking is on...let's see if you got the goods..."
 
-      if [[ ! sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer ]]; then
+      if [[ -d "/Applications/Xcode.app/Contents/Developer/" ]]; then
         gecho "Xcode is installed! good job."
         # sudo "/usr/bin/xcode-select" -switch "/Applications/Xcode.app/Contents/Developer"
 
