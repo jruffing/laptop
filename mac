@@ -53,6 +53,7 @@ function announce {
   echo
 }
 
+cat<<"notworking"{
 function print_ascii_art {
   source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)"
   
@@ -65,6 +66,8 @@ function print_ascii_art {
     echo "$ascii_image"
     $1
   fi
+}
+notworking
 }
 
 function clone_or_update {
@@ -108,12 +111,6 @@ function brew_if_missing {
   fi
 }
 
-echo "xxx"
-Appium
-echo "yyy"
-#print_ascii_art Appium $Ascii_art_mode
-
-
 
 fancy_echo "
 ###############################################################################
@@ -135,14 +132,17 @@ fancy_echo "
         # sudo "/usr/bin/xcode-select" -switch "/Applications/Xcode.app/Contents/Developer"
 
        else
+        fancy_echo "you must have Xcode installed to proceed." 
+        if [[ $Ascii_art_test_mode == true ]]; then
           gandalf
 
-          recho "go back to the shadow. you must have Xcode installed to proceed.
-          do not pass go. do not collect $200. go straight to jail! j/k but
-          gandalf is a straight up stickler about having the right tools.
+          fancy_echo "
+          go back to the shadow. do not pass go. do not collect $200. 
+          go straight to jail! j/k but gandalf is a straight up stickler about having the right tools.
           Xcode + Simulators are a beast of a download but free and much
-          easier to get than a wizard's wrath.
-
+          easier to get than a wizard's wrath."
+        fi
+        recho "
           grab Xcode from here:
 
           https://developer.apple.com/downloads/download.action?path=Developer_Tools/xcode_6.1/56841_xcode_6.1.dmg'
