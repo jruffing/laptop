@@ -108,7 +108,12 @@ function brew_if_missing {
   fi
 }
 
+echo "xxx"
+Appium
+echo "yyy"
 print_ascii_art Appium $Ascii_art_mode
+
+
 
 fancy_echo "
 ###############################################################################
