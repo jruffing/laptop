@@ -674,8 +674,8 @@ fancy_echo "updating openssl – don't want your heart to bleed...
 latest_ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
 current_ruby="$(ruby -v | cut -d ' ' -f 2 | cut -d p -f 1)"
 
-if [ verlt $current_ruby $latest_ruby ]; then
-  fancy_echo "Your Ruby is not the latest...
+if [ (verlt $current_ruby $latest_ruby && echo "yes" || echo "no") == "yes" ]; then
+  fancy_echo "Your Ruby version is out of date...
   You have $current_ruby and the latest is $latest_ruby_version
   installing Ruby $latest_ruby_version w/ rbenv...
   ======================================"
@@ -689,13 +689,14 @@ if [ verlt $current_ruby $latest_ruby ]; then
     rbenv global "$latest_ruby_version"
 
   echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-  echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+  echo 'eval "$(rbenv init -)"' >> ~/.zshenv
 
   rbenv rehash
 
-  source ~/.bash_profile
+  #source ~/.bash_profile
+  source ~/.zshenv
 
-  echo "ruby version: " "$(ruby -e 'print RUBY_VERSION')"
+  echo "current ruby version is now: " "$(ruby -e 'print RUBY_VERSION')"
 else:
   fancy_echo "Your Ruby is already the latest version v"$latest_ruby_version
 fi
