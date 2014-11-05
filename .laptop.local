@@ -119,6 +119,7 @@ git config --global credential.helper osxkeychain
 #brew tap jruffing/homebrew-cask/
 brew_cask_install_or_upgrade 'jruffing/homebrew-cask/appium'
 
+cat<<"MAKE_IDEMPOTENT"
 # setup appium dev env
 #TODO need alias for these things
 cd ~
@@ -137,6 +138,7 @@ node bin/appium-doctor.js --dev --ios
 #sudo grunt authorize
 ./reset.sh --ios --dev
 node .
+MAKE_IDEMPOTENT
 
 fancy_echo "
 ###############################################################################
@@ -153,7 +155,3 @@ fancy_echo "cleaning things up...
   open -b com.runningwithcrayons.Alfred-2
   brew cask alfred link
   brew cask cleanup
-
-fancy_echo "setting your shell permanently to zsh...
-==============================="
-exec zsh
