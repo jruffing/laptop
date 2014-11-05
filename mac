@@ -257,17 +257,18 @@ fancy_echo "
 
 if ! command -v brew >/dev/null; then
 
-  fancy_echo "what's up homebrew? installing the missing package manager for OS X: http://brew.sh/ ...
+  fancy_echo "installing homebrew – the missing package manager for OS X... 
+  http://brew.sh/
   ======================================"
 
     if [[ -d "$(brew --prefix)/Cellar" ]]; then
-      fancy_echo "ruh roh astro – cleaning up a previously failed homebrew install :O(..."
+      fancy_echo "cleaning up a previously failed homebrew install..."
       rm -rf "$(brew --prefix)/Cellar" "$(brew --prefix)/.git"
     else
       ruby <(curl -fsS https://raw.githubusercontent.com/Homebrew/install/master/install)
     fi
 
-    fancy_echo "updating your shell's path so homebrew precedes your system path..."
+    fancy_echo "prefixing your shell's path with homebrew..."
       append_to_zshrc '# recommended by brew doctor'
       append_to_zshrc 'export PATH="/usr/local/bin:$PATH"' 1
       export PATH="/usr/local/bin:$PATH"
@@ -282,13 +283,13 @@ fancy_echo "checking the homebrew installation and make sure everything is ok...
   brew doctor
 
 
-fancy_echo "updating homebrew formulas ...
+fancy_echo "updating homebrew formulae...
 ======================================"
 
   brew update
 
 
-fancy_echo "upgrade all homebrew packages ...
+fancy_echo "upgrade all homebrew packages...
 ======================================"
 
   brew upgrade
@@ -300,7 +301,9 @@ brew tap caskroom/cask
 brew tap caskroom/versions
 brew tap caskroom/fonts
 
-fancy_echo "installing cask for homebrew – extends Homebrew and brings its elegance, simplicity, and speed to OS X applications and large binaries alike: http://caskroom.io/....
+fancy_echo "installing cask for homebrew – extends Homebrew and brings its elegance, 
+simplicity, and speed to OS X applications and large binaries alike: 
+http://caskroom.io/....
 ======================================"
 
   brew_install_or_upgrade 'caskroom/cask/brew-cask'
@@ -490,13 +493,16 @@ fancy_echo "
 fancy_echo "giving you some virtual env love..."
 
 
-fancy_echo "installing boot2docker ...
+fancy_echo "installing boot2docker – lightweight Linux distribution based on Tiny Core Linux made 
+specifically to run Docker containers. It runs completely from RAM, weighs ~27MB and boots in ~5s...
+http://boot2docker.io/
 ======================================"
 
 #  brew_install_or_upgrade 'boot2docker'
 
 
-fancy_echo "installing vagrant ...
+fancy_echo "installing vagrant – lightweight, reproducible, and portable development environments...
+https://www.vagrantup.com/
 ======================================"
 
 #  brew_cask_install_or_upgrade 'vagrant'
@@ -508,7 +514,8 @@ fancy_echo "installing vagrant-manager ...
 #  brew_cask_install_or_upgrade 'vagrant-manager'
 
 
-fancy_echo "installing virtualbox ...
+fancy_echo "installing virtualbox – a performant and free x86 and AMD64/Intel64 virtualization product...
+https://www.virtualbox.org/
 ======================================"
 
 #  brew_cask_install_or_upgrade 'virtualbox'
@@ -529,19 +536,20 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "giving you a nodejs dev env ...
+fancy_echo "giving you a nodejs dev env...
 ======================================"
 
   node_version="0.10.33"
 
 
-fancy_echo "installing NVM, Node.js, and NPM, for running apps and installing JavaScript packages ...
+fancy_echo "installing NVM, Node.js, and NPM, for running apps and installing JavaScript packages...
 ======================================"
 
   brew_install_or_upgrade 'nvm'
 
 
-fancy_echo "installing node – a javascript framework for building fast, scalable network applications: http://nodejs.org
+fancy_echo "installing node – a javascript framework for building fast, scalable network applications...
+http://nodejs.org
 ======================================"
 
   brew_install_or_upgrade 'node'
@@ -551,25 +559,30 @@ fancy_echo "installing node – a javascript framework for building fast, scalab
 #export PATH="/usr/local/share/npm/bin:$PATH"
 
 
-fancy_echo "installing yeoman - the web's scaffolding tool for modern webapps: http://yeoman.io/ ...
+fancy_echo "installing yeoman - the web's scaffolding tool for modern webapps...
+http://yeoman.io/
 ======================================"
 
   npm install -g yo
 
 
-fancy_echo "installing bower - web sites are made of lots of things...frameworks, libraries, assets, utilities, and rainbows. Bower manages all these things for you: http://bower.io/ ...
+fancy_echo "installing bower - web sites are made of lots of things...frameworks, 
+libraries, assets, utilities, and rainbows. Bower manages all these things for you...
+http://bower.io/
 ======================================"
 
   npm install -g bower
 
 
-fancy_echo "installing grunt - the javascript task runner: http://gruntjs.com/ ...
+fancy_echo "installing grunt - the javascript task runner...
+http://gruntjs.com/
 ======================================"
 
   npm install -g grunt-cli
 
 
-fancy_echo "installing mocha - a simple, flexible, fun javascript test framework for node: http://mochajs.org ...
+fancy_echo "installing mocha - a simple, flexible, fun javascript test framework for node...
+http://mochajs.org...
 ======================================"
 
   npm install -g mocha
@@ -620,7 +633,8 @@ if [[ ! -d "$HOME/.rbenv" ]]; then
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
-  fancy_echo "installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries..."
+  fancy_echo "installing rbenv-gem-rehash so the shell automatically picks up binaries 
+  after installing gems with binaries..."
     brew_install_or_upgrade rbenv rbenv-gem-rehash
 
 fi
@@ -638,23 +652,22 @@ fancy_echo "updating openssl – don't want your heart to bleed...
   brew unlink openssl && brew link openssl --force
 
 
-ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
+latest_ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
+current_ruby = echo "$(ruby -v | cut -d ' ' -f 2 | cut -d p -f 1)"
 
-fancy_echo "installing Ruby $ruby_version w/ rbenv...
-======================================"
+if [ $current_ruby < $latest_ruby_version ]; then
+  fancy_echo "Your Ruby is not the latest...
+  You have $current_ruby and the latest is $latest_ruby_version
+  installing Ruby $latest_ruby_version w/ rbenv...
+  ======================================"
 
-  rbenv install -s "$ruby_version"
-
-
-#fancy_echo "sourcing your shell, one sec please ...
-#======================================"
-#source ~/.zshrc
+    rbenv install -s "$latest_ruby_version"
 
 
-fancy_echo "Setting $ruby_version as global default Ruby ...
-======================================"
+  fancy_echo "Setting $latest_ruby_version as global default Ruby ...
+  ======================================"
 
-  rbenv global "$ruby_version"
+    rbenv global "$latest_ruby_version"
 
   echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
   echo 'eval "$(rbenv init -)"' >> ~/.zshrc
@@ -664,6 +677,9 @@ fancy_echo "Setting $ruby_version as global default Ruby ...
   source ~/.bash_profile
 
   echo "ruby version: " "$(ruby -e 'print RUBY_VERSION')"
+else:
+  fancy_echo "Your Ruby is already the latest version v"$latest_ruby_version
+fi
 
 
 fancy_echo "Updating to latest Rubygems version...
@@ -678,10 +694,10 @@ fancy_echo "installing cocoapods for iOS dev...
   gem install cocoapods
 
 
-#fancy_echo "installing tmuxinator...
-#======================================"
+fancy_echo "installing tmuxinator...
+======================================"
 
-  #gem install tmuxinator
+  gem install tmuxinator
 
 
 fancy_echo "installing Bundler to install project-specific Ruby gems...
@@ -709,6 +725,7 @@ fancy_echo "update to latest bash shell to avoid future shellshock type of issue
   brew_install_or_upgrade 'bash'
 
 
+cat <<"REPLACED_BY_PREZTO"
 #fancy_echo "injecting your awesome zsh with steroids...
 #======================================"
 
@@ -729,6 +746,7 @@ fancy_echo "installing antigen plugin manager for zsh – a small set of functio
 
  curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "${HOME}"/.antigen/antigen.zsh
  source "${HOME}"/.antigen/antigen.zsh
+REPLACED_BY_PREZTO
 
 
 fancy_echo "beautifying your zsh shell for you...
@@ -751,7 +769,7 @@ fancy_echo "beautifying your zsh shell for you...
   ======================================"
   sym_link_create_or_update "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
 
-<<"COMMENT"
+cat<<"COMMENT"
 fancy_echo "installing fontconfig...
 ======================================"
 
