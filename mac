@@ -17,7 +17,7 @@
   OS="`uname -s`"
   Xcode_strict="true"
   Ascii_art_mode="true"
-  #source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)"
+  source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)"
 
 
 # Define some useful functions for installation
@@ -60,6 +60,7 @@ function print_ascii_art {
   local _should_print=$2
   
   if [[ $_should_print == "true" ]]; then
+    echo "if statement at least works"
     _ascii_image
 }
 
