@@ -90,10 +90,6 @@ fancy_echo "installing skype...
 "
  # brew_cask_install_or_upgrade 'skype'
 
-fancy_echo "installing sublime-text3...
-======================================
-"
-  brew_cask_install_or_upgrade 'sublime-text3'
 
 fancy_echo "installing tunnelblick...
 ======================================
