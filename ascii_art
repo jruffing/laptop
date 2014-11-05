@@ -58,7 +58,7 @@ cat<<"EOT"
 EOT
 }
 
-Appium()
+Appium() {
 cat<<"EOT"
 
 
