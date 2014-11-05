@@ -952,3 +952,4 @@ read -n1 -t 10 -p "$(tput setaf 1) Congrats, setup is complete! Rebooting your c
 esac
 }
 
+
