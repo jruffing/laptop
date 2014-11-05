@@ -59,7 +59,7 @@ function print_ascii_art {
   local _ascii_image=$1
   local _should_print=$2
   
-  if [[ $_should_print == true ]]; then
+  if [[ $_should_print == "true" ]]; then
     _ascii_image
 }
 
@@ -104,7 +104,7 @@ function brew_if_missing {
   fi
 }
 
-print_ascii_art "Appium" $Ascii_art_mode
+print_ascii_art Appium $Ascii_art_mode
 
 fancy_echo "
 ###############################################################################
