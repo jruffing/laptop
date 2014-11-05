@@ -930,7 +930,8 @@ fancy_echo "installing dotfiles, including ~/.osx — sensible hacker defaults f
 
   cd ~
   cd; curl -#L https://github.com/jruffing/dotfiles/tarball/bsc-customizations | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
-
+  ./.osx
+  ./bin/setup-dock.py
 
 fancy_echo "setting your shell permanently to zsh...
 ==============================="
