@@ -1,12 +1,15 @@
 
-# source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.shield_streams.local)"
-          # source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.laptop.local)"
-          # cd; curl -L https://github.com/jruffing/dotfiles/tarball/bsc-customizations | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
-          # ./.osx
-          # chmod +x ./bin/setup-dock.py
-          # setup default virtualenv (w/ virtualenvburrito)?
-          # pip install pyobjc (into default virtual env...required by setup-dock.py)
-          # ./bin/setup-dock.py
+source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.shield_streams.local)"
+
+source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.laptop.local)"
+
+cd; curl -L https://github.com/jruffing/dotfiles/tarball/bsc-customizations | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
+
+./.osx
+chmod +x ./bin/setup-dock.py
+setup default virtualenv (w/ virtualenvburrito)?
+pip install pyobjc (into default virtual env...required by setup-dock.py)
+./bin/setup-dock.py
           
 Laptop
 ======
