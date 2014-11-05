@@ -653,7 +653,7 @@ fancy_echo "updating openssl – don't want your heart to bleed...
 
 
 latest_ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
-current_ruby = echo "$(ruby -v | cut -d ' ' -f 2 | cut -d p -f 1)"
+current_ruby=echo "$(ruby -v | cut -d ' ' -f 2 | cut -d p -f 1)"
 
 if [ $current_ruby < $latest_ruby_version ]; then
   fancy_echo "Your Ruby is not the latest...
