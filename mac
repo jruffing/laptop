@@ -749,7 +749,7 @@ fancy_echo "installing antigen plugin manager for zsh – a small set of functio
 REPLACED_BY_PREZTO
 
 
-fancy_echo "beautifying your zsh shell for you...
+fancy_echo "making your zsh shell look great...
 ======================================"
 
   if [ ! -d "$HOME/.zprezto" ]; then
@@ -798,9 +798,9 @@ fancy_echo "installing adobe source code pro font – a set of OpenType fonts th
 
 COMMENT
 
-fancy_echo "moar fonts please! installing Powerline patched fonts to make your shell look all kindsa purdy:
-https://github.com/Lokaltog/powerline-fonts ...
-======================================"
+fancy_echo "moar fonts please! installing Powerline patched fonts for your zsh pleasure"
+https://github.com/Lokaltog/powerline-fonts
+fancy_echo"======================================"
 
   # Original idea : https://coderwall.com/p/dmhp5q
   pip install https://github.com/Lokaltog/powerline/tarball/develop
@@ -812,14 +812,14 @@ https://github.com/Lokaltog/powerline-fonts ...
 
 
 fancy_echo "installing iTerm2 - provides actual benefits over the OSX terminal like applescript support,
-auto-completing text, growl support, nice search features, mouseless copy, instant replay, and much more:
-http://iterm2.com/features.html...
+auto-completing text, growl support, nice search features, mouseless copy, instant replay, and much more...
+http://iterm2.com/features.html
 ======================================"
 
-  brew_cask_install_or_upgrade 'iterm2'
+  brew_cask_install_or_upgrade 'iterm2-nightly'
 
 
-fancy_echo "installing tmux – a terminal multiplexer:
+fancy_echo "installing tmux – a terminal multiplexer...
 (to save project state and switch between projects a way to maintain persistent working states on remote servers,
 allowing you to detach and re-attach at will)
 http://tmux.sourceforge.net/
@@ -828,8 +828,8 @@ http://tmux.sourceforge.net/
   brew_install_or_upgrade 'tmux'
 
 
-fancy_echo "installing tree - lists the contents of directories in a tree-like format:
-http://www.computerhope.com/unix/tree.htm ...
+fancy_echo "installing tree - lists the contents of directories in a tree-like format...
+http://www.computerhope.com/unix/tree.htm
 ======================================"
 
   brew_install_or_upgrade 'tree'
@@ -841,17 +841,18 @@ fancy_echo "installing ack...
   brew_cask_install_or_upgrade 'ack'
 
 
-fancy_echo "installing cheat – allows you to create and view interactive cheatsheets on the command-line:
-https://github.com/chrisallenlane/cheat ...
+fancy_echo "installing cheat – allows you to create and view interactive cheatsheets on the command-line...
+https://github.com/chrisallenlane/cheat
 ======================================
 "
   brew_cask_install_or_upgrade 'cheat'
 
 
-fancy_echo "install dockutil – a python utility for managing the Mac OS X dock: https://github.com/kcrawford/dockutil ...
+fancy_echo "install dockutil – a python utility for managing the Mac OS X dock...
+https://github.com/kcrawford/dockutil 
 ======================================"
 
- # brew_install_or_upgrade 'dockutil'
+  brew_install_or_upgrade 'dockutil'
 
 
 fancy_echo "
