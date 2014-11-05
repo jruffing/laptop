@@ -21,7 +21,7 @@ fancy_echo "installing alfred...
 fancy_echo "installing atom, a modern, approachable, and hackable to the core text editor...
 ======================================
 "
-  #brew_cask_install_or_upgrade 'atom'
+  brew_cask_install_or_upgrade 'atom'
 
 fancy_echo "installing caffeine...
 ======================================
@@ -42,12 +42,12 @@ fancy_echo "installing dash...
 fancy_echo "installing dropbox...
 ======================================
 "
- # brew_cask_install_or_upgrade 'dropbox'
+  brew_cask_install_or_upgrade 'dropbox'
 
 fancy_echo "installing evernote...
 ======================================
 "
- # brew_cask_install_or_upgrade 'evernote'
+  brew_cask_install_or_upgrade 'evernote'
 
 fancy_echo "installing firefox...
 ======================================
