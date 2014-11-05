@@ -909,17 +909,20 @@ fancy_echo "cleaning things up...
 fancy_echo "installing your project additions from ~/.shield_streams.local...
 ========================================"
 
-  if [[ -f ~/.shield_streams.local ]]; then
-    source ~/.shield_streams.local
-  fi
+  #if [[ -f ~/.shield_streams.local ]]; then
+  #  source ~/.shield_streams.local
+  #fi
 
+  source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.shield_streams.local)"
 
 fancy_echo "installing your personal additions from ~/.laptop.local...
 ========================================"
 
-  if [[ -f ~/.laptop.local ]]; then
-    source ~/.laptop.local
-  fi
+  #if [[ -f ~/.laptop.local ]]; then
+  #  source ~/.laptop.local
+  #fi
+
+  source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.laptop.local)"
 
 fancy_echo "installing dotfiles, including ~/.osx — sensible hacker defaults for OS X...
 git clone https://github.com/mathiasbynens/dotfiles.git && cd dotfiles && source bootstrap.sh
