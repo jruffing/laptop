@@ -53,6 +53,15 @@ function announce {
   echo
 }
 
+# requires gnu coreutils to be installed! brew install coreutils
+function verlte() {
+    [  "$1" = "`echo -e "$1\n$2" | gsort | head -n1`" ]
+}
+
+function verlt() {
+    [ "$1" = "$2" ] && return 1 || verlte $1 $2
+}
+
 function clone_or_update {
 
   local name=$1
@@ -611,6 +620,14 @@ fancy_echo "
 #======================================"
 #\curl -L https://get.rvm.io | bash -s stable --ruby --autolibs=enable
 
+fancy_echo "installing coreutils for you –  basic file, shell and text manipulation 
+utilities of the GNU operating system....
+http://www.gnu.org/software/coreutils/
+======================================"
+  
+  export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
+  brew_update_or_install coreutils
+
 
 fancy_echo "installing rbenv for you ...
 ======================================"
@@ -656,7 +673,7 @@ fancy_echo "updating openssl – don't want your heart to bleed...
 latest_ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
 current_ruby="$(ruby -v | cut -d ' ' -f 2 | cut -d p -f 1)"
 
-if [ $current_ruby -lt $latest_ruby_version ]; then
+if [ verlt $current_ruby $latest_ruby ]; then
   fancy_echo "Your Ruby is not the latest...
   You have $current_ruby and the latest is $latest_ruby_version
   installing Ruby $latest_ruby_version w/ rbenv...
