@@ -21,12 +21,12 @@ fancy_echo "installing alfred...
 fancy_echo "installing atom, a modern, approachable, and hackable to the core text editor...
 ======================================
 "
- # brew_cask_install_or_upgrade 'atom'
+  #brew_cask_install_or_upgrade 'atom'
 
 fancy_echo "installing caffeine...
 ======================================
 "
- # brew_cask_install_or_upgrade 'caffeine'
+  brew_cask_install_or_upgrade 'caffeine'
 
 fancy_echo "installing cheatsheet...
 ======================================
@@ -36,12 +36,8 @@ fancy_echo "installing cheatsheet...
 fancy_echo "installing dash...
 ======================================
 "
- # brew_cask_install_or_upgrade 'dash'
+  brew_cask_install_or_upgrade 'dash'
 
- fancy_echo "installing dash...
-======================================
-"
- # brew_install_or_upgrade 'dockutil'
 
 fancy_echo "installing dropbox...
 ======================================
@@ -56,12 +52,12 @@ fancy_echo "installing evernote...
 fancy_echo "installing firefox...
 ======================================
 "
- # brew_cask_install_or_upgrade 'firefox'
+  brew_cask_install_or_upgrade 'firefox'
 
 fancy_echo "installing fluid...
 ======================================
 "
- # brew_cask_install_or_upgrade 'fluid'
+  brew_cask_install_or_upgrade 'fluid'
 
 
 fancy_echo "installing github...
@@ -72,29 +68,29 @@ fancy_echo "installing github...
 fancy_echo "installing google-chrome...
 ======================================
 "
-#  brew_cask_install_or_upgrade 'google-chrome'
+  brew_cask_install_or_upgrade 'google-chrome'
 
 fancy_echo "installing mou...
 ======================================
 "
-#  brew_cask_install_or_upgrade 'mou'
+  brew_cask_install_or_upgrade 'mou'
 
 
 fancy_echo "installing Quicklook plugins...
 ======================================
 "
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
+  brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
 
 fancy_echo "installing skype...
 ======================================
 "
- # brew_cask_install_or_upgrade 'skype'
+  brew_cask_install_or_upgrade 'skype'
 
 
 fancy_echo "installing tunnelblick...
 ======================================
 "
-  #brew_cask_install_or_upgrade 'tunnelblick'
+  brew_cask_install_or_upgrade 'tunnelblick'
 
 fancy_echo "installing Android SDK...
 ======================================
@@ -153,6 +149,9 @@ fancy_echo "cleaning things up...
   brew linkapps
   brew cleanup
   brew prune
+  # need to start Alfred before we link apps to it or it will throw an error
+  open -b com.runningwithcrayons.Alfred-2
+  brew cask alfred link
   brew cask cleanup
 
 fancy_echo "setting your shell permanently to zsh...
