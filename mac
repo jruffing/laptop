@@ -54,7 +54,7 @@ function announce {
 }
 
 function print_ascii_art {
-  source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)"
+  #source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)"
   
   local _ascii_image=$1
   local _should_print=$2
