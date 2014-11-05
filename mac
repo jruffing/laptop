@@ -420,12 +420,12 @@ fancy_echo "giving you a java dev env"
 fancy_echo "installing java 7 jdk...
 ======================================"
 
-#  brew cask install caskroom/versions/java7
+  brew cask install caskroom/versions/java7
 
 fancy_echo "installing java 8 jdk...
 ======================================"
 
-#  brew_cask_install_or_upgrade 'java'
+  brew_cask_install_or_upgrade 'java'
 
 
 fancy_echo "installing maven...
@@ -437,19 +437,19 @@ fancy_echo "installing maven...
 fancy_echo "installing ant...
 ======================================"
 
-#  brew_install_or_upgrade 'ant'
+  brew_install_or_upgrade 'ant'
 
 
 fancy_echo "installing gradle...
 ======================================"
 
-#  brew_install_or_upgrade 'gradle'
+  brew_install_or_upgrade 'gradle'
 
 
 fancy_echo "installing intellij-idea-ce...
 ======================================"
 
-#  brew_cask_install_or_upgrade 'intellij-idea-ce'
+  brew_cask_install_or_upgrade 'intellij-idea-ce'
 
 
 fancy_echo "finished with your java dev env...go to java town
@@ -480,7 +480,7 @@ fancy_echo "installing pyenv-virtualenv...
 fancy_echo "installing pycharm-ce ...
 ======================================"
 
-#  brew_cask_install_or_upgrade 'pycharm-ce'
+  brew_cask_install_or_upgrade 'pycharm-ce'
 
 fancy_echo "finished with your python dev env...go to python town"
 
@@ -498,20 +498,20 @@ specifically to run Docker containers. It runs completely from RAM, weighs ~27MB
 http://boot2docker.io/
 ======================================"
 
-#  brew_install_or_upgrade 'boot2docker'
+  brew_install_or_upgrade 'boot2docker'
 
 
 fancy_echo "installing vagrant – lightweight, reproducible, and portable development environments...
 https://www.vagrantup.com/
 ======================================"
 
-#  brew_cask_install_or_upgrade 'vagrant'
+  brew_cask_install_or_upgrade 'vagrant'
 
 
 fancy_echo "installing vagrant-manager ...
 ======================================"
 
-#  brew_cask_install_or_upgrade 'vagrant-manager'
+  brew_cask_install_or_upgrade 'vagrant-manager'
 
 
 fancy_echo "installing virtualbox – a performant and free x86 and AMD64/Intel64 virtualization product...
@@ -798,9 +798,9 @@ fancy_echo "installing adobe source code pro font – a set of OpenType fonts th
 
 COMMENT
 
-fancy_echo "moar fonts please! installing Powerline patched fonts for your zsh pleasure"
+fancy_echo "moar fonts please! installing Powerline patched fonts for your zsh pleasure...
 https://github.com/Lokaltog/powerline-fonts
-fancy_echo"======================================"
+======================================"
 
   # Original idea : https://coderwall.com/p/dmhp5q
   pip install https://github.com/Lokaltog/powerline/tarball/develop
@@ -895,23 +895,6 @@ fi
 #TODO - finish up prezto
 #TODO - iTerm2 profiles and settings
 #TODO - DotFiles
-# review this...
-## Install dotfiles ##
-announce "Loading dot files"
-if [ -d home-dotfiles ]; then
-cd home-dotfiles
-else
-cd /tmp
-rm -rf shell-files
-git clone https://github.com/alexmchale/shell-files.git
-cd shell-files/home-dotfiles
-fi
-for file in *; do
-rm -rf ~/.$file
-cp -Ra $file ~/.$file
-done
-cd ~
-rm -rf /tmp/alexmchale-shell-files*
 
 
 fancy_echo "cleaning things up...
