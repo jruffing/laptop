@@ -835,7 +835,8 @@ http://www.computerhope.com/unix/tree.htm
   brew_install_or_upgrade 'tree'
 
 
-fancy_echo "installing ack...
+fancy_echo "installing ack – a tool like grep, optimized for programmers...
+http://beyondgrep.com/
 ======================================
 "
   brew_cask_install_or_upgrade 'ack'
@@ -927,12 +928,27 @@ fancy_echo "installing your personal additions from ~/.laptop.local...
 
 fancy_echo "installing dotfiles, including ~/.osx — sensible hacker defaults for OS X...
 ========================================"
-
   cd ~
-  cd; curl -#L https://github.com/jruffing/dotfiles/tarball/bsc-customizations | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
+  cd; curl -L https://github.com/jruffing/dotfiles/tarball/bsc-customizations | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
   ./.osx
+  chmod +x ./bin/setup-dock.py
+  # can't find CFPreferencesAppSynchronize
+  pip install pyobjc
   ./bin/setup-dock.py
 
-fancy_echo "setting your shell permanently to zsh...
-==============================="
-exec zsh
+#fancy_echo "setting your shell permanently to zsh...
+#==============================="
+#exec zsh
+
+date ; read -t 10 -p "Congrats, setup is complete! Rebooting your computer now...Press ENTER or wait ten seconds" ; echo ; date
+echo
+{
+read -n1 -t 10 -p "$(tput setaf 1) Congrats, setup is complete! Rebooting your computer now [reboot/quit] " rq
+   fancy_echo "$(date +%Y-%m-%d\ %H:%M:%S) Answer: $rq"
+   case "$rq" in
+        [Rr]* ) sudo /sbin/reboot $*; echo; exit;;
+        [Qq]* ) echo; exit;;
+    * )
+esac
+}
+
