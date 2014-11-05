@@ -61,7 +61,8 @@ function print_ascii_art {
   
   if [ $should_print == "true" ]; then
     echo "if statement at least works"
-    echo "$2"
+    echo "$1"
+    $1
   fi
 }
 
