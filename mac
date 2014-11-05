@@ -895,6 +895,7 @@ fi
 #TODO - finish up prezto
 #TODO - iTerm2 profiles and settings
 #TODO - DotFiles
+#TODO - ruby comparison for floating point values (major and minor versions)
 
 
 fancy_echo "cleaning things up...
@@ -925,11 +926,10 @@ fancy_echo "installing your personal additions from ~/.laptop.local...
   source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.laptop.local)"
 
 fancy_echo "installing dotfiles, including ~/.osx — sensible hacker defaults for OS X...
-git clone https://github.com/mathiasbynens/dotfiles.git && cd dotfiles && source bootstrap.sh
 ========================================"
 
   cd ~
-  cd; curl -#L https://github.com/jruffing/dotfiles/tarball/bsc-customization | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
+  cd; curl -#L https://github.com/jruffing/dotfiles/tarball/bsc-customizations | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
 
 
 fancy_echo "setting your shell permanently to zsh...
