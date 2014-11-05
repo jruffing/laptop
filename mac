@@ -59,7 +59,7 @@ function print_ascii_art {
   local ascii_image=$1
   local should_print=$2
   
-  if [[ $should_print == "true" ]]; then
+  if [ $should_print == "true" ]; then
     echo "if statement at least works"
     ascii_image
   fi
