@@ -62,6 +62,7 @@ function print_ascii_art {
   if [ $should_print == "true" ]; then
     echo "if statement at least works"
     echo "$1"
+    echo "$ascii_image"
     $1
   fi
 }
