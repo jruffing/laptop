@@ -56,12 +56,12 @@ function announce {
 function print_ascii_art {
   #source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)"
   
-  local _ascii_image=$1
-  local _should_print=$2
+  local ascii_image=$1
+  local should_print=$2
   
-  if [[ $_should_print == "true" ]]; then
+  if [[ $should_print == "true" ]]; then
     echo "if statement at least works"
-    _ascii_image
+    ascii_image
 }
 
 function clone_or_update {
