@@ -626,7 +626,7 @@ http://www.gnu.org/software/coreutils/
 ======================================"
   
   export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
-  brew_update_or_install coreutils
+  brew_install_or_upgrade coreutils
 
 
 fancy_echo "installing rbenv for you ...
