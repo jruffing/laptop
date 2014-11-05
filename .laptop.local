@@ -119,7 +119,7 @@ git config --global credential.helper osxkeychain
 #brew tap jruffing/homebrew-cask/
 brew_cask_install_or_upgrade 'jruffing/homebrew-cask/appium'
 
-cat<<"MAKE_IDEMPOTENT"
+cat <<"MAKE_IDEMPOTENT"
 # setup appium dev env
 #TODO need alias for these things
 cd ~
