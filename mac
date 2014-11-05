@@ -53,23 +53,6 @@ function announce {
   echo
 }
 
-cat<<"notworking"{
-function print_ascii_art {
-  source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)"
-  
-  local ascii_image=$1
-  local should_print=$2
-  
-  if [ $should_print == "true" ]; then
-    echo "if statement at least works"
-    echo "$1"
-    echo "$ascii_image"
-    $1
-  fi
-}
-notworking
-}
-
 function clone_or_update {
 
   local name=$1
