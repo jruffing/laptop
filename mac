@@ -61,7 +61,7 @@ function print_ascii_art {
   
   if [ $should_print == "true" ]; then
     echo "if statement at least works"
-    ascii_image
+    $ascii_image
   fi
 }
 
