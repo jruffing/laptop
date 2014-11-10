@@ -54,12 +54,28 @@ function announce {
 }
 
 # requires gnu coreutils to be installed! brew install coreutils
-function verlte() {
-    [  "$1" = "`echo -e "$1\n$2" | gsort | head -n1`" ]
+#function verlte() {
+#    [  "$1" = "`echo -e "$1\n$2" | gsort | head -n1`" ]
+#}
+
+#function verlt() {
+#    [ "$1" = "$2" ] && return 1 || verlte $1 $2
+#}
+
+# float number comparison
+function fcomp() {
+    awk -v n1=$1 -v n2=$2 'BEGIN{ if (n1<n2) exit 0; exit 1}'
 }
 
-function verlt() {
-    [ "$1" = "$2" ] && return 1 || verlte $1 $2
+# test and example
+function fcomp_test() {
+    if fcomp $1 $2; then
+       #echo "$1<$2"
+       return $1
+    else
+       #echo "$1>=$2"
+       return $2
+    fi
 }
 
 function clone_or_update {
@@ -674,7 +690,8 @@ fancy_echo "updating openssl – don't want your heart to bleed...
 latest_ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
 current_ruby="$(ruby -v | cut -d ' ' -f 2 | cut -d p -f 1)"
 
-if [ (verlt $current_ruby $latest_ruby && echo "yes" || echo "no") == "yes" ]; then
+#if [ (verlt $current_ruby $latest_ruby && true || false) == true ]; then
+if [ fcomp $current_ruby $latest_ruby_version ]; then
   fancy_echo "Your Ruby version is out of date...
   You have $current_ruby and the latest is $latest_ruby_version
   installing Ruby $latest_ruby_version w/ rbenv...
@@ -697,7 +714,7 @@ if [ (verlt $current_ruby $latest_ruby && echo "yes" || echo "no") == "yes" ]; t
   source ~/.zshenv
 
   echo "current ruby version is now: " "$(ruby -e 'print RUBY_VERSION')"
-else:
+else
   fancy_echo "Your Ruby is already the latest version v"$latest_ruby_version
 fi
 
