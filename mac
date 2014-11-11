@@ -627,7 +627,6 @@ http://www.gnu.org/software/coreutils/
 ======================================"
   
   export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
-  
   brew_install_or_upgrade coreutils
 
 
@@ -648,8 +647,9 @@ if [[ ! -d "$HOME/.rbenv" ]]; then
 
     # new stuff trying out
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "${HOME}/.zshenv"
-    echo 'eval "$(rbenv init -)"' >> "${HOME}/.zshenv"
-    echo 'source "${HOME}/.zshenv"' >> "${HOME}/.zshenv"
+    echo 'eval "$(rbenv init -)"' >> "{$HOME}/.zshenv"
+    echo 'source '"{$HOME}"/.zshenv >> "{$HOME}"/.zshrc
+    source "{$HOME}"/.zshenv
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
