@@ -176,7 +176,8 @@ fancy_echo "install xcode command line tools...
 
    xcodebuild -version
 
-fancy_echo "accepting your Xcode license for you if you haven't done so already...
+fancy_echo "accepting your Xcode license for you 
+(if you haven't done so already)...
 ======================================"
 
   if [[ $? -ne 0 ]]; then
@@ -185,7 +186,8 @@ fancy_echo "accepting your Xcode license for you if you haven't done so already.
   fi
 
 
-fancy_echo "updating all of the OS X packages – get you up to date with Apple...
+fancy_echo "updating all of the OS X packages – 
+getting you up to date with Apple...
 ======================================"
 
   sudo softwareupdate -i -a
@@ -441,7 +443,8 @@ fancy_echo "installing java 7 jdk...
 fancy_echo "installing java 8 jdk...
 ======================================"
 
-  # location will change eventually to: brew cask install caskroom/versions/java8
+  # location will change eventually to... 
+  # brew cask install caskroom/versions/java8
   brew_cask_install_or_upgrade 'java'
 
 
@@ -633,35 +636,29 @@ http://www.gnu.org/software/coreutils/
 fancy_echo "installing rbenv for you ...
 ======================================"
 if [[ ! -d "$HOME/.rbenv" ]]; then
-  fancy_echo "installing rbenv, to change Ruby versions ..."
-    #git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-    brew_install_or_upgrade rbenv
-
-
-    # old stuff not working well
-    #append_to_zshrc 'export PATH="$HOME/.rbenv/bin:$PATH"'
-    #append_to_zshrc 'eval "$(rbenv init - zsh --no-rehash)"' 1
-    #export PATH="$HOME/.rbenv/bin:$PATH"
-    #eval "$(rbenv init -)"
-    #eval "$(rbenv init - zsh)"
-
-    # new stuff trying out
-    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "${HOME}/.zshenv"
-    echo 'eval "$(rbenv init -)"' >> "{$HOME}/.zshenv"
-    echo 'source '"{$HOME}"/.zshenv >> "{$HOME}"/.zshrc
-    source "{$HOME}"/.zshenv
+  fancy_echo "Installing rbenv, to change Ruby versions ..."
+  git clone https://github.com/sstephenson/rbenv.git "$HOME/.rbenv"
+  append_to_zshrc 'export PATH="$HOME/.rbenv/bin:$PATH"'
+  append_to_zshrc 'eval "$(rbenv init - zsh --no-rehash)"' 1
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init - zsh)"
 fi
 
-if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
-  fancy_echo "installing rbenv-gem-rehash so the shell automatically picks up binaries 
-  after installing gems with binaries..."
-    brew_install_or_upgrade rbenv rbenv-gem-rehash
+rehash_path="$HOME/.rbenv/plugins/rbenv-gem-rehash"
 
+if [[ ! -d "$rehash_path" ]]; then
+  fancy_echo "Installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries..."
+  git clone https://github.com/sstephenson/rbenv-gem-rehash.git "$rehash_path"
 fi
 
-if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
-  fancy_echo "installing ruby-build, to install Rubies ..."
-    brew_install_or_upgrade ruby-build
+ruby_build_path="$HOME/.rbenv/plugins/ruby-build"
+
+if [[ -d "$ruby_build_path" ]]; then
+  fancy_echo "Updating to latest ruby-build..."
+  cd "$ruby_build_path" && git pull && cd -
+else
+  fancy_echo "Installing ruby-build..."
+  git clone https://github.com/sstephenson/ruby-build.git "$ruby_build_path"
 fi
 
 fancy_echo "updating openssl – don't want your heart to bleed...
