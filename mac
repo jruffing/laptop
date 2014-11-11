@@ -552,10 +552,9 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "giving you a nodejs development environment...
-======================================"
+announce "giving you a nodejs development environment..."
 
-  node_version="0.10.33"
+node_version="0.10.33"
 
 
 fancy_echo "installing NVM, Node.js, and NPM, for running apps and installing JavaScript packages...
@@ -649,7 +648,7 @@ if [[ ! -d "$HOME/.rbenv" ]]; then
     # new stuff trying out
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "${HOME}/.zshenv"
     echo 'eval "$(rbenv init -)"' >> "${HOME}/.zshenv"
-    #echo 'source "${HOME}/.zshenv"' >> "${HOME}/.zshrc"
+    echo 'source "${HOME}/.zshenv"' >> "${HOME}/.zshenv"
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
