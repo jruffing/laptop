@@ -17,6 +17,7 @@
   OS="`uname -s`"
   Xcode_strict="true"
   Ascii_art_mode="true"
+  # source some ascii-art, make it moar fun
   source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)"
 
 
@@ -52,15 +53,6 @@ function announce {
   echo "====> $1"
   echo
 }
-
-# requires gnu coreutils to be installed! brew install coreutils
-#function verlte() {
-#    [  "$1" = "`echo -e "$1\n$2" | gsort | head -n1`" ]
-#}
-
-#function verlt() {
-#    [ "$1" = "$2" ] && return 1 || verlte $1 $2
-#}
 
 # float number comparison
 function fcomp() {
@@ -163,7 +155,7 @@ fancy_echo "
     fi
  fi
 
-
+return
 
 # might as well ask for password up-front, right?
 sudo -v
@@ -202,9 +194,6 @@ fancy_echo "updating all of the OS X packages – get you up to date with Apple.
 ###############################################################################
 # brew & cask helper utils                                                    #
 ###############################################################################
-
-# brew helper utils
-# ==============================
 
 brew_install_or_upgrade() {
   if brew_is_installed "$1"; then
@@ -408,7 +397,7 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "installing AWS CLI utils...
+fancy_echo "installing AWS CLI utils – get your devops on...
 ======================================"
 
   brew_install_or_upgrade 'awscli'
@@ -423,7 +412,7 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "Git your updated git on...
+fancy_echo "Git your latest & greatest git on...
 ======================================"
 
   brew_install_or_upgrade 'git'
@@ -441,16 +430,18 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "giving you a java dev env"
+announce "giving you a java development environment..."
 
 fancy_echo "installing java 7 jdk...
 ======================================"
 
   brew cask install caskroom/versions/java7
 
+
 fancy_echo "installing java 8 jdk...
 ======================================"
 
+  # location will change eventually to: brew cask install caskroom/versions/java8
   brew_cask_install_or_upgrade 'java'
 
 
@@ -478,8 +469,7 @@ fancy_echo "installing intellij-idea-ce...
   brew_cask_install_or_upgrade 'intellij-idea-ce'
 
 
-fancy_echo "finished with your java dev env...go to java town
-======================================"
+announce "finished setting up your java development environment."
 
 
 fancy_echo "
@@ -488,7 +478,7 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "giving you a python dev env..."
+announce "giving you a python development environment..."
 
 fancy_echo "installing python...
 ======================================"
@@ -508,7 +498,7 @@ fancy_echo "installing pycharm-ce ...
 
   brew_cask_install_or_upgrade 'pycharm-ce'
 
-fancy_echo "finished with your python dev env...go to python town"
+announce "finished setting up your python development environment."
 
 fancy_echo "
 ###############################################################################
@@ -516,7 +506,7 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "giving you some virtual env love..."
+announce "giving you some virtual environment love..."
 
 
 fancy_echo "installing boot2docker – lightweight Linux distribution based on Tiny Core Linux made 
@@ -544,17 +534,17 @@ fancy_echo "installing virtualbox – a performant and free x86 and AMD64/Intel6
 https://www.virtualbox.org/
 ======================================"
 
-#  brew_cask_install_or_upgrade 'virtualbox'
+  brew_cask_install_or_upgrade 'virtualbox'
 
 
 fancy_echo "install and update vagrant plugins ...
 ======================================"
 
-  #vagrant plugin install vagrant-salt
-  #vagrant plugin install vagrant-lxc
-  #vagrant plugin update
+  vagrant plugin install vagrant-salt
+  vagrant plugin install vagrant-lxc
+  vagrant plugin update
 
-fancy_echo "finished with your virtual envs...go to virtual town"
+announce "finished setting up your virtual environments."
 
 fancy_echo "
 ###############################################################################
@@ -562,7 +552,7 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "giving you a nodejs dev env...
+fancy_echo "giving you a nodejs development environment...
 ======================================"
 
   node_version="0.10.33"
@@ -623,7 +613,7 @@ http://mochajs.org...
   ======================================"
   nvm alias default "$node_version"
 
-fancy_echo "finished with your node.js dev env...go to node town"
+announce "finished setting up your node.js development environment."
 
 
 fancy_echo "
@@ -632,10 +622,6 @@ fancy_echo "
 ###############################################################################
 "
 
-#fancy_echo "installing RVM for you ...
-#======================================"
-#\curl -L https://get.rvm.io | bash -s stable --ruby --autolibs=enable
-
 fancy_echo "installing coreutils for you –  basic file, shell and text manipulation 
 utilities of the GNU operating system....
 http://www.gnu.org/software/coreutils/
@@ -643,7 +629,6 @@ http://www.gnu.org/software/coreutils/
   
   export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
   brew_install_or_upgrade coreutils
-
 
 
 fancy_echo "installing rbenv for you ...
@@ -676,7 +661,7 @@ fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
   fancy_echo "installing ruby-build, to install Rubies ..."
-    brew_install_or_upgrade rbenv ruby-build
+    brew_install_or_upgrade ruby-build
 fi
 
 fancy_echo "updating openssl – don't want your heart to bleed...
@@ -705,21 +690,21 @@ if [ fcomp $current_ruby $latest_ruby_version ]; then
 
     rbenv global "$latest_ruby_version"
 
-  echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-  echo 'eval "$(rbenv init -)"' >> ~/.zshenv
+    echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+    echo 'eval "$(rbenv init -)"' >> ~/.zshenv
 
-  rbenv rehash
+    rbenv rehash
 
-  #source ~/.bash_profile
-  source ~/.zshenv
+    #source ~/.bash_profile
+    source ~/.zshenv
 
-  echo "current ruby version is now: " "$(ruby -e 'print RUBY_VERSION')"
+    echo "the current ruby version is now: " "$(ruby -e 'print RUBY_VERSION')"
 else
   fancy_echo "Your Ruby is already the latest version v"$latest_ruby_version
 fi
 
 
-fancy_echo "Updating to latest Rubygems version...
+fancy_echo "Updating your system with the latest Rubygems version...
 ======================================"
 
   gem update --system
@@ -756,7 +741,7 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "update to latest bash shell to avoid future shellshock type of issues...
+fancy_echo "update to latest bash shell for security (eg. to avoid future shellshock type of issues)...
 ======================================"
 
   brew_install_or_upgrade 'bash'
@@ -800,11 +785,14 @@ fancy_echo "making your zsh shell look great...
   fancy_echo "installing Pure prompt – a pretty, minimal and fast ZSH prompt:
   https://github.com/sindresorhus/pure ...
   ======================================"
-  npm install -g pure-prompt
+  
+    npm install -g pure-prompt
+
 
   fancy_echo "linking the prompt to ZSH...
   ======================================"
-  sym_link_create_or_update "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
+  
+    sym_link_create_or_update "/usr/local/lib/node_modules/pure-prompt/pure.zsh" "/usr/local/share/zsh/site-functions/prompt_pure_setup"
 
 cat<<"COMMENT"
 fancy_echo "installing fontconfig...
@@ -835,19 +823,6 @@ fancy_echo "installing adobe source code pro font – a set of OpenType fonts th
 
 COMMENT
 
-fancy_echo "moar fonts please! installing Powerline patched fonts for your zsh pleasure...
-https://github.com/Lokaltog/powerline-fonts
-======================================"
-
-  # Original idea : https://coderwall.com/p/dmhp5q
-  pip install https://github.com/Lokaltog/powerline/tarball/develop
-  #Original Idea : http://superuser.com/questions/120700/how-do-i-programatically-install-a-font-on-a-macintosh
-  cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && git clone https://github.com/Lokaltog/powerline-fonts && find -E `pwd`/powerline-fonts -iregex '.*\.(otf|ttf)' -print0 | xargs -0 -I {} cp -v {} ~/Library/Fonts
-  cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && curl -O -L https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf && mv -v PowerlineSymbols.otf ~/Library/Fonts
-  fancy_echo "change shell's font to source code pro for your zsh theme"
-
-
-
 fancy_echo "installing iTerm2 - provides actual benefits over the OSX terminal like applescript support,
 auto-completing text, growl support, nice search features, mouseless copy, instant replay, and much more...
 http://iterm2.com/features.html
@@ -856,10 +831,22 @@ http://iterm2.com/features.html
   brew_cask_install_or_upgrade 'iterm2-nightly'
 
 
-fancy_echo "installing tmux – a terminal multiplexer...
-(to save project state and switch between projects a way to maintain persistent working states on remote servers,
-allowing you to detach and re-attach at will)
-http://tmux.sourceforge.net/
+fancy_echo "moar fonts please! installing powerline-patched fonts for your zsh pleasure...
+https://github.com/Lokaltog/powerline-fonts
+======================================"
+
+  # Original idea : https://coderwall.com/p/dmhp5q
+  pip install https://github.com/Lokaltog/powerline/tarball/develop
+  # Original Idea : http://superuser.com/questions/120700/how-do-i-programatically-install-a-font-on-a-macintosh
+  cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && git clone https://github.com/Lokaltog/powerline-fonts && find -E `pwd`/powerline-fonts -iregex '.*\.(otf|ttf)' -print0 | xargs -0 -I {} cp -v {} ~/Library/Fonts
+  cd /tmp && cd `mktemp -d /tmp/tmp.XXXXX` && curl -O -L https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf && mv -v PowerlineSymbols.otf ~/Library/Fonts
+  # TODO install iTerm profiles
+  fancy_echo "change shell's font to source code pro for your zsh theme"
+
+
+fancy_echo "installing tmux – a terminal multiplexer (saves project state and switch between projects a way
+to maintain persistent working states on remote servers, allowing you to detach and re-attach at will)...
+http://tmux.sourceforge.net
 ======================================"
 
   brew_install_or_upgrade 'tmux'
@@ -872,7 +859,7 @@ http://www.computerhope.com/unix/tree.htm
   brew_install_or_upgrade 'tree'
 
 
-fancy_echo "installing ack – a tool like grep, optimized for programmers...
+fancy_echo "installing ack – a search tool like grep, optimized for programmers...
 http://beyondgrep.com/
 ======================================
 "
@@ -899,7 +886,7 @@ fancy_echo "
 ###############################################################################
 "
 
-fancy_echo "installing pt - a minimal client to use Pivotal Tracker from the console"...
+fancy_echo "installing pt - a minimal client to use Pivotal Tracker from the console...
 #======================================"
 
   gem install pt
@@ -931,7 +918,7 @@ fi
 # in progress
 #=======================================
 #TODO - alfred: workflows? (requires license), link cask-installed apps from ~/Applications to /Applications and put in dock w/ dockutil
-#TODO - dockutill
+#TODO - dockutil (setup-dock.py)
 #TODO - prezto complete zsh customization
 
 # next up
@@ -942,8 +929,9 @@ fi
 #TODO - docker, vagrant, and salt
 #TODO - BDD envt: Behave, pycharm, boto, etc
     #TODO – virtualenv-burrito? think so... https://github.com/brainsik/virtualenv-burrito
+
 #TODO - iTerm2 profiles and settings
-#TODO - tunnelblick vpn config
+#TODO - tunnelblick vpn config (.ovpn)
 #TODO - dotFiles
 #TODO - seperate linkages of dotfiles, laptop, .osx and other install items to each other directly
           # source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.shield_streams.local)"
@@ -954,24 +942,6 @@ fi
           # setup default virtualenv (w/ virtualenvburrito)?
           # pip install pyobjc (into default virtual env...required by setup-dock.py)
           # ./bin/setup-dock.py
-
-
-#fancy_echo "setting your shell permanently to zsh...
-#==============================="
-#exec zsh
-
-date ; read -t 10 -p "Congrats, setup is complete! Rebooting your computer now...Press ENTER or wait ten seconds" ; echo ; date
-echo
-{
-read -n1 -t 10 -p "$(tput setaf 1) Congrats, setup is complete! Rebooting your computer now [reboot/quit] " rq
-   fancy_echo "$(date +%Y-%m-%d\ %H:%M:%S) Answer: $rq"
-   case "$rq" in
-        [Rr]* ) sudo /sbin/reboot $*; echo; exit;;
-        [Qq]* ) echo; exit;;
-    * )
-esac
-}
-
 
 
 #TODO - paramaterize the bash scripts for highly customizeable install
@@ -992,24 +962,61 @@ fancy_echo "cleaning things up...
   brew prune
   brew cask cleanup
 
-#TODO break the following out into a controlled flow scipt (see TODOs above...fine for now though
+# TODO – break the following out into a controlled flow scipt (see TODOs above...fine for now though
+prompt_timeout = 8
 
-fancy_echo "installing your project additions from ~/.shield_streams.local...
+echo -n "Getting your project's development environments > " 
+echo;
+date; read -n1 -t $prompt_timeout -p "$(tput setaf 1) Do you test or develop on Shield Streams ? (yes/no) " yn; echo;
+echo "$(date +%Y-%m-%d\ %H:%M:%S) Answer: $yn"
+case "$yn" in
+        [Yy]* ) echo "installing Shield Streams development environments...";
+                echo "Do some stuff here for Shield Streams"
+                ;;
+
+        [Nn]* ) echo;
+                echo "skipping Shield Streams development environment installation" 
+                exit;;
+            
+            * ) echo "installing Shield Streams development environments...";
+                echo "Do some stuff here for Shield Streams"
+                ;;
+esac
+
+
+echo -n "Customizing your OS X settings > " 
+echo;
+date; read -n1 -t $prompt_timeout -p "$(tput setaf 1) Do you want to install a personal set of dotfiles ? (yes/no) " yn; echo;
+echo "$(date +%Y-%m-%d\ %H:%M:%S) Answer: $yn"
+case "$yn" in
+        [Yy]* ) echo "installing your dotfiles...";
+                source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.laptop.local)"
+                ;;
+
+        [Nn]* ) echo;
+                echo "skipping personal dotfiles installation" 
+                exit;;
+            
+            * ) echo "installing your dotfiles...";
+                source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.laptop.local)"
+                ;;
+esac
+
+
+cat<<"MODULARIZING_INSTALL"
+
+fancy_echo "installing your Shield Stream project additions...
 ========================================"
 
   #if [[ -f ~/.shield_streams.local ]]; then
   #  source ~/.shield_streams.local
   #fi
 
-  source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.shield_streams.local)"
+  source /dev/stdin <<< "$(curl --insecure httpxs://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.shield_streams.local)"; echo; exit;;
 
 
 fancy_echo "installing your personal additions from ~/.laptop.local...
 ========================================"
-
-  #if [[ -f ~/.laptop.local ]]; then
-  #  source ~/.laptop.local
-  #fi
 
   source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.laptop.local)"
 
@@ -1017,27 +1024,47 @@ fancy_echo "installing your personal additions from ~/.laptop.local...
 fancy_echo "installing dotfiles, including ~/.osx — sensible hacker defaults for OS X...
 ========================================"
   
-  cd; curl -L https://github.com/jruffing/dotfiles/tarball/bsc-customizations | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
-  ./.osx
-  chmod +x ./bin/setup-dock.py
-  # can't find CFPreferencesAppSynchronize
-  pip install pyobjc
-  ./bin/setup-dock.py
+  # need to test
+  source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.osx)"
+  
+  # works but trying method above
+  #cd; curl -L https://github.com/jruffing/dotfiles/tarball/bsc-customizations | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
+  #./.osx
+  
+MODULARIZING_INSTALL
 
-#fancy_echo "setting your shell permanently to zsh...
-#==============================="
-#exec zsh
+echo -n "Customizing your Dock > " 
+echo;
+date; read -n1 -t $prompt_timeout -p "$(tput setaf 1) Would you like to have your Dock customized ? (yes/no) " yn; echo;
+echo "$(date +%Y-%m-%d\ %H:%M:%S) Answer: $yn"
+case "$yn" in
+        [Yy]* ) echo "updating your dock...";
+                pip install pyobjc
+                ;;
 
-date ; read -t 10 -p "Congrats, setup is complete! Rebooting your computer now...Press ENTER or wait ten seconds" ; echo ; date
+        [Nn]* ) echo;
+                echo "skipping dock customization" 
+                exit;;
+            
+            * ) echo "updating your dock...";
+                pip install pyobjc
+                ;;
+esac
+
+
+date ; read -t $prompt_timeout -p "Congrats, setup is complete! Rebooting your computer now...Press ENTER or wait ten seconds" ; echo ; date;
 echo
 {
-read -n1 -t 10 -p "$(tput setaf 1) Congrats, setup is complete! Rebooting your computer now [reboot/quit] " rq
+read -n1 -t $prompt_timeout -p "$(tput setaf 1) Congrats, setup is complete! Rebooting your computer now [reboot/quit] " rq
    fancy_echo "$(date +%Y-%m-%d\ %H:%M:%S) Answer: $rq"
    case "$rq" in
         [Rr]* ) sudo /sbin/reboot $*; echo; exit;;
         [Qq]* ) echo; exit;;
-    * )
+    * ) sudo /sbin/reboot $*; echo; exit;;
 esac
 }
 
+#fancy_echo "setting your shell permanently to zsh...
+#==============================="
+#exec zsh
 
