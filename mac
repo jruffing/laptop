@@ -709,6 +709,7 @@ fancy_echo "Setting $ruby_version as global default Ruby ..."
   rbenv local "$ruby_version"
   rbenv rehash
 
+
 fancy_echo "Updating your system with the latest Rubygems version...
 ======================================"
 
