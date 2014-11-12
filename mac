@@ -962,16 +962,21 @@ fi
 #TODO - geektools? display tasks on desktop
 
 
-fancy_echo "cleaning things up...
-======================================="
+announce "cleaning stuff up..."
 
   brew linkapps
   brew cleanup
   brew prune
   brew cask cleanup
 
-# TODO – break the following out into a controlled flow scipt (see TODOs above...fine for now though
-prompt_timeout = '8'
+# TODO – break the following out into a controlled flow scipt (see TODOs above)
+fancy_echo "
+###############################################################################
+# Setup project development environments                                      #
+###############################################################################
+"
+
+  prompt_timeout="8"
 
 echo -n "Getting your project's development environments > " 
 echo;
