@@ -1,4 +1,7 @@
-
+  cd; curl -L https://github.com/jruffing/laptop/tarball/bsc-customization | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
+  
+  ./.osx
+  
 source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.shield_streams.local)"
 
 source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/.laptop.local)"
