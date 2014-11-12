@@ -670,7 +670,9 @@ fancy_echo "updating openssl – don't want your heart to bleed...
 
 
 latest_ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
-current_ruby="$(ruby -v | cut -d ' ' -f 2 | cut -d p -f 1)"
+current_ruby_version="$(ruby -v | cut -d ' ' -f 2 | cut -d p -f 1)"
+
+ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
 
 cat<<"COMMENT_OUT"
 #if [ (verlt $current_ruby $latest_ruby && true || false) == true ]; then
@@ -698,7 +700,7 @@ if [ fcomp $current_ruby $latest_ruby_version ]; then
 
     echo "the current ruby version is now: " "$(ruby -e 'print RUBY_VERSION')"
 else
-  fancy_echo "Your Ruby is already the latest version v"$latest_ruby_version
+  fancy_echo "Your Ruby is already the latest version v"$current_ruby_version
 fi
 COMMENT_OUT
 
