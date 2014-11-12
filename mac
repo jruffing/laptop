@@ -971,7 +971,7 @@ fancy_echo "cleaning things up...
   brew cask cleanup
 
 # TODO – break the following out into a controlled flow scipt (see TODOs above...fine for now though
-prompt_timeout = 8
+prompt_timeout = '8'
 
 echo -n "Getting your project's development environments > " 
 echo;
