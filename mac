@@ -15,8 +15,8 @@
 # ======================================
 
   OS="`uname -s`"
-  Xcode_strict="true"
-  Ascii_art_mode="true"
+  Xcode_strict="false"
+  Ascii_art_mode="false"
   # source some ascii-art, make it moar fun
   source /dev/stdin <<< "$(curl --insecure https://raw.githubusercontent.com/jruffing/laptop/bsc-customization/ascii_art)"
 
@@ -125,7 +125,7 @@ fancy_echo "
       announce "Xcode strict checking is on...let's see if you got the goods..."
 
       if [[ -d "/Applications/Xcode.app/Contents/Developer/" ]]; then
-        if [[ $Ascii_art_test_mode == true ]]; then
+        if [[ $Ascii_art_mode == true ]]; then
           Xcode
         fi
         gecho "Xcode is installed! good job."
